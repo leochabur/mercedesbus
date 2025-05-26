@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PuestoTrabajo{% endblock %}
+
+{% block body %}
+    <h1>PuestoTrabajo</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ puesto_trabajo.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ puesto_trabajo.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Activo</th>
+                <td>{{ puesto_trabajo.activo ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_r_r_h_h_puesto_trabajo_index') }}">back to list</a>
+
+    <a href="{{ path('app_r_r_h_h_puesto_trabajo_edit', {'id': puesto_trabajo.id}) }}">edit</a>
+
+    {{ include('rrhh/puesto_trabajo/_delete_form.html.twig') }}
+{% endblock %}

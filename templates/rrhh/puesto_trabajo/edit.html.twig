@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit PuestoTrabajo{% endblock %}
+
+{% block body %}
+    <h1>Edit PuestoTrabajo</h1>
+
+    {{ include('rrhh/puesto_trabajo/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_r_r_h_h_puesto_trabajo_index') }}">back to list</a>
+
+    {{ include('rrhh/puesto_trabajo/_delete_form.html.twig') }}
+{% endblock %}

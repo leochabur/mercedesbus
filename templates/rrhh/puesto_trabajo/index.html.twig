@@ -1,0 +1,35 @@
+{% extends 'navBar.html.twig' %}
+
+{% block title %}PuestoTrabajo index{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <div class="container pt-4">
+
+        <span class="h5 pb-4">PuestoTrabajo index</span>
+
+        <table class="table table-striped table-hover table-bordered pt4">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Activo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for puesto_trabajo in puesto_trabajos %}
+                <tr>
+                    <td>{{ puesto_trabajo.nombre }}</td>
+                    <td>{{ puesto_trabajo.activo ? 'Si' : 'No' }}</td>
+                    <td>
+                        <a href="{{ path('app_r_r_h_h_puesto_trabajo_edit', {'id': puesto_trabajo.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_r_r_h_h_puesto_trabajo_new') }}">Create new</a>
+    </div>
+{% endblock %}
