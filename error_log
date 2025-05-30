@@ -1,0 +1,20 @@
+[30-May-2025 18:59:33 America/Argentina/Buenos_Aires] PHP Parse error:  syntax error, unexpected '?' in /home/mercedesbus/sistema.mercedesbus.com.ar/vendor/autoload_runtime.php on line 15
+[30-May-2025 19:00:41 America/Argentina/Buenos_Aires] PHP Parse error:  syntax error, unexpected '?' in /home/mercedesbus/sistema.mercedesbus.com.ar/vendor/autoload_runtime.php on line 15
+[30-May-2025 19:01:38 America/Argentina/Buenos_Aires] PHP Warning:  require(/home/mercedesbus/sistema.mercedesbus.com.ar/vendor/composer/../symfony/deprecation-contracts/function.php): Failed to open stream: No such file or directory in /home/mercedesbus/sistema.mercedesbus.com.ar/vendor/composer/autoload_real.php on line 41
+[30-May-2025 19:01:38 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Failed opening required '/home/mercedesbus/sistema.mercedesbus.com.ar/vendor/composer/../symfony/deprecation-contracts/function.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/mercedesbus/sistema.mercedesbus.com.ar/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home/mercedesbus/sistema.mercedesbus.com.ar/vendor/composer/autoload_real.php(45): {closure}()
+#1 /home/mercedesbus/sistema.mercedesbus.com.ar/vendor/autoload.php(25): ComposerAutoloaderInitfe0503e2b8c5ad1a892a8a0571c8c1e7::getLoader()
+#2 /home/mercedesbus/sistema.mercedesbus.com.ar/vendor/autoload_runtime.php(5): require_once('/home/mercedesb...')
+#3 /home/mercedesbus/sistema.mercedesbus.com.ar/public/index.php(5): require_once('/home/mercedesb...')
+#4 {main}
+  thrown in /home/mercedesbus/sistema.mercedesbus.com.ar/vendor/composer/autoload_real.php on line 41
+[30-May-2025 19:02:58 America/Argentina/Buenos_Aires] PHP Warning:  require(/home/mercedesbus/sistema.mercedesbus.com.ar/vendor/composer/../symfony/deprecation-contracts/function.php): Failed to open stream: No such file or directory in /home/mercedesbus/sistema.mercedesbus.com.ar/vendor/composer/autoload_real.php on line 41
+[30-May-2025 19:02:58 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught Error: Failed opening required '/home/mercedesbus/sistema.mercedesbus.com.ar/vendor/composer/../symfony/deprecation-contracts/function.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/mercedesbus/sistema.mercedesbus.com.ar/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /home/mercedesbus/sistema.mercedesbus.com.ar/vendor/composer/autoload_real.php(45): {closure}()
+#1 /home/mercedesbus/sistema.mercedesbus.com.ar/vendor/autoload.php(25): ComposerAutoloaderInitfe0503e2b8c5ad1a892a8a0571c8c1e7::getLoader()
+#2 /home/mercedesbus/sistema.mercedesbus.com.ar/vendor/autoload_runtime.php(5): require_once('/home/mercedesb...')
+#3 /home/mercedesbus/sistema.mercedesbus.com.ar/public/index.php(5): require_once('/home/mercedesb...')
+#4 {main}
+  thrown in /home/mercedesbus/sistema.mercedesbus.com.ar/vendor/composer/autoload_real.php on line 41

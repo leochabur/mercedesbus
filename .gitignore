@@ -1,15 +1,4 @@
 
 ###> symfony/framework-bundle ###
-/.env.local
-/.env.local.php
-/.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
 
-/var/
-
-###< symfony/framework-bundle ###
-
-###> symfony/asset-mapper ###
-/node_modules/*
-/node_modules
 ###< symfony/asset-mapper ###
