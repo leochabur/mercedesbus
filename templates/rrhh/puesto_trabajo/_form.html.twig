@@ -1,4 +1,27 @@
-{{ form_start(form, { 'attr' : { 'novalidate':'novalidate' } }) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, { 'attr' : { 'novalidate': 'novalidate' }}) }}
+
+    <div class="row py-4">
+        <div class="col col-lg-3">
+            {{ form_label(form.nombre) }}
+            {{ form_widget(form.nombre, { 'attr' : { 'class' : 'form-control'} }) }}
+            {{ form_errors(form.nombre) }}
+        </div>
+        <div class="col col-lg-3 pt-4">
+            <div class="form-check form-switch">
+                {{ form_label(form.activo) }}
+              {{ form_widget(form.activo, { 'attr' : {'class' : 'form-check-input'}}) }}
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-lg-6">
+            <a href="{{ path('app_r_r_h_h_puesto_trabajo_index') }}" class="btn btn-warning"><< Volver </a>
+            <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+        </div>
+
+
+    </div>
+    
 {{ form_end(form) }}

@@ -1,14 +1,13 @@
 {% extends 'navBar.html.twig' %}
 
-{% block title %}New PuestoTrabajo{% endblock %}
+{% block title %}Nuevo Puesto de Trabajo{% endblock %}
 
 {% block body %}
-    <div class="container">
-        {{ parent() }}
-        <h1>Create new PuestoTrabajo</h1>
+    {{ parent() }}
+    <div class="container pt-4 pl-2">
+        
+        <span class="h5">Create new PuestoTrabajo</span>
 
         {{ include('rrhh/puesto_trabajo/_form.html.twig') }}
-
-        <a href="{{ path('app_r_r_h_h_puesto_trabajo_index') }}">back to list</a>
     </div>
 {% endblock %}

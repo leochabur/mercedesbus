@@ -20,7 +20,7 @@ class PuestoTrabajo
     private ?string $nombre = null;
 
     #[ORM\Column]
-    private ?bool $activo = null;
+    private ?bool $activo = true;
 
     public function getId(): ?int
     {

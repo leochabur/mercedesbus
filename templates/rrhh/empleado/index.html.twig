@@ -1,0 +1,46 @@
+{% extends 'navBar.html.twig' %}
+
+{% block title %}Empleados{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <div class="container pt-4">
+
+        <div class="h5 pb-4">Empleados</div>
+
+        <table class="table table-striped table-hover table-bordered  py-4  data-table">
+        <thead>
+            <tr>
+                <th>Apellido</th>
+                <th>Nombre</th>
+                <th>Legajo</th>
+                <th>Direccion</th>
+                <th>Telefono</th>
+                <th>Cuil</th>
+                <th>Dni</th>
+                <th>Fecha Ingreso</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for empleado in empleados %}
+            <tr>
+                <td>{{ empleado.apellido }}</td>
+                <td>{{ empleado.nombre }}</td>
+                <td>{{ empleado.legajo }}</td>
+                <td>{{ empleado.direccion }}</td>
+                <td>{{ empleado.telefono }}</td>
+                <td>{{ empleado.cuil }}</td>
+                <td>{{ empleado.dni }}</td>
+                <td>{{ empleado.fechaIngreso ? empleado.fechaIngreso|date('d/m/Y') : '' }}</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" href="{{ path('app_r_r_h_h_empleado_edit', {'id': empleado.id}) }}">Editar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_r_r_h_h_empleado_new') }}" class="btn btn-primary">Nuevo empleado</a>
+{% endblock %}

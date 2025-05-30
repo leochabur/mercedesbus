@@ -5,6 +5,7 @@ namespace App\Entity\RRHH;
 use App\Repository\RRHH\EmpleadoRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EmpleadoRepository::class)]
 #[ORM\Table(name: 'rrhh_empleados')]
@@ -16,9 +17,11 @@ class Empleado
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull(message : 'Campo requerido')]
     private ?string $apellido = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull(message : 'Campo requerido')]
     private ?string $nombre = null;
 
     #[ORM\Column]
@@ -34,6 +37,7 @@ class Empleado
     private ?int $cuil = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\NotNull(message : 'Campo requerido')]
     private ?int $dni = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]

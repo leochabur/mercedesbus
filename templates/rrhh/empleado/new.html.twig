@@ -1,0 +1,16 @@
+{% extends 'navBar.html.twig' %}
+
+{% block title %}Nuevo Empleado{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="container pt-4 pl-2">
+    <div class="h5">
+        Nuevo Empleado
+        <hr>
+    </div>
+
+    {{ include('rrhh/empleado/_form.html.twig') }}
+
+</div>
+{% endblock %}
