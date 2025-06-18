@@ -1,0 +1,76 @@
+{{ form_start(form, { 'attr' : { 'novalidate': 'novalidate' }}) }}
+
+    <div class="row pt-3">
+        <div class="col col-lg-6">
+            {{ form_label(form.cliente) }}
+            {{ form_widget(form.cliente, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+            {{ form_errors(form.cliente) }}
+        </div>
+        <div class="col col-lg-3">
+            {{ form_label(form.tipoComprobante) }}
+            {{ form_widget(form.tipoComprobante, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+            {{ form_errors(form.tipoComprobante) }}
+        </div>
+        <div class="col col-lg-3">
+            {{ form_label(form.fecha) }}
+            {{ form_widget(form.fecha, { 'attr' : { 'class' : 'form-control'} }) }}
+            {{ form_errors(form.fecha) }}
+        </div>
+    </div>
+    <div class="row pt-3">
+        <div class="col col-lg-3">
+            {{ form_label(form.letra) }}
+            {{ form_widget(form.letra, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+            {{ form_errors(form.letra) }}
+        </div>
+        <div class="col col-lg-3">
+            {{ form_label(form.puntoVenta) }}
+            {{ form_widget(form.puntoVenta, { 'attr' : { 'class' : 'form-control'} }) }}
+            {{ form_errors(form.puntoVenta) }}
+        </div>
+        <div class="col col-lg-3">
+            {{ form_label(form.numero) }}
+            {{ form_widget(form.numero, { 'attr' : { 'class' : 'form-control'} }) }}
+            {{ form_errors(form.numero) }}
+        </div>
+    </div>
+    <h3>Ítems de la Factura</h3>
+    <ul id="items-collection"
+        data-prototype="
+            <li class='item-entry border p-3 mb-3 rounded'>
+                
+
+                <div class='row g-3 align-items-end'> {# Usamos g-3 para espaciado de columnas y align-items-end para alinear bien los campos #}
+                    <div class='col-md-3'>
+                        <label for='{{ form.items.vars.prototype.articulo.vars.id }}' class='form-label'>Producto</label>
+                        {# Aquí va la renderización manual del SELECT para el prototipo #}
+                        <select id='{{ form.items.vars.prototype.articulo.vars.id }}' 
+                                name='{{ form.items.vars.prototype.articulo.vars.full_name }}' 
+                                class='form-select' required> {# Usa form-select para Bootstrap #}
+                            <option value=''>Seleccione un producto</option>
+                        </select>
+
+                    </div>
+                    <div class='col-md-3'>
+                        <label for='{{ form.items.vars.prototype.cantidad.vars.id }}' class='form-label'>Cantidad</label>
+                        <input type='number' id='{{ form.items.vars.prototype.cantidad.vars.id }}' name='{{ form.items.vars.prototype.cantidad.vars.full_name }}' class='form-control' placeholder='Ej: 10' required>
+                        {# Aquí podrías añadir un span para errores si los manejas con JS, o dejar que Symfony los ponga si envías el formulario #}
+                    </div>
+                    <div class='col-md-3'>
+                        <label for='{{ form.items.vars.prototype.precioUnitario.vars.id }}' class='form-label'>Importe</label>
+                        <input type='text' id='{{ form.items.vars.prototype.precioUnitario.vars.id }}' name='{{ form.items.vars.prototype.precioUnitario.vars.full_name }}' class='form-control' placeholder='Ej: 99.99' required>
+                    </div>
+                </div>
+            </div>
+            </li>"
+        data-index="{{ form.items|length }}">
+        {% for itemForm in form.items %}
+            <li class="item-entry"> {# Añadimos una clase para facilitar la selección #}
+                {{ form_row(itemForm.cantidad) }}
+                {{ form_row(itemForm.precioUnitario) }}
+               
+            </li>
+        {% endfor %}
+    </ul>
+    <button type="button" id="add-item-button" class="btn btn-secondary mt-2">Añadir ítem</button>
+{{ form_end(form) }}

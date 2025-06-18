@@ -1,0 +1,56 @@
+{{ form_start(form, { 'attr' : { 'novalidate': 'novalidate' }}) }}
+
+    <div class="row pt-3">
+        <div class="col col-lg-2">
+            {{ form_label(form.cuit) }}
+            {{ form_widget(form.cuit, { 'attr' : { 'class' : 'form-control'} }) }}
+            {{ form_errors(form.cuit) }}
+        </div>
+        <div class="col col-lg-5">
+            {{ form_label(form.razonSocial) }}
+            {{ form_widget(form.razonSocial, { 'attr' : { 'class' : 'form-control'} }) }}
+            {{ form_errors(form.razonSocial) }}
+        </div>
+        <div class="col col-lg-5">
+            {{ form_label(form.respIva) }}
+            {{ form_widget(form.respIva, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+            {{ form_errors(form.respIva) }}
+        </div>
+    </div>
+    <div class="row pt-3">
+        <div class="col col-lg-3">
+            {{ form_label(form.direccion) }}
+            {{ form_widget(form.direccion, { 'attr' : { 'class' : 'form-control'} }) }}
+            {{ form_errors(form.direccion) }}
+        </div>
+        <div class="col col-lg-3">
+            {{ form_label(form.telefono) }}
+            {{ form_widget(form.telefono, { 'attr' : { 'class' : 'form-control'} }) }}
+            {{ form_errors(form.telefono) }}
+        </div>
+        <div class="col col-lg-3">
+            {{ form_label(form.mail) }}
+            {{ form_widget(form.mail, { 'attr' : { 'class' : 'form-control'} }) }}
+            {{ form_errors(form.mail) }}
+        </div>
+        <div class="col col-lg-3 pt-4 pl-4">
+
+            <div class="form-check form-switch pl-4">
+                {{ form_label(form.activo) }}
+                {{ form_widget(form.activo, { 'attr' : {'class' : 'form-check-input pl-4'}}) }}
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row pt-4">
+
+        <div class="col-lg-6">
+            <a href="{{ path('app_administracion_cliente_index') }}" class="btn btn-warning"><< Volver </a>
+            <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+        </div>
+
+
+    </div>
+    
+{{ form_end(form) }}

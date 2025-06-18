@@ -50,4 +50,9 @@ class PuestoTrabajo
 
         return $this;
     }
+
+    public function getActivo(): ?string
+    {
+        return $this->activo;
+    }
 }

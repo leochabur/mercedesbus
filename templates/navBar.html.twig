@@ -3,39 +3,108 @@
 {% block stylesheets %}
         {{ parent() }}
 
+<style type="text/css">
 
+.dropdown-menu li {
+  position: relative;
+} 
+
+.dropdown-menu .dropdown-submenu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: -7px;
+}
+
+.dropdown-menu .dropdown-submenu-left {
+  right: 100%;
+  left: auto;
+}
+
+.dropdown-menu>li:hover>.dropdown-submenu {
+  display: block;
+}
+
+</style>
 {% endblock  %}
 
 
 {% block body %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary py-4">
   <div class="container">
+    
+
+
+
+
     <a class="navbar-brand" href="#"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <button class="btn btn-outline-success me-2" type="button">Main button</button>
-        </li>
-        <li class="nav-item">
-          <button class="btn btn-outline-success me-2" type="button">Main button</button>
-        </li>
         <li class="nav-item ">
 
-<div class="btn-group">
-  <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-    RRHH
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="{{ path('app_r_r_h_h_empleado_index') }}">Empleados</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="{{ path('app_r_r_h_h_puesto_trabajo_index') }}">Puestos de Trabajo</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="#">Separated link</a></li>
-  </ul>
-</div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Compras
+          </button>
+          <ul class="dropdown-menu">
+            <li class="nav-item">
+                        <button type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Informes
+          </button>
+              <ul class="dropdown-menu">
+                <li>
+
+                </li>
+                <li><a class="dropdown-item" href="{{ path('app_r_r_h_h_empleado_index') }}">Empleados</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+
+              </ul>
+            </li>
+            <li><a class="dropdown-item" href="{{ path('app_r_r_h_h_empleado_index') }}">Empleados</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="{{ path('app_r_r_h_h_puesto_trabajo_index') }}">Puestos de Trabajo</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Separated link</a></li>
+          </ul>
+        </div>
+
+        <div class="btn-group">
+        <li class="nav-item dropdown">
+          <a class="btn btn-outline-success dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Administracion
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+            <!-- webDevelopment DropDown -->
+
+            <li>
+              <a class="dropdown-item dropdown-toggle" href="#">Ventas</a>
+              <ul class="dropdown-menu dropdown-submenu">
+                <li>
+                  <a class="dropdown-item" href="{{ path('app_administracion_cliente_index') }}">Clientes</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{{ path('app_administracion_comprobante_cliente_new') }}">Registrar Ventas</a>
+                </li>
+
+                <li>
+                  <a class="dropdown-item" href="#">Submenu Submenu item 2</a>
+                  
+                </ul>
+                </li>
+            
+
+            <li><a class="dropdown-item" href="#">Software Development</a></li>
+            <li><a class="dropdown-item" href="#">Networking and Cloud</a></li>
+            <li><a class="dropdown-item" href="#">Cyber Defence and offensive</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">More</a></li>
+          </ul>
+        </li>
+        </div>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>

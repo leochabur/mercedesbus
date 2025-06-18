@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ItemComprobante index{% endblock %}
+
+{% block body %}
+    <h1>ItemComprobante index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cantidad</th>
+                <th>PrecioUnitario</th>
+                <th>PrecioTotal</th>
+                <th>Descripcion</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item_comprobante in item_comprobantes %}
+            <tr>
+                <td>{{ item_comprobante.id }}</td>
+                <td>{{ item_comprobante.cantidad }}</td>
+                <td>{{ item_comprobante.precioUnitario }}</td>
+                <td>{{ item_comprobante.precioTotal }}</td>
+                <td>{{ item_comprobante.descripcion }}</td>
+                <td>
+                    <a href="{{ path('app_administracion_item_comprobante_show', {'id': item_comprobante.id}) }}">show</a>
+                    <a href="{{ path('app_administracion_item_comprobante_edit', {'id': item_comprobante.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_administracion_item_comprobante_new') }}">Create new</a>
+{% endblock %}

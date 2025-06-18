@@ -1,17 +1,13 @@
-{% extends 'navBar.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Editar Empleado{% endblock %}
+{% block title %}Edit PuestoTrabajo{% endblock %}
 
 {% block body %}
-    {{ parent() }}
-    <div class="container pt-4 pl-2">
-        <div class="h5">
-            Modificar Empleado
-        </div>
-        <hr>
+    <h1>Edit PuestoTrabajo</h1>
 
-        {{ include('rrhh/puesto_trabajo/_form.html.twig', {'button_label': 'Modificar'}) }}
+    {{ include('rrhh/puesto_trabajo/_form.html.twig', {'button_label': 'Update'}) }}
 
-        <a href="{{ path('app_r_r_h_h_puesto_trabajo_index') }}">back to list</a>
-    </div>
+    <a href="{{ path('app_r_r_h_h_puesto_trabajo_index') }}">back to list</a>
+
+    {{ include('rrhh/puesto_trabajo/_delete_form.html.twig') }}
 {% endblock %}

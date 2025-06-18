@@ -1,0 +1,72 @@
+{% extends 'navBar.html.twig' %}
+
+{% block title %}Factura Venta{% endblock %}
+
+{% block body %}
+    
+    {{ parent() }}
+    <div class="container">
+    
+
+    {{ include('administracion/comprobante_cliente/_form.html.twig') }}
+    </div>
+
+
+
+{% endblock %}
+{# El bloque javascripts debería estar en _form.html.twig si este es el que siempre contiene la lógica de los ítems #}
+{% block javascripts_footer %} {# Usamos un nombre de bloque más específico #}
+{{ parent()  }}
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const collectionHolder = document.querySelector('#items-collection');
+        const addItemButton = document.querySelector('#add-item-button');
+
+        if (!collectionHolder || !addItemButton) {
+            // Si los elementos no existen (por ejemplo, no estamos en la página del formulario), salimos
+            return;
+        }
+
+        // Función para añadir un nuevo formulario de ítem
+        function addFormToCollection() { // No necesitamos pasar collectionHolder como argumento aquí
+            const prototype = collectionHolder.dataset.prototype;
+            let index = parseInt(collectionHolder.dataset.index || collectionHolder.children.length); // Aseguramos el índice
+            
+            const newForm = prototype.replace(/__name__/g, index);
+            collectionHolder.dataset.index = index + 1; // Actualizamos el índice para el próximo ítem
+
+            const li = document.createElement('li');
+            li.classList.add('item-entry'); // Añadimos la misma clase
+            li.innerHTML = newForm;
+
+            addRemoveButton(li); // Añadimos el botón de eliminar al nuevo ítem
+
+            collectionHolder.appendChild(li);
+        }
+
+        // Función para añadir el botón de eliminar a un ítem
+        function addRemoveButton(itemLi) {
+            const removeButton = document.createElement('button');
+            removeButton.type = 'button';
+            removeButton.classList.add('remove-item-button', 'btn', 'btn-danger', 'btn-sm', 'mt-1', 'mb-2');
+            removeButton.textContent = 'Eliminar ítem';
+            itemLi.appendChild(removeButton);
+
+            removeButton.addEventListener('click', function() {
+                itemLi.remove();
+            });
+        }
+
+        // Añadir evento al botón "Añadir ítem"
+        // Aseguramos que el evento solo se adjunte una vez
+        // Podemos usar una bandera o verificar si ya tiene un evento adjunto (más complejo)
+        // La forma más simple es que este script se ejecute una sola vez.
+        addItemButton.removeEventListener('click', addFormToCollection); // Quitar si ya existe
+        addItemButton.addEventListener('click', addFormToCollection); // Añadirlo una vez
+
+        // Añadir botones de eliminar a los ítems existentes (si los hay)
+        collectionHolder.querySelectorAll('.item-entry').forEach(addRemoveButton);
+    });
+</script>
+{% endblock %}

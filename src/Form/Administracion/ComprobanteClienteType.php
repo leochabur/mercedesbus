@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Form\Administracion;
+
+use App\Entity\Administracion\Cliente;
+use App\Entity\Administracion\ComprobanteCliente;
+use App\Entity\Administracion\TipoComprobante;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
+class ComprobanteClienteType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder
+            ->add('fecha', null, [
+                'widget' => 'single_text',
+            ])
+            ->add('puntoVenta')
+            ->add('numero')
+            ->add('letra', ChoiceType::class, [
+                                                    'choices'  => [
+                                                        'A' => 'A',
+                                                        'B' => 'B',
+                                                        'X' => 'X',
+                                                    ],
+                                                ])
+            ->add('documentoPdf')
+            ->add('tipoComprobante', EntityType::class, [
+                'class' => TipoComprobante::class,
+                'choice_label' => 'id',
+            ])
+            ->add('cliente', EntityType::class, [
+                'class' => Cliente::class,
+            ])
+            ->add('items', CollectionType::class, [
+                'entry_type' => ItemComprobanteType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false, // Esto es crucial para que los métodos addItem y removeItem de Factura se llamen
+                'label' => false,
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Guardar Factura',
+                'attr' => ['class' => 'btn btn-primary mt-3'],
+            ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => ComprobanteCliente::class,
+        ]);
+    }
+}

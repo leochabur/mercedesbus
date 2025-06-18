@@ -30,6 +30,7 @@ class ComposerStaticInitfe0503e2b8c5ad1a892a8a0571c8c1e7
         ),
         'S' => 
         array (
+            'Symfony\\UX\\StimulusBundle\\' => 26,
             'Symfony\\Runtime\\Symfony\\Component\\' => 34,
             'Symfony\\Polyfill\\Php83\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
@@ -127,6 +128,10 @@ class ComposerStaticInitfe0503e2b8c5ad1a892a8a0571c8c1e7
         'Twig\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
+        'Symfony\\UX\\StimulusBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/stimulus-bundle/src',
         ),
         'Symfony\\Runtime\\Symfony\\Component\\' => 
         array (
