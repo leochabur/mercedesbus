@@ -24,6 +24,12 @@ class TipoComprobante
     #[ORM\Column]
     private ?bool $requiereInfoCompleta = false;
 
+
+    public function __toString()
+    {
+        return $this->tipo;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

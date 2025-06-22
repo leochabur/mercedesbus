@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ArticuloConcepto{% endblock %}
+
+{% block body %}
+    <h1>Edit ArticuloConcepto</h1>
+
+    {{ include('administracion/articulo_concepto/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_administracion_articulo_concepto_index') }}">back to list</a>
+
+    {{ include('administracion/articulo_concepto/_delete_form.html.twig') }}
+{% endblock %}

@@ -19,7 +19,78 @@
 {{ parent()  }}
 <script>
 
-    document.addEventListener('DOMContentLoaded', function() {
+$(document).ready(function() {
+    const $collectionHolder = $('#items-collection');
+    let index = $collectionHolder.find('.item-form').length; // Asumiendo que cada item tiene una clase 'item-form'
+
+    $('#add-item-button').on('click', function() {
+        let prototype = $collectionHolder.data('prototype');
+        let newForm = prototype.replace(/__name__/g, index);
+        index++;
+
+        let $newFormDiv = $('<div></div>').html(newForm);
+        $collectionHolder.append($newFormDiv);
+
+        // *** ESTO ES LO CLAVE: Identificar el nuevo select y poblarlo con AJAX ***
+        const $articuloSelect = $newFormDiv.find('select[id$="_articulo"]'); // Busca el select cuyo ID termina en _articulo
+
+        if ($articuloSelect.length) {
+            $.ajax({
+                url: '{{ path('api_articulos') }}', // La ruta a tu endpoint AJAX
+                type: 'GET',
+                dataType: 'json',
+                success: function(articulos) {
+                    // Limpiar opciones existentes (solo placeholder si lo hay)
+                    $articuloSelect.empty();
+                    $articuloSelect.append($('<option value="">Selecciona un artículo</option>')); // Añadir placeholder de nuevo
+
+                    // Añadir las nuevas opciones
+                    $.each(articulos, function(key, articulo) {
+                        $articuloSelect.append($('<option>', {
+                            value: articulo.id,
+                            text: articulo.nombre
+                        }));
+                    });
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error al cargar artículos: " + textStatus, errorThrown);
+                }
+            });
+        }
+        addDeleteButtonListener($newFormDiv);
+    });
+
+    function addDeleteButtonListener($itemForm) {
+        $itemForm.find('.remove-item-button').on('click', function() {
+            // Eliminar el div padre del botón (que es el div del ítem del formulario)
+            $(this).closest('.item-form').remove();
+
+            // Opcional: Si necesitas manejar la eliminación en el backend (ver siguiente sección)
+            // Aquí podrías marcar un campo oculto o hacer una llamada AJAX
+        });
+    }
+
+    $('.remove-item-button-exists').on('click', function() {
+
+            console.log("KAKAKAKAAKAK");
+            $(this).closest('.item-form').remove();
+        });
+
+    // Inicializar listeners para los ítems que ya existen al cargar la página
+    $collectionHolder.find('.item-form').each(function() {
+        addDeleteButtonListener($(this));
+    });
+
+});
+
+
+
+
+
+
+
+    /*document.addEventListener('DOMContentLoaded', function() 
+    {
         const collectionHolder = document.querySelector('#items-collection');
         const addItemButton = document.querySelector('#add-item-button');
 
@@ -29,7 +100,8 @@
         }
 
         // Función para añadir un nuevo formulario de ítem
-        function addFormToCollection() { // No necesitamos pasar collectionHolder como argumento aquí
+        function addFormToCollection() 
+        { // No necesitamos pasar collectionHolder como argumento aquí
             const prototype = collectionHolder.dataset.prototype;
             let index = parseInt(collectionHolder.dataset.index || collectionHolder.children.length); // Aseguramos el índice
             
@@ -67,6 +139,6 @@
 
         // Añadir botones de eliminar a los ítems existentes (si los hay)
         collectionHolder.querySelectorAll('.item-entry').forEach(addRemoveButton);
-    });
+    });*/
 </script>
 {% endblock %}

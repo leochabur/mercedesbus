@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use App\Entity\Administracion\LetraComprobante;
 
 class ComprobanteClienteType extends AbstractType
 {
@@ -23,17 +24,11 @@ class ComprobanteClienteType extends AbstractType
             ])
             ->add('puntoVenta')
             ->add('numero')
-            ->add('letra', ChoiceType::class, [
-                                                    'choices'  => [
-                                                        'A' => 'A',
-                                                        'B' => 'B',
-                                                        'X' => 'X',
-                                                    ],
-                                                ])
-            ->add('documentoPdf')
+            ->add('identificacionComprobante', EntityType::class, [
+                'class' => LetraComprobante::class,
+            ])
             ->add('tipoComprobante', EntityType::class, [
                 'class' => TipoComprobante::class,
-                'choice_label' => 'id',
             ])
             ->add('cliente', EntityType::class, [
                 'class' => Cliente::class,
@@ -43,6 +38,7 @@ class ComprobanteClienteType extends AbstractType
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
+                'prototype' => true,
                 'by_reference' => false, // Esto es crucial para que los métodos addItem y removeItem de Factura se llamen
                 'label' => false,
             ])

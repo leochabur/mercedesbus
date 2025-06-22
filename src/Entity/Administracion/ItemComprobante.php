@@ -6,6 +6,8 @@ use App\Repository\Administracion\ItemComprobanteRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 #[ORM\Entity(repositoryClass: ItemComprobanteRepository::class)]
 #[ORM\Table(name: 'admin_items_comprobante')]
 
@@ -17,12 +19,15 @@ class ItemComprobante
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\NotNull(message : 'Campo requerido')]
     private ?float $cantidad = null;
 
     #[ORM\Column]
+    #[Assert\NotNull(message : 'Campo requerido')]
     private ?float $precioUnitario = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Campo requerido')]
     private ?float $precioTotal = null;
 
     #[ORM\Column(length: 255, nullable: true)]

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ArticuloConcepto{% endblock %}
+
+{% block body %}
+    <h1>ArticuloConcepto</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ articulo_concepto.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ articulo_concepto.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Activo</th>
+                <td>{{ articulo_concepto.activo ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_administracion_articulo_concepto_index') }}">back to list</a>
+
+    <a href="{{ path('app_administracion_articulo_concepto_edit', {'id': articulo_concepto.id}) }}">edit</a>
+
+    {{ include('administracion/articulo_concepto/_delete_form.html.twig') }}
+{% endblock %}

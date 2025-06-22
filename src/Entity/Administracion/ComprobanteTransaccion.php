@@ -35,14 +35,22 @@ abstract class ComprobanteTransaccion
     private ?int $numero = null;
 
     #[ORM\Column(length: 1, nullable: true)]
-    #[Assert\NotBlank(message: 'Campo requerido')]
     private ?string $letra = null;
 
-    #[ORM\Column(type: 'blob', name: 'documento_pdf')] // Define el tipo de columna como BLOB
+    #[ORM\Column(type: 'blob', name: 'documento_pdf', nullable: true)] // Define el tipo de columna como BLOB
     private $documentoPdf = null;
     
-    #[ORM\OneToMany(targetEntity: ItemComprobante::class, mappedBy: 'comprobante')]
+    #[ORM\OneToMany(targetEntity: ItemComprobante::class, mappedBy: 'comprobante', cascade: ['persist', 'remove'])]
     private $items;
+
+    #[ORM\Column]
+    private ?float $precioTotalSinIva = null;
+
+    #[ORM\Column]
+    private ?float $precioTotalConIva = null;
+
+    #[ORM\Column]
+    private ?float $precioIva = null;
 
     #[ORM\ManyToOne(targetEntity: TipoComprobante::class)]
     #[ORM\JoinColumn(name: 'id_tpo_comp', referencedColumnName: 'id')]
@@ -173,6 +181,42 @@ abstract class ComprobanteTransaccion
     public function setIdentificacionComprobante(?LetraComprobante $identificacionComprobante): static
     {
         $this->identificacionComprobante = $identificacionComprobante;
+
+        return $this;
+    }
+
+    public function getPrecioTotalSinIva(): ?float
+    {
+        return $this->precioTotalSinIva;
+    }
+
+    public function setPrecioTotalSinIva(float $precioTotalSinIva): static
+    {
+        $this->precioTotalSinIva = $precioTotalSinIva;
+
+        return $this;
+    }
+
+    public function getPrecioTotalConIva(): ?float
+    {
+        return $this->precioTotalConIva;
+    }
+
+    public function setPrecioTotalConIva(float $precioTotalConIva): static
+    {
+        $this->precioTotalConIva = $precioTotalConIva;
+
+        return $this;
+    }
+
+    public function getPrecioIva(): ?float
+    {
+        return $this->precioIva;
+    }
+
+    public function setPrecioIva(float $precioIva): static
+    {
+        $this->precioIva = $precioIva;
 
         return $this;
     }

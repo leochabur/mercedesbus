@@ -21,6 +21,11 @@ class ArticuloConcepto
     #[ORM\Column]
     private ?bool $activo = null;
 
+    public function __toString()
+    {
+        return $this->nombre;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

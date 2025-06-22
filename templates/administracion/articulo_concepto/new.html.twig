@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ArticuloConcepto{% endblock %}
+
+{% block body %}
+    <h1>Create new ArticuloConcepto</h1>
+
+    {{ include('administracion/articulo_concepto/_form.html.twig') }}
+
+    <a href="{{ path('app_administracion_articulo_concepto_index') }}">back to list</a>
+{% endblock %}

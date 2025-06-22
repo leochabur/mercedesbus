@@ -20,6 +20,11 @@ class LetraComprobante
     #[ORM\Column]
     private ?bool $activo = null;
 
+    public function __toString()
+    {
+        return $this->letra;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
