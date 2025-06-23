@@ -5,9 +5,15 @@ namespace App\Entity\Finanzas;
 use App\Repository\Finanzas\CtaCteRepository;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Administracion\EnteComercial;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: CtaCteRepository::class)]
 #[ORM\Table(name: 'finanzas_ctas_ctes')]
+#[UniqueEntity(
+    fields: ['titular'],
+    message: 'Existe una cuenta corriente para el titular ingresado.',
+    errorPath: 'titular',
+)]
 
 class CtaCte
 {

@@ -24,6 +24,7 @@ class ComprobanteClienteType extends AbstractType
             ])
             ->add('puntoVenta')
             ->add('numero')
+            ->add('afectaCtaCte')
             ->add('identificacionComprobante', EntityType::class, [
                 'class' => LetraComprobante::class,
             ])

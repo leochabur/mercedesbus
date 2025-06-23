@@ -25,7 +25,7 @@ abstract class MovimientoCuenta
     private ?float $importe = null;
 
     #[ORM\Column]
-    private ?bool $activo = null;
+    private ?bool $activo = true;
 
     #[ORM\Column(length: 255)]
     private ?string $detalle = null;

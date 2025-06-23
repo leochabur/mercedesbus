@@ -52,6 +52,9 @@ abstract class ComprobanteTransaccion
     #[ORM\Column]
     private ?float $precioIva = null;
 
+    #[ORM\Column]
+    private ?bool $afectaCtaCte = true;
+
     #[ORM\ManyToOne(targetEntity: TipoComprobante::class)]
     #[ORM\JoinColumn(name: 'id_tpo_comp', referencedColumnName: 'id')]
     private TipoComprobante|null $tipoComprobante = null;
@@ -60,6 +63,8 @@ abstract class ComprobanteTransaccion
     #[ORM\JoinColumn(name: 'id_letra', referencedColumnName: 'id')]
     #[Assert\NotBlank(message: 'Campo requerido')]
     private LetraComprobante|null $identificacionComprobante = null;
+
+    public abstract function getTitularComprobante();
 
     public function __construct()
     {

@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Entity\Finanzas\CtaCte;
+use App\Entity\Finanzas\MovimientoVenta;
 
 #[Route('/administracion/comprobante/cliente')]
 final class ComprobanteClienteController extends AbstractController
@@ -29,20 +31,35 @@ final class ComprobanteClienteController extends AbstractController
         $form = $this->createForm(ComprobanteClienteType::class, $comprobanteCliente);
         $form->handleRequest($request);
 
-
-
         if ($form->isSubmitted())
         {
             $comprobanteCliente->updateValues();
             if ($form->isValid()) 
             {
+                if ($comprobanteCliente->getAfectaCtaCte())
+                {
+                    $repository = $entityManager->getRepository(CtaCte::class);
+                    $ctacte = $repository->getCtaCteEntidad($comprobanteCliente->getTitularComprobante());
+                    if (!$ctacte)
+                    {
+                        $ctacte = new CtaCte();
+                        $ctacte->setTitular($comprobanteCliente->getTitularComprobante())
+                                ->setTipo(1);
+                        $entityManager->persist($ctacte);
+                    }
+                    $movimiento = new MovimientoVenta();
+                    $movimiento->setComprobante($comprobanteCliente)
+                               ->setImporte($comprobanteCliente->getPrecioTotalConIva())
+                               ->setDetalle("Factura $comprobanteCliente")
+                               ->setFechaAlta(new \DateTime())
+                               ->setCtaCte($ctacte);
+                    $entityManager->persist($movimiento);             
+                }
                 $entityManager->persist($comprobanteCliente);
                 $entityManager->flush();
-
                 return $this->redirectToRoute('app_administracion_comprobante_cliente_index', [], Response::HTTP_SEE_OTHER);
             }
         }
-
         return $this->render('administracion/comprobante_cliente/new.html.twig', [
             'comprobante_cliente' => $comprobanteCliente,
             'form' => $form,

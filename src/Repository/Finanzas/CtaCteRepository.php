@@ -31,13 +31,13 @@ class CtaCteRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?CtaCte
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+       public function getCtaCteEntidad($titular): ?CtaCte
+       {
+           return $this->createQueryBuilder('c')
+                        ->andWhere('c.titular = :titular')
+                        ->setParameter('titular', $titular)
+                        ->getQuery()
+                        ->getOneOrNullResult()
+                    ;
+       }
 }
