@@ -36,3 +36,7 @@ f55d38,::1,GET,http://localhost:8000/administracion/articulo/concepto/api/articu
 6260e6,::1,GET,http://localhost:8000/administracion/comprobante/cliente,1750596438,,200,request
 5977d0,::1,GET,http://localhost:8000/administracion/comprobante/cliente/7/edit,1750598657,,200,request
 db889c,::1,GET,http://localhost:8000/administracion/comprobante/cliente,1750598661,,200,request
+aa3580,::1,GET,http://localhost:81/,1750939329,,302,request
+e01298,::1,GET,http://localhost:81/,1750940374,,302,request
+b1099f,192.168.0.45,GET,http://192.168.0.45:81/,1750946552,,302,request
+79ce2c,192.168.0.45,GET,http://192.168.0.45:81/,1750946559,,302,request

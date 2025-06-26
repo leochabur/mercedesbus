@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: MovimientoCuentaRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
-#[ORM\DiscriminatorMap(['MCTA' => MovimientoCuenta::class])]
+#[ORM\DiscriminatorMap(['MCTA' => MovimientoCuenta::class, 'MVTA' => MovimientoVenta::class, 'MPAY' => MovimientoPago::class ])]
 #[ORM\Table(name: 'finanzas_mov_ctas_ctes')]
 
 
@@ -86,6 +86,18 @@ abstract class MovimientoCuenta
     public function setFechaAlta(\DateTimeInterface $fechaAlta): static
     {
         $this->fechaAlta = $fechaAlta;
+
+        return $this;
+    }
+
+    public function getCtaCte(): ?CtaCte
+    {
+        return $this->ctaCte;
+    }
+
+    public function setCtaCte(?CtaCte $ctaCte): static
+    {
+        $this->ctaCte = $ctaCte;
 
         return $this;
     }

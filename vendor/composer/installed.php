@@ -322,6 +322,15 @@
             'reference' => '7d29659bc3c9d8e9a34e2c3414ef9e9e003e6cf3',
             'dev_requirement' => false,
         ),
+        'symfony/debug-bundle' => array(
+            'pretty_version' => 'v6.4.13',
+            'version' => '6.4.13.0',
+            'type' => 'symfony-bundle',
+            'install_path' => __DIR__ . '/../symfony/debug-bundle',
+            'aliases' => array(),
+            'reference' => '7bcfaff39e094cc09455201916d016d9b2ae08ff',
+            'dev_requirement' => false,
+        ),
         'symfony/dependency-injection' => array(
             'pretty_version' => 'v6.4.22',
             'version' => '6.4.22.0',

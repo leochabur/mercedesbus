@@ -226,5 +226,17 @@ abstract class ComprobanteTransaccion
         return $this;
     }
 
+    public function isAfectaCtaCte(): ?bool
+    {
+        return $this->afectaCtaCte;
+    }
+
+    public function setAfectaCtaCte(bool $afectaCtaCte): static
+    {
+        $this->afectaCtaCte = $afectaCtaCte;
+
+        return $this;
+    }
+
 
 }

@@ -21,6 +21,11 @@ class ComprobanteCliente extends ComprobanteTransaccion
         return $this->getItems()->count() > 0;
     }
 
+     public function getTitularComprobante()
+     {
+
+     }
+
     public function updateValues()
     {
         $total = 0;
