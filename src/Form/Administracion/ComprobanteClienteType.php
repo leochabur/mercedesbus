@@ -31,7 +31,7 @@ class ComprobanteClienteType extends AbstractType
             ->add('tipoComprobante', EntityType::class, [
                 'class' => TipoComprobante::class,
             ])
-            ->add('cliente', EntityType::class, [
+            ->add('enteComercial', EntityType::class, [
                 'class' => Cliente::class,
             ])
             ->add('items', CollectionType::class, [

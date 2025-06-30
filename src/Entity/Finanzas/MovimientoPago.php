@@ -10,8 +10,30 @@ use Doctrine\ORM\Mapping as ORM;
 class MovimientoPago extends MovimientoCuenta
 {
 
+    public function getImporteFactura()
+    {
+
+    }
+
+    public function getImportePago()
+    {
+        return $this->getImporte();
+    }
+
     #[ORM\OneToOne(targetEntity: Recibo::class, inversedBy: 'movimiento')]
     #[ORM\JoinColumn(name: 'id_recibo', referencedColumnName: 'id', nullable: true)]
     private Recibo|null $recibo = null;
+
+    public function getRecibo(): ?Recibo
+    {
+        return $this->recibo;
+    }
+
+    public function setRecibo(?Recibo $recibo): static
+    {
+        $this->recibo = $recibo;
+
+        return $this;
+    }
 
 }

@@ -32,7 +32,28 @@ class CtaCte
     private EnteComercial|null $titular = null;
 
     #[ORM\OneToMany(targetEntity: MovimientoCuenta::class, mappedBy: 'ctaCte', cascade: ['persist', 'remove'])]
+    #[ORM\OrderBy(["name" => "ASC"])]
     private $movimientos;
+
+    #[ORM\Column]
+    private ?float $importeFacturas = 0;
+
+    #[ORM\Column]
+    private ?float $importePagos = 0;
+
+    public function updateImporte($monto, $tipo = 'P')
+    {
+        if ($tipo == 'P')
+        {
+            $this->importePagos+= $monto;
+        }
+        else
+        {
+            $this->importeFacturas+= $monto;
+        }
+
+        return $this;
+    }
 
     public function __construct()
     {
@@ -94,6 +115,30 @@ class CtaCte
                 $movimiento->setCtaCte(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImporteFacturas(): ?float
+    {
+        return $this->importeFacturas;
+    }
+
+    public function setImporteFacturas(float $importeFacturas): static
+    {
+        $this->importeFacturas = $importeFacturas;
+
+        return $this;
+    }
+
+    public function getImportePagos(): ?float
+    {
+        return $this->importePagos;
+    }
+
+    public function setImportePagos(float $importePagos): static
+    {
+        $this->importePagos = $importePagos;
 
         return $this;
     }

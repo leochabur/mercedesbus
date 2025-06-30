@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CtaCte{% endblock %}
+
+{% block body %}
+    <h1>Create new CtaCte</h1>
+
+    {{ include('finanzas/cta_cte/_form.html.twig') }}
+
+    <a href="{{ path('app_finanzas_cta_cte_index') }}">back to list</a>
+{% endblock %}

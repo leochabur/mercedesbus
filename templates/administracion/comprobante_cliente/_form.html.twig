@@ -6,9 +6,9 @@
   <div class="card-body">
     <div class="row pt-3">
         <div class="col col-lg-6">
-            {{ form_label(form.cliente) }}
-            {{ form_widget(form.cliente, { 'attr' : { 'class' : 'form-control form-select'} }) }}
-            {{ form_errors(form.cliente) }}
+            {{ form_label(form.enteComercial) }}
+            {{ form_widget(form.enteComercial, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+            {{ form_errors(form.enteComercial) }}
         </div>
         <div class="col col-lg-3">
             {{ form_label(form.tipoComprobante) }}
@@ -36,6 +36,14 @@
             {{ form_label(form.numero) }}
             {{ form_widget(form.numero, { 'attr' : { 'class' : 'form-control'} }) }}
             {{ form_errors(form.numero) }}
+        </div>
+        <div class="col col-lg-3 pt-4 pl-4">
+
+            <div class="form-check form-switch pl-4">
+                {{ form_label(form.afectaCtaCte) }}
+                {{ form_widget(form.afectaCtaCte, { 'attr' : {'class' : 'form-check-input pl-4'}}) }}
+            </div>
+
         </div>
     </div>
     <button type="button" id="add-item-button" class="btn btn-secondary mt-2">Añadir ítem</button>

@@ -5,50 +5,38 @@ namespace App\Entity\Finanzas;
 use App\Repository\Finanzas\ReciboRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Administracion\ComprobanteTransaccion;
 
 #[ORM\Entity(repositoryClass: ReciboRepository::class)]
 
-class Recibo
+class Recibo extends ComprobanteTransaccion
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $fecha = null;
 
-    #[ORM\Column]
-    private ?float $importe = null;
+    #[ORM\OneToMany(targetEntity: MetodoCancelacionRecibo::class, mappedBy: 'recibo', cascade: ['persist', 'remove'])]
+    private $metodos;
 
     #[ORM\OneToOne(targetEntity: MovimientoCuenta::class, mappedBy: 'recibo')]
     private MovimientoCuenta|null $movimiento = null;
 
-    public function getId(): ?int
+    public function getMovimiento(): ?MovimientoCuenta
     {
-        return $this->id;
+        return $this->movimiento;
     }
 
-    public function getFecha(): ?\DateTime
+    public function setMovimiento(?MovimientoCuenta $movimiento): static
     {
-        return $this->fecha;
-    }
+        // unset the owning side of the relation if necessary
+        if ($movimiento === null && $this->movimiento !== null) {
+            $this->movimiento->setRecibo(null);
+        }
 
-    public function setFecha(\DateTime $fecha): static
-    {
-        $this->fecha = $fecha;
+        // set the owning side of the relation if necessary
+        if ($movimiento !== null && $movimiento->getRecibo() !== $this) {
+            $movimiento->setRecibo($this);
+        }
 
-        return $this;
-    }
-
-    public function getImporte(): ?float
-    {
-        return $this->importe;
-    }
-
-    public function setImporte(float $importe): static
-    {
-        $this->importe = $importe;
+        $this->movimiento = $movimiento;
 
         return $this;
     }

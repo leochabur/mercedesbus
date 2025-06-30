@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit CtaCte{% endblock %}
+
+{% block body %}
+    <h1>Edit CtaCte</h1>
+
+    {{ include('finanzas/cta_cte/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_finanzas_cta_cte_index') }}">back to list</a>
+
+    {{ include('finanzas/cta_cte/_delete_form.html.twig') }}
+{% endblock %}

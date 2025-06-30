@@ -15,6 +15,16 @@ class MovimientoVenta extends MovimientoCuenta
     #[ORM\JoinColumn(name: 'id_comprobante', referencedColumnName: 'id')]
     private ComprobanteTransaccion|null $comprobante = null;
 
+    public function getImporteFactura()
+    {
+        return $this->getImporte();
+    }
+
+    public function getImportePago()
+    {
+        
+    }
+
     public function getComprobante(): ?ComprobanteTransaccion
     {
         return $this->comprobante;

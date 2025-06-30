@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LetraComprobanteRepository::class)]
 #[ORM\Table(name: 'admin_identificacion_comprobante')]
+
 class LetraComprobante
 {
     #[ORM\Id]

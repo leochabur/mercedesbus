@@ -8,15 +8,16 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Finanzas\Recibo;
 
 
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
-#[ORM\DiscriminatorMap(['CBTE' => ComprobanteTransaccion::class, 'CC' => ComprobanteCliente::class])]
+#[ORM\DiscriminatorMap(['CBTE' => ComprobanteTransaccion::class, 'CC' => ComprobanteCliente::class, 'RE' => Recibo::class])]
 #[ORM\Table(name: 'admin_comprobantes_transaccion')]
 
-abstract class ComprobanteTransaccion
+abstract class ComprobanteTransaccion    
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -64,7 +65,16 @@ abstract class ComprobanteTransaccion
     #[Assert\NotBlank(message: 'Campo requerido')]
     private LetraComprobante|null $identificacionComprobante = null;
 
-    public abstract function getTitularComprobante();
+    #[ORM\ManyToOne(targetEntity: EnteComercial::class)]
+    #[ORM\JoinColumn(name: 'id_ente_comercial', referencedColumnName: 'id')]
+    #[Assert\NotBlank(message: 'Campo requerido')]
+    private EnteComercial|null $enteComercial = null;
+
+
+    public function __toString()
+    {
+        return $this->tipoComprobante . '  ' .$this->identificacionComprobante . ' ' . $this->puntoVenta . ' ' . $this->numero;
+    }
 
     public function __construct()
     {
@@ -234,6 +244,18 @@ abstract class ComprobanteTransaccion
     public function setAfectaCtaCte(bool $afectaCtaCte): static
     {
         $this->afectaCtaCte = $afectaCtaCte;
+
+        return $this;
+    }
+
+    public function getEnteComercial(): ?EnteComercial
+    {
+        return $this->enteComercial;
+    }
+
+    public function setEnteComercial(?EnteComercial $enteComercial): static
+    {
+        $this->enteComercial = $enteComercial;
 
         return $this;
     }

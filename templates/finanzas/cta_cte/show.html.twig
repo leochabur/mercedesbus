@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CtaCte{% endblock %}
+
+{% block body %}
+    <h1>CtaCte</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ cta_cte.id }}</td>
+            </tr>
+            <tr>
+                <th>Tipo</th>
+                <td>{{ cta_cte.tipo }}</td>
+            </tr>
+            <tr>
+                <th>ImporteFacturas</th>
+                <td>{{ cta_cte.importeFacturas }}</td>
+            </tr>
+            <tr>
+                <th>ImportePagos</th>
+                <td>{{ cta_cte.importePagos }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_finanzas_cta_cte_index') }}">back to list</a>
+
+    <a href="{{ path('app_finanzas_cta_cte_edit', {'id': cta_cte.id}) }}">edit</a>
+
+    {{ include('finanzas/cta_cte/_delete_form.html.twig') }}
+{% endblock %}

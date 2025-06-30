@@ -36,23 +36,24 @@ final class ComprobanteClienteController extends AbstractController
             $comprobanteCliente->updateValues();
             if ($form->isValid()) 
             {
-                if ($comprobanteCliente->getAfectaCtaCte())
+                if ($comprobanteCliente->isAfectaCtaCte())
                 {
                     $repository = $entityManager->getRepository(CtaCte::class);
-                    $ctacte = $repository->getCtaCteEntidad($comprobanteCliente->getTitularComprobante());
+                    $ctacte = $repository->getCtaCteEntidad($comprobanteCliente->getEnteComercial());
                     if (!$ctacte)
                     {
                         $ctacte = new CtaCte();
-                        $ctacte->setTitular($comprobanteCliente->getTitularComprobante())
+                        $ctacte->setTitular($comprobanteCliente->getEnteComercial())
                                 ->setTipo(1);
                         $entityManager->persist($ctacte);
                     }
                     $movimiento = new MovimientoVenta();
                     $movimiento->setComprobante($comprobanteCliente)
                                ->setImporte($comprobanteCliente->getPrecioTotalConIva())
-                               ->setDetalle("Factura $comprobanteCliente")
-                               ->setFechaAlta(new \DateTime())
+                               ->setDetalle("$comprobanteCliente")
+                               ->setFechaAlta($comprobanteCliente->getFecha())
                                ->setCtaCte($ctacte);
+                    $ctacte->updateImporte($comprobanteCliente->getPrecioTotalConIva());
                     $entityManager->persist($movimiento);             
                 }
                 $entityManager->persist($comprobanteCliente);

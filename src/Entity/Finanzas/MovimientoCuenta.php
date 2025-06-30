@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'finanzas_mov_ctas_ctes')]
 
 
-abstract class MovimientoCuenta
+class MovimientoCuenta
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -36,6 +36,9 @@ abstract class MovimientoCuenta
     #[ORM\ManyToOne(targetEntity: CtaCte::class, inversedBy: 'movimientos')]
     #[ORM\JoinColumn(name: 'id_ctacte', referencedColumnName: 'id')]
     private CtaCte|null $ctaCte = null;
+
+    public abstract function getImporteFactura();
+    public abstract function getImportePago();
 
     public function getId(): ?int
     {

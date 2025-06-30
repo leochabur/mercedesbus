@@ -11,20 +11,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ComprobanteCliente extends ComprobanteTransaccion
 {
 
-    #[ORM\ManyToOne(targetEntity: Cliente::class)]
-    #[ORM\JoinColumn(name: 'id_cliente', referencedColumnName: 'id', nullable: true)]
-    private Cliente|null $cliente = null;
-
     #[Assert\IsTrue(message: 'Debe cargar al menos un item')]
     public function isItemLoad(): bool
     {
         return $this->getItems()->count() > 0;
     }
 
-     public function getTitularComprobante()
-     {
-
-     }
 
     public function updateValues()
     {
@@ -37,18 +29,5 @@ class ComprobanteCliente extends ComprobanteTransaccion
         $this->setPrecioTotalSinIva($total);
         $this->setPrecioIva(($total * 0.105));
         $this->setPrecioTotalConIva(($total * 1.105));
-    }
-
-
-    public function getCliente(): ?Cliente
-    {
-        return $this->cliente;
-    }
-
-    public function setCliente(?Cliente $cliente): static
-    {
-        $this->cliente = $cliente;
-
-        return $this;
     }
 }
