@@ -22,11 +22,13 @@
                 </div>
             </div>
         {{ form_end(form) }}
-    </div>
+    
 
     <hr>
 
     {% if ctacte is defined %}
+        {% set saldo = 0 %}
+        <div class="p-4">
             <table class="table table-striped table-hover table-bordered  py-4  data-table">
                 <thead>
                     <tr>
@@ -35,7 +37,6 @@
                         <th>Credito</th>
                         <th>Debito</th>
                         <th>Saldo</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,13 +44,16 @@
                     <tr>
                         <td>{{ mov.fechaAlta|date('d/m/Y') }}</td>
                         <td>{{ mov.detalle }}</td>
-                        <td>{{ mov.importeFactura }}</td>
-                        <td>{{ mov.importePago}}</td>
+                        <td>$ {{ mov.importeFactura|number_format(2, ',' ,'.') }}</td>
+                        <td>$ {{ mov.importePago|number_format(2, ',' ,'.') }}</td>
+                        <td>$ {{ saldo|number_format(2, ',' ,'.') }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
 
     {% endif %}
+    </div>
 
 {% endblock %}

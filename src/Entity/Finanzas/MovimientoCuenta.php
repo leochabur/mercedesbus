@@ -9,9 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MovimientoCuentaRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
-#[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
+#[ORM\DiscriminatorColumn(name:'discr', type:'string')]
 #[ORM\DiscriminatorMap(['MCTA' => MovimientoCuenta::class, 'MVTA' => MovimientoVenta::class, 'MPAY' => MovimientoPago::class ])]
-#[ORM\Table(name: 'finanzas_mov_ctas_ctes')]
+#[ORM\Table(name:'finanzas_mov_ctas_ctes')]
 
 
 class MovimientoCuenta
@@ -34,11 +34,15 @@ class MovimientoCuenta
     private ?\DateTimeInterface $fechaAlta = null;
 
     #[ORM\ManyToOne(targetEntity: CtaCte::class, inversedBy: 'movimientos')]
-    #[ORM\JoinColumn(name: 'id_ctacte', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name:'id_ctacte', referencedColumnName: 'id')]
     private CtaCte|null $ctaCte = null;
 
-    public abstract function getImporteFactura();
-    public abstract function getImportePago();
+    public function getImporteFactura()
+    {}
+    public function getImportePago()
+    {
+
+    }
 
     public function getId(): ?int
     {

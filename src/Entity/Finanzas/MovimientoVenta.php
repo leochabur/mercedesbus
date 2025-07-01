@@ -12,7 +12,7 @@ class MovimientoVenta extends MovimientoCuenta
 {
 
     #[ORM\ManyToOne(targetEntity: ComprobanteTransaccion::class)]
-    #[ORM\JoinColumn(name: 'id_comprobante', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name:'id_comprobante', referencedColumnName: 'id')]
     private ComprobanteTransaccion|null $comprobante = null;
 
     public function getImporteFactura()

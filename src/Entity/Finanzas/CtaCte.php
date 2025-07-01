@@ -32,7 +32,7 @@ class CtaCte
     private EnteComercial|null $titular = null;
 
     #[ORM\OneToMany(targetEntity: MovimientoCuenta::class, mappedBy: 'ctaCte', cascade: ['persist', 'remove'])]
-    #[ORM\OrderBy(["name" => "ASC"])]
+    #[ORM\OrderBy(["fechaAlta" => "ASC"])]
     private $movimientos;
 
     #[ORM\Column]

@@ -21,7 +21,7 @@ class MovimientoPago extends MovimientoCuenta
     }
 
     #[ORM\OneToOne(targetEntity: Recibo::class, inversedBy: 'movimiento')]
-    #[ORM\JoinColumn(name: 'id_recibo', referencedColumnName: 'id', nullable: true)]
+    #[ORM\JoinColumn(name:'id_recibo', referencedColumnName: 'id', nullable: true)]
     private Recibo|null $recibo = null;
 
     public function getRecibo(): ?Recibo
