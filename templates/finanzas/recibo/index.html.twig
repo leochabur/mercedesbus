@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recibo index{% endblock %}
+
+{% block body %}
+    <h1>Recibo index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fecha</th>
+                <th>PuntoVenta</th>
+                <th>Numero</th>
+                <th>Letra</th>
+                <th>DocumentoPdf</th>
+                <th>PrecioTotalSinIva</th>
+                <th>PrecioTotalConIva</th>
+                <th>PrecioIva</th>
+                <th>AfectaCtaCte</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for recibo in recibos %}
+            <tr>
+                <td>{{ recibo.id }}</td>
+                <td>{{ recibo.fecha ? recibo.fecha|date('Y-m-d') : '' }}</td>
+                <td>{{ recibo.puntoVenta }}</td>
+                <td>{{ recibo.numero }}</td>
+                <td>{{ recibo.letra }}</td>
+                <td>{{ recibo.documentoPdf }}</td>
+                <td>{{ recibo.precioTotalSinIva }}</td>
+                <td>{{ recibo.precioTotalConIva }}</td>
+                <td>{{ recibo.precioIva }}</td>
+                <td>{{ recibo.afectaCtaCte ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_finanzas_recibo_show', {'id': recibo.id}) }}">show</a>
+                    <a href="{{ path('app_finanzas_recibo_edit', {'id': recibo.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_finanzas_recibo_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MetodoEfectivo index{% endblock %}
+
+{% block body %}
+    <h1>MetodoEfectivo index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Importe</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for metodo_efectivo in metodo_efectivos %}
+            <tr>
+                <td>{{ metodo_efectivo.id }}</td>
+                <td>{{ metodo_efectivo.importe }}</td>
+                <td>
+                    <a href="{{ path('app_finanzas_metodo_efectivo_show', {'id': metodo_efectivo.id}) }}">show</a>
+                    <a href="{{ path('app_finanzas_metodo_efectivo_edit', {'id': metodo_efectivo.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_finanzas_metodo_efectivo_new') }}">Create new</a>
+{% endblock %}

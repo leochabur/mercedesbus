@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New MetodoEfectivo{% endblock %}
+
+{% block body %}
+    <h1>Create new MetodoEfectivo</h1>
+
+    {{ include('finanzas/metodo_efectivo/_form.html.twig') }}
+
+    <a href="{{ path('app_finanzas_metodo_efectivo_index') }}">back to list</a>
+{% endblock %}

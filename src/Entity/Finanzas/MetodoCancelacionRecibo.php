@@ -41,4 +41,16 @@ abstract class MetodoCancelacionRecibo
 
         return $this;
     }
+
+    public function getRecibo(): ?Recibo
+    {
+        return $this->recibo;
+    }
+
+    public function setRecibo(?Recibo $recibo): static
+    {
+        $this->recibo = $recibo;
+
+        return $this;
+    }
 }

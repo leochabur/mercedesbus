@@ -336,6 +336,20 @@
         <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\Finanzas\CtaCteController"/>
       </call>
     </service>
+    <service id="App\Controller\Finanzas\MetodoEfectivoController" class="App\Controller\Finanzas\MetodoEfectivoController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\Finanzas\MetodoEfectivoController"/>
+      </call>
+    </service>
+    <service id="App\Controller\Finanzas\ReciboController" class="App\Controller\Finanzas\ReciboController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\Finanzas\ReciboController"/>
+      </call>
+    </service>
     <service id="App\Controller\RRHH\EmpleadoController" class="App\Controller\RRHH\EmpleadoController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -377,6 +391,12 @@
       <tag name="form.type"/>
     </service>
     <service id="App\Form\Finanzas\CtaCteType" class="App\Form\Finanzas\CtaCteType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\Finanzas\MetodoEfectivoType" class="App\Form\Finanzas\MetodoEfectivoType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\Finanzas\ReciboType" class="App\Form\Finanzas\ReciboType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\RRHH\EmpleadoType" class="App\Form\RRHH\EmpleadoType" autowire="true" autoconfigure="true">
@@ -421,6 +441,10 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\Administracion\TipoComprobanteRepository" class="App\Repository\Administracion\TipoComprobanteRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\Finanzas\CajaRepository" class="App\Repository\Finanzas\CajaRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -491,7 +515,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.M9ynoGS"/>
+      <argument type="service" id=".service_locator.nXePPnH"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1113,6 +1137,8 @@
         <argument>App\Form\Administracion\ComprobanteClienteType</argument>
         <argument>App\Form\Administracion\ItemComprobanteType</argument>
         <argument>App\Form\Finanzas\CtaCteType</argument>
+        <argument>App\Form\Finanzas\MetodoEfectivoType</argument>
+        <argument>App\Form\Finanzas\ReciboType</argument>
         <argument>App\Form\RRHH\EmpleadoType</argument>
         <argument>App\Form\RRHH\PuestoTrabajoType</argument>
         <argument>App\Form\RegistrationFormType</argument>
@@ -2169,7 +2195,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.M9ynoGS"/>
+      <argument type="service" id=".service_locator.nXePPnH"/>
     </service>
     <service id="routing.resolver" class="Symfony\Component\Config\Loader\LoaderResolver">
       <call method="addLoader">
@@ -2478,7 +2504,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.SMWtXuE"/>
+      <argument type="service" id=".service_locator.FDvbi00"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -4254,7 +4280,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.PImB_Oe"/>
+      <argument type="service" id=".service_locator.4D8zwBS"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -5278,6 +5304,12 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Finanzas\CtaCteController" class="App\Controller\Finanzas\CtaCteController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Finanzas\CtaCteController" class="App\Controller\Finanzas\CtaCteController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Finanzas\CtaCteController" class="App\Controller\Finanzas\CtaCteController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Finanzas\MetodoEfectivoController" class="App\Controller\Finanzas\MetodoEfectivoController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Finanzas\MetodoEfectivoController" class="App\Controller\Finanzas\MetodoEfectivoController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\Finanzas\MetodoEfectivoController" class="App\Controller\Finanzas\MetodoEfectivoController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Finanzas\ReciboController" class="App\Controller\Finanzas\ReciboController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Finanzas\ReciboController" class="App\Controller\Finanzas\ReciboController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\Finanzas\ReciboController" class="App\Controller\Finanzas\ReciboController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RRHH\EmpleadoController" class="App\Controller\RRHH\EmpleadoController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RRHH\EmpleadoController" class="App\Controller\RRHH\EmpleadoController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\RRHH\EmpleadoController" class="App\Controller\RRHH\EmpleadoController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -5300,6 +5332,10 @@
     <service id=".abstract.instanceof.App\Form\Administracion\ItemComprobanteType" class="App\Form\Administracion\ItemComprobanteType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Finanzas\CtaCteType" class="App\Form\Finanzas\CtaCteType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\Finanzas\CtaCteType" class="App\Form\Finanzas\CtaCteType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Finanzas\MetodoEfectivoType" class="App\Form\Finanzas\MetodoEfectivoType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\Finanzas\MetodoEfectivoType" class="App\Form\Finanzas\MetodoEfectivoType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Finanzas\ReciboType" class="App\Form\Finanzas\ReciboType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\Finanzas\ReciboType" class="App\Form\Finanzas\ReciboType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RRHH\EmpleadoType" class="App\Form\RRHH\EmpleadoType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\RRHH\EmpleadoType" class="App\Form\RRHH\EmpleadoType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RRHH\PuestoTrabajoType" class="App\Form\RRHH\PuestoTrabajoType" autowire="true" abstract="true"/>
@@ -5324,6 +5360,8 @@
     <service id=".abstract.instanceof.App\Repository\Administracion\RespIvaRepository" class="App\Repository\Administracion\RespIvaRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Administracion\TipoComprobanteRepository" class="App\Repository\Administracion\TipoComprobanteRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\Administracion\TipoComprobanteRepository" class="App\Repository\Administracion\TipoComprobanteRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Finanzas\CajaRepository" class="App\Repository\Finanzas\CajaRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\Finanzas\CajaRepository" class="App\Repository\Finanzas\CajaRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Finanzas\CtaCteRepository" class="App\Repository\Finanzas\CtaCteRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\Finanzas\CtaCteRepository" class="App\Repository\Finanzas\CtaCteRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Finanzas\MetodoCancelacionReciboRepository" class="App\Repository\Finanzas\MetodoCancelacionReciboRepository" autowire="true" abstract="true"/>
@@ -5876,6 +5914,44 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
+    <service id=".service_locator.PO3GDZ5" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="metodoEfectivoRepository" type="service_closure" id="App\Repository\Finanzas\MetodoEfectivoRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.y6fI.48" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="metodoEfectivo" type="service_closure" id=".errored..service_locator.y6fI.48.App\Entity\Finanzas\MetodoEfectivo"/>
+      </argument>
+    </service>
+    <service id=".service_locator.pG8igIo" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="metodoEfectivo" type="service_closure" id=".errored..service_locator.pG8igIo.App\Entity\Finanzas\MetodoEfectivo"/>
+      </argument>
+    </service>
+    <service id=".service_locator.2yB6Zlv" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="reciboRepository" type="service_closure" id="App\Repository\Finanzas\ReciboRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.IvTQVYD" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="recibo" type="service_closure" id=".errored..service_locator.IvTQVYD.App\Entity\Finanzas\Recibo"/>
+      </argument>
+    </service>
+    <service id=".service_locator.9CEEjne" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="recibo" type="service_closure" id=".errored..service_locator.9CEEjne.App\Entity\Finanzas\Recibo"/>
+      </argument>
+    </service>
     <service id=".service_locator.Y_acB7v" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5927,7 +6003,7 @@
         <argument key="authenticationUtils" type="service_closure" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.M9ynoGS" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.nXePPnH" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Administracion\ArticuloConceptoController::delete" type="service_closure" id=".service_locator.60g6H9Q"/>
@@ -5956,6 +6032,16 @@
         <argument key="App\Controller\Finanzas\CtaCteController::index" type="service_closure" id=".service_locator.1I9OYjF"/>
         <argument key="App\Controller\Finanzas\CtaCteController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Finanzas\CtaCteController::show" type="service_closure" id=".service_locator.PFvszmw"/>
+        <argument key="App\Controller\Finanzas\MetodoEfectivoController::delete" type="service_closure" id=".service_locator.pG8igIo"/>
+        <argument key="App\Controller\Finanzas\MetodoEfectivoController::edit" type="service_closure" id=".service_locator.pG8igIo"/>
+        <argument key="App\Controller\Finanzas\MetodoEfectivoController::index" type="service_closure" id=".service_locator.PO3GDZ5"/>
+        <argument key="App\Controller\Finanzas\MetodoEfectivoController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Finanzas\MetodoEfectivoController::show" type="service_closure" id=".service_locator.y6fI.48"/>
+        <argument key="App\Controller\Finanzas\ReciboController::delete" type="service_closure" id=".service_locator.9CEEjne"/>
+        <argument key="App\Controller\Finanzas\ReciboController::edit" type="service_closure" id=".service_locator.9CEEjne"/>
+        <argument key="App\Controller\Finanzas\ReciboController::index" type="service_closure" id=".service_locator.2yB6Zlv"/>
+        <argument key="App\Controller\Finanzas\ReciboController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Finanzas\ReciboController::show" type="service_closure" id=".service_locator.IvTQVYD"/>
         <argument key="App\Controller\RRHH\EmpleadoController::delete" type="service_closure" id=".service_locator.v0yFMj1"/>
         <argument key="App\Controller\RRHH\EmpleadoController::edit" type="service_closure" id=".service_locator.v0yFMj1"/>
         <argument key="App\Controller\RRHH\EmpleadoController::index" type="service_closure" id=".service_locator.Y_acB7v"/>
@@ -5999,6 +6085,16 @@
         <argument key="App\Controller\Finanzas\CtaCteController:index" type="service_closure" id=".service_locator.1I9OYjF"/>
         <argument key="App\Controller\Finanzas\CtaCteController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Finanzas\CtaCteController:show" type="service_closure" id=".service_locator.PFvszmw"/>
+        <argument key="App\Controller\Finanzas\MetodoEfectivoController:delete" type="service_closure" id=".service_locator.pG8igIo"/>
+        <argument key="App\Controller\Finanzas\MetodoEfectivoController:edit" type="service_closure" id=".service_locator.pG8igIo"/>
+        <argument key="App\Controller\Finanzas\MetodoEfectivoController:index" type="service_closure" id=".service_locator.PO3GDZ5"/>
+        <argument key="App\Controller\Finanzas\MetodoEfectivoController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Finanzas\MetodoEfectivoController:show" type="service_closure" id=".service_locator.y6fI.48"/>
+        <argument key="App\Controller\Finanzas\ReciboController:delete" type="service_closure" id=".service_locator.9CEEjne"/>
+        <argument key="App\Controller\Finanzas\ReciboController:edit" type="service_closure" id=".service_locator.9CEEjne"/>
+        <argument key="App\Controller\Finanzas\ReciboController:index" type="service_closure" id=".service_locator.2yB6Zlv"/>
+        <argument key="App\Controller\Finanzas\ReciboController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Finanzas\ReciboController:show" type="service_closure" id=".service_locator.IvTQVYD"/>
         <argument key="App\Controller\RRHH\EmpleadoController:delete" type="service_closure" id=".service_locator.v0yFMj1"/>
         <argument key="App\Controller\RRHH\EmpleadoController:edit" type="service_closure" id=".service_locator.v0yFMj1"/>
         <argument key="App\Controller\RRHH\EmpleadoController:index" type="service_closure" id=".service_locator.Y_acB7v"/>
@@ -6093,7 +6189,7 @@
       <argument type="service" id="argument_resolver.query_parameter_value_resolver"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.SMWtXuE" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.FDvbi00" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\Administracion\ArticuloConceptoType" type="service_closure" id="App\Form\Administracion\ArticuloConceptoType"/>
@@ -6101,6 +6197,8 @@
         <argument key="App\Form\Administracion\ComprobanteClienteType" type="service_closure" id="App\Form\Administracion\ComprobanteClienteType"/>
         <argument key="App\Form\Administracion\ItemComprobanteType" type="service_closure" id="App\Form\Administracion\ItemComprobanteType"/>
         <argument key="App\Form\Finanzas\CtaCteType" type="service_closure" id="App\Form\Finanzas\CtaCteType"/>
+        <argument key="App\Form\Finanzas\MetodoEfectivoType" type="service_closure" id="App\Form\Finanzas\MetodoEfectivoType"/>
+        <argument key="App\Form\Finanzas\ReciboType" type="service_closure" id="App\Form\Finanzas\ReciboType"/>
         <argument key="App\Form\RRHH\EmpleadoType" type="service_closure" id="App\Form\RRHH\EmpleadoType"/>
         <argument key="App\Form\RRHH\PuestoTrabajoType" type="service_closure" id="App\Form\RRHH\PuestoTrabajoType"/>
         <argument key="App\Form\RegistrationFormType" type="service_closure" id="App\Form\RegistrationFormType"/>
@@ -6147,7 +6245,7 @@
         <argument key="doctrine.orm.listeners.pdo_session_handler_schema_listener" type="service_closure" id="doctrine.orm.listeners.pdo_session_handler_schema_listener"/>
       </argument>
     </service>
-    <service id=".service_locator.PImB_Oe" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.4D8zwBS" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\Administracion\ArticuloConceptoRepository" type="service_closure" id="App\Repository\Administracion\ArticuloConceptoRepository"/>
@@ -6159,6 +6257,7 @@
         <argument key="App\Repository\Administracion\ProveedorRepository" type="service_closure" id="App\Repository\Administracion\ProveedorRepository"/>
         <argument key="App\Repository\Administracion\RespIvaRepository" type="service_closure" id="App\Repository\Administracion\RespIvaRepository"/>
         <argument key="App\Repository\Administracion\TipoComprobanteRepository" type="service_closure" id="App\Repository\Administracion\TipoComprobanteRepository"/>
+        <argument key="App\Repository\Finanzas\CajaRepository" type="service_closure" id="App\Repository\Finanzas\CajaRepository"/>
         <argument key="App\Repository\Finanzas\CtaCteRepository" type="service_closure" id="App\Repository\Finanzas\CtaCteRepository"/>
         <argument key="App\Repository\Finanzas\MetodoCancelacionReciboRepository" type="service_closure" id="App\Repository\Finanzas\MetodoCancelacionReciboRepository"/>
         <argument key="App\Repository\Finanzas\MetodoEfectivoRepository" type="service_closure" id="App\Repository\Finanzas\MetodoEfectivoRepository"/>
@@ -6343,6 +6442,18 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.O2p6Lk7" method="withContext"/>
     </service>
+    <service id=".service_locator.O2p6Lk7.App\Controller\Finanzas\MetodoEfectivoController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Finanzas\MetodoEfectivoController"/>
+      <argument>App\Controller\Finanzas\MetodoEfectivoController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.O2p6Lk7" method="withContext"/>
+    </service>
+    <service id=".service_locator.O2p6Lk7.App\Controller\Finanzas\ReciboController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Finanzas\ReciboController"/>
+      <argument>App\Controller\Finanzas\ReciboController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.O2p6Lk7" method="withContext"/>
+    </service>
     <service id=".service_locator.O2p6Lk7.App\Controller\RRHH\EmpleadoController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\RRHH\EmpleadoController"/>
       <argument>App\Controller\RRHH\EmpleadoController</argument>
@@ -6517,6 +6628,8 @@
           <argument>App\Controller\Administracion\ComprobanteClienteController</argument>
           <argument>App\Controller\Administracion\ItemComprobanteController</argument>
           <argument>App\Controller\Finanzas\CtaCteController</argument>
+          <argument>App\Controller\Finanzas\MetodoEfectivoController</argument>
+          <argument>App\Controller\Finanzas\ReciboController</argument>
           <argument>App\Controller\RRHH\EmpleadoController</argument>
           <argument>App\Controller\RRHH\PuestoTrabajoController</argument>
           <argument>App\Controller\RegistrationController</argument>
@@ -6609,6 +6722,18 @@
     </service>
     <service id=".errored..service_locator.E6u5EBv.App\Entity\Finanzas\CtaCte" class="App\Entity\Finanzas\CtaCte">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.E6u5EBv&quot;: it needs an instance of &quot;App\Entity\Finanzas\CtaCte&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.y6fI.48.App\Entity\Finanzas\MetodoEfectivo" class="App\Entity\Finanzas\MetodoEfectivo">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.y6fI.48&quot;: it needs an instance of &quot;App\Entity\Finanzas\MetodoEfectivo&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.pG8igIo.App\Entity\Finanzas\MetodoEfectivo" class="App\Entity\Finanzas\MetodoEfectivo">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.pG8igIo&quot;: it needs an instance of &quot;App\Entity\Finanzas\MetodoEfectivo&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.IvTQVYD.App\Entity\Finanzas\Recibo" class="App\Entity\Finanzas\Recibo">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.IvTQVYD&quot;: it needs an instance of &quot;App\Entity\Finanzas\Recibo&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.9CEEjne.App\Entity\Finanzas\Recibo" class="App\Entity\Finanzas\Recibo">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.9CEEjne&quot;: it needs an instance of &quot;App\Entity\Finanzas\Recibo&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
     <service id=".errored..service_locator.RySf2Tt.App\Entity\RRHH\Empleado" class="App\Entity\RRHH\Empleado">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.RySf2Tt&quot;: it needs an instance of &quot;App\Entity\RRHH\Empleado&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
@@ -7609,17 +7734,19 @@
     <service id="Twig\Environment" alias="twig"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.w7.f4fT" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.M9ynoGS"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.nXePPnH"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>
     <service id=".service_locator.bJ.4HC5" alias=".service_locator.w7.f4fT"/>
     <service id=".service_locator.oR6wE36" alias=".service_locator.kWRcZDu"/>
+    <service id=".service_locator.36_TMiD" alias=".service_locator.pG8igIo"/>
+    <service id=".service_locator.Y6L0VdR" alias=".service_locator.9CEEjne"/>
     <service id=".service_locator.xLizhxf" alias=".service_locator.Sf2naB0"/>
     <service id=".service_locator.V6D1oJY" alias=".service_locator.e_4zbH4"/>
-    <service id=".service_locator.RC50kMZ" alias=".service_locator.M9ynoGS"/>
+    <service id=".service_locator.tvxqVzD" alias=".service_locator.nXePPnH"/>
     <service id=".service_locator.BFrsqsn" alias=".service_locator.fGvEh3."/>
-    <service id=".service_locator.qzcXkoj" alias=".service_locator.SMWtXuE"/>
+    <service id=".service_locator.wFhK2gL" alias=".service_locator.FDvbi00"/>
     <service id=".service_locator.LMuqDDe" alias=".service_locator.VHsrTPK"/>
     <service id=".service_locator.jUv.zyj" alias=".service_locator.O2p6Lk7"/>
     <service id="validator" alias="debug.validator"/>
@@ -7655,6 +7782,12 @@
     <service id=".service_locator.tdHYroK" alias=".service_locator.1I9OYjF"/>
     <service id=".service_locator.9IQ8_U6" alias=".service_locator.PFvszmw"/>
     <service id=".service_locator.CnRLbdT" alias=".service_locator.E6u5EBv"/>
+    <service id=".service_locator.uwCzI5x" alias=".service_locator.PO3GDZ5"/>
+    <service id=".service_locator.q8SzqA4" alias=".service_locator.y6fI.48"/>
+    <service id=".service_locator.rUUM8lE" alias=".service_locator.pG8igIo"/>
+    <service id=".service_locator.F0neINQ" alias=".service_locator.2yB6Zlv"/>
+    <service id=".service_locator.Ly_m7D7" alias=".service_locator.IvTQVYD"/>
+    <service id=".service_locator.BdnuzsE" alias=".service_locator.9CEEjne"/>
     <service id=".service_locator.MPDaoyr" alias=".service_locator.Y_acB7v"/>
     <service id=".service_locator.JYGRxlo" alias=".service_locator.RySf2Tt"/>
     <service id=".service_locator.3pYj_FV" alias=".service_locator.v0yFMj1"/>

@@ -1,0 +1,76 @@
+<div class="card p-4">
+  <h5 class="card-header">Encabezado Recibo</h5>
+  <div class="card-body">
+        {{ form_start(form, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'p-0' }}) }}
+            <div class="row pt-1">
+                <div class="col col-lg-6">
+                    {{ form_label(form.enteComercial) }}
+                    {{ form_widget(form.enteComercial, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+                    {{ form_errors(form.enteComercial) }}
+                </div>
+                <div class="col col-lg-3">
+                    {{ form_label(form.fecha) }}
+                    {{ form_widget(form.fecha, { 'attr' : { 'class' : 'form-control'} }) }}
+                    {{ form_errors(form.fecha) }}
+                </div>
+                <div class="col col-lg-3">
+                    {{ form_label(form.precioTotalConIva, 'Importe') }}
+                    {{ form_widget(form.precioTotalConIva, { 'attr' : { 'class' : 'form-control'} }) }}
+                    {{ form_errors(form.precioTotalConIva) }}
+                </div>
+            </div>
+            <div class="row pt-1">
+                <div class="col col-lg-6">
+                    {{ form_label(form.forma) }}
+                    {{ form_widget(form.forma, { 'attr' : {'step' : "0.01",  'class' : 'form-control form-select forma-select'} }) }}
+                    {{ form_errors(form.forma) }}
+                </div>
+            </div>
+        {{ form_end(form) }}
+        <hr>
+        <div class="card-header text-muted">Agregar forma pago</div>
+        <div class="formEftvo">
+                {{ form_start(formEftvo, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'px-4 all-formas E' }}) }}
+
+
+                    <div class="row pt-3">
+                        <div class="col col-lg-6">
+                            {{ form_label(formEftvo.caja) }}
+                            {{ form_widget(formEftvo.caja, { 'attr' : { 'class' : 'form-control form-select ef-caja '} }) }}
+                            {{ form_errors(formEftvo.caja) }}
+                        </div>
+                        <div class="col col-lg-3">
+                            {{ form_label(formEftvo.importe) }}
+                            {{ form_widget(formEftvo.importe, { 'attr' : { 'class' : 'form-control ef-monto'} }) }}
+                            {{ form_errors(formEftvo.importe) }}
+                        </div>
+                        <div class="col col-lg-3 pt-4 mt-2">
+                            <input type="button" value="Guardar" class="btn btn-warning ef-save" name="">
+                        </div>
+                    </div>
+                {{ form_end(formEftvo) }}
+                <hr>
+                <br>
+                <div class="card-header text-muted">Formas pago asignadas</div>
+                <div class="px-4">
+                    <table class="table table-sm table-hover" id="table-forma">
+                        <thead>
+                            <tr>
+                                <th>Forma Cancelacion</th>
+                                <th>Detalle</th>
+                                <th>Importe</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+
+    </div>
+    <input type="button" class="btn btn-success" value="Guardar Recibo"/>
+</div>
+
+<hr>
+

@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ComprobanteClienteRepository::class)]
 
-class ComprobanteCliente extends ComprobanteTransaccion
+class ComprobanteCliente extends ComprobanteFactura
 {
 
     #[Assert\IsTrue(message: 'Debe cargar al menos un item')]

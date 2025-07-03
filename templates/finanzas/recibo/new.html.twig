@@ -1,0 +1,69 @@
+{% extends 'navBar.html.twig' %}
+
+{% block title %}Recibo{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="container pt-4">
+
+        <div class="h5 pb-4">Nuevo Recibo {{ label|default('Pago') }}</div>
+
+        {{ include('finanzas/recibo/_form.html.twig') }}
+
+        <a href="{{ path('app_finanzas_recibo_index') }}">back to list</a>
+    </div>
+{% endblock %}
+
+{% block javascripts_footer %}
+        {{ parent()  }}
+
+        <script>
+
+                let formas = [];
+                let tableBody = $('#table-forma tbody');
+
+                function removeItem(i){
+                                        formas.splice(i, 1);
+                                        loadTable();
+                };
+
+
+                function loadTable()
+                {
+                    tableBody.empty();
+
+                    formas.forEach(function (el, indice, array) {
+                                                                      let btn = '<input onclick="removeItem(' + indice +');" type="button" class="btn btn-sm btn-danger btn-remove" value="Quitar"/>';
+                                                                      tableBody.append("<tr><td>" + el.type.name + "</td><td></td><td>" + el.monto + "</td><td>" + btn +"</td>/tr>" );
+                                                                    });
+
+                    
+                }
+
+                $(document).ready(function(){
+
+                                                $('.all-formas').hide();
+
+                                                $('.ef-save').click(function(event){
+                                                                                        event.preventDefault();
+                                                                                        let caja = $('.ef-caja option:selected');
+                                                                                        let obj = {
+                                                                                                        type: { code: 'e', name: 'Efectivo' },
+                                                                                                        caja: { code: caja.val(), name: caja.text()},
+                                                                                                        monto: $('.ef-monto').val()
+                                                                                                  };
+                                                                                        formas.push(obj);
+
+                                                                                        loadTable();
+                                                });
+
+                                                $('.forma-select').change(function(){
+                                                                                        $('.all-formas').hide();
+                                                                                        let s = $(this);                                                      
+                                                                                        $('.' + s.val()).show();
+                                                });
+
+                });
+
+        </script>
+{% endblock %}

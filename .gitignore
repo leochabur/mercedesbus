@@ -9,6 +9,8 @@
 /vendor/
 /var/*
 /vendor/*
+/var
+/vendor
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
