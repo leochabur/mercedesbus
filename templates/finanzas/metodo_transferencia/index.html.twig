@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MetodoTransferencia index{% endblock %}
+
+{% block body %}
+    <h1>MetodoTransferencia index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Importe</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for metodo_transferencium in metodo_transferencias %}
+            <tr>
+                <td>{{ metodo_transferencium.id }}</td>
+                <td>{{ metodo_transferencium.importe }}</td>
+                <td>
+                    <a href="{{ path('app_finanzas_metodo_transferencia_show', {'id': metodo_transferencium.id}) }}">show</a>
+                    <a href="{{ path('app_finanzas_metodo_transferencia_edit', {'id': metodo_transferencium.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_finanzas_metodo_transferencia_new') }}">Create new</a>
+{% endblock %}

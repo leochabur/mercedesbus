@@ -6,6 +6,8 @@ use App\Repository\Finanzas\BancoRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: BancoRepository::class)]
+#[ORM\Table(name: 'finanzas_bancos')]
+
 class Banco
 {
     #[ORM\Id]
@@ -18,6 +20,11 @@ class Banco
 
     #[ORM\Column]
     private ?bool $activo = null;
+
+    public function __toString()
+    {
+        return $this->nombre;
+    }
 
     public function getId(): ?int
     {

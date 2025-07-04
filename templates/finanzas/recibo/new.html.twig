@@ -42,6 +42,21 @@
 
                 $(document).ready(function(){
 
+                                                $('.save-recibo').click(function(event){
+                                                                                        event.preventDefault();                                                              
+                                                                                        var data = $('.form-recibo').serializeArray().reduce(function(obj, item) {
+                                                                                                                            obj[item.name] = item.value;
+                                                                                                                            return obj;
+                                                                                                                        }, {});
+                                                                                        data.formas = JSON.stringify(formas);
+                                                                                        $.post("{{ path('app_finanzas_recibo_new') }}",
+                                                                                                data,
+                                                                                                function(result){
+                                                                                                                        console.log(result);
+                                                                                                });
+
+                                                });
+
                                                 $('.all-formas').hide();
 
                                                 $('.ef-save').click(function(event){
@@ -53,6 +68,23 @@
                                                                                                         monto: $('.ef-monto').val()
                                                                                                   };
                                                                                         formas.push(obj);
+
+                                                                                        $('.reset-form')[0].reset();
+
+                                                                                        loadTable();
+                                                });
+
+                                                $('.trx-save').click(function(event){
+                                                                                        event.preventDefault();
+                                                                                        let cc = $('.trx-caja option:selected');
+                                                                                        let obj = {
+                                                                                                        type: { code: 'e', name: 'Transferencia' },
+                                                                                                        caja: { code: cc.val(), name: cc.text()},
+                                                                                                        monto: $('.trx-monto').val()
+                                                                                                  };
+                                                                                        formas.push(obj);
+
+                                                                                        $('.reset-form')[0].reset();
 
                                                                                         loadTable();
                                                 });

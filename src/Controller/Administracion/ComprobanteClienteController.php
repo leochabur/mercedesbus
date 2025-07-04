@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Finanzas\CtaCte;
-use App\Entity\Finanzas\MovimientoVenta;
+use App\Entity\Finanzas\MovimientoVenta; 
 
 #[Route('/administracion/comprobante/cliente')]
 final class ComprobanteClienteController extends AbstractController

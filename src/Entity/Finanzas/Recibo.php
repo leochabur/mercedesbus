@@ -13,8 +13,6 @@ use App\Entity\Administracion\ComprobanteTransaccion;
 
 class Recibo extends ComprobanteTransaccion
 {
-
-
     #[ORM\OneToMany(targetEntity: MetodoCancelacionRecibo::class, mappedBy: 'recibo', cascade: ['persist', 'remove'])]
     private $metodos;
 

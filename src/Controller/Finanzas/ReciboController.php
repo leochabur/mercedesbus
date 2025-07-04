@@ -11,6 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Form\Finanzas\MetodoEfectivoType;
+use App\Form\Finanzas\MetodoTransferenciaType;
+use App\Entity\Finanzas\CtaCte;
+use App\Entity\Finanzas\MovimientoPago; 
+
 
 #[Route('/finanzas/recibo')]
 final class ReciboController extends AbstractController
@@ -27,12 +31,35 @@ final class ReciboController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $recibo = new Recibo();
+        $recibo->setNumero(123);
         $form = $this->createForm(ReciboType::class, $recibo);
         $form->handleRequest($request);
 
         $formEftvo = $this->createForm(MetodoEfectivoType::class, null);
+        $formTrx = $this->createForm(MetodoTransferenciaType::class, null);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            $repository = $entityManager->getRepository(CtaCte::class);
+            $ctacte = $repository->getCtaCteEntidad($recibo->getEnteComercial());
+            if (!$ctacte)
+            {
+                $ctacte = new CtaCte();
+                $ctacte->setTitular($recibo->getEnteComercial())
+                        ->setTipo(1);
+                $entityManager->persist($ctacte);
+            }
+
+            $movimiento = new MovimientoPago();
+            $movimiento->setRecibo($recibo)
+                       ->setImporte($recibo->getPrecioTotalConIva())
+                       ->setDetalle("Recivo de Pago Nº " . $recibo->getNumero())
+                       ->setFechaAlta($recibo->getFecha())
+                       ->setCtaCte($ctacte);
+            $ctacte->updateImporte($recibo->getPrecioTotalConIva());
+            $entityManager->persist($movimiento);       
+
+
             $entityManager->persist($recibo);
             $entityManager->flush();
 
@@ -42,7 +69,8 @@ final class ReciboController extends AbstractController
         return $this->render('finanzas/recibo/new.html.twig', [
             'recibo' => $recibo,
             'form' => $form,
-            'formEftvo' => $formEftvo
+            'formEftvo' => $formEftvo,
+            'formTrx' => $formTrx
         ]);
     }
 

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: MetodoCancelacionReciboRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
-#[ORM\DiscriminatorMap(['MCR' => MetodoCancelacionRecibo::class, 'MEE' => MetodoEfectivo::class ])]
+#[ORM\DiscriminatorMap(['MCR' => MetodoCancelacionRecibo::class, 'MEE' => MetodoEfectivo::class, 'MET' => MetodoTransferencia::class])]
 #[ORM\Table(name: 'finanzas_metodo_pago_recibo')]
 
 abstract class MetodoCancelacionRecibo

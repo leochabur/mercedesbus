@@ -1,7 +1,7 @@
 <div class="card p-4">
   <h5 class="card-header">Encabezado Recibo</h5>
   <div class="card-body">
-        {{ form_start(form, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'p-0' }}) }}
+        {{ form_start(form, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'p-0 form-recibo' }}) }}
             <div class="row pt-1">
                 <div class="col col-lg-6">
                     {{ form_label(form.enteComercial) }}
@@ -18,8 +18,11 @@
                     {{ form_widget(form.precioTotalConIva, { 'attr' : { 'class' : 'form-control'} }) }}
                     {{ form_errors(form.precioTotalConIva) }}
                 </div>
-            </div>
-            <div class="row pt-1">
+            </div>        
+        <hr>
+        <div class="card-header text-muted">Agregar forma pago</div>
+        <div class="formEftvo">
+            <div class="row pt-1 px-4">
                 <div class="col col-lg-6">
                     {{ form_label(form.forma) }}
                     {{ form_widget(form.forma, { 'attr' : {'step' : "0.01",  'class' : 'form-control form-select forma-select'} }) }}
@@ -27,12 +30,7 @@
                 </div>
             </div>
         {{ form_end(form) }}
-        <hr>
-        <div class="card-header text-muted">Agregar forma pago</div>
-        <div class="formEftvo">
-                {{ form_start(formEftvo, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'px-4 all-formas E' }}) }}
-
-
+                {{ form_start(formEftvo, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'px-4 all-formas E reset-form' }}) }}
                     <div class="row pt-3">
                         <div class="col col-lg-6">
                             {{ form_label(formEftvo.caja) }}
@@ -49,6 +47,24 @@
                         </div>
                     </div>
                 {{ form_end(formEftvo) }}
+
+                {{ form_start(formTrx, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'px-4 all-formas T reset-form' }}) }}
+                    <div class="row pt-3">
+                        <div class="col col-lg-6">
+                            {{ form_label(formTrx.ctacte) }}
+                            {{ form_widget(formTrx.ctacte, { 'attr' : { 'class' : 'form-control form-select trx-caja '} }) }}
+                            {{ form_errors(formTrx.ctacte) }}
+                        </div>
+                        <div class="col col-lg-3">
+                            {{ form_label(formTrx.importe) }}
+                            {{ form_widget(formTrx.importe, { 'attr' : { 'class' : 'form-control trx-monto'} }) }}
+                            {{ form_errors(formTrx.importe) }}
+                        </div>
+                        <div class="col col-lg-3 pt-4 mt-2">
+                            <input type="button" value="Guardar" class="btn btn-warning trx-save" name="">
+                        </div>
+                    </div>
+                {{ form_end(formTrx) }}
                 <hr>
                 <br>
                 <div class="card-header text-muted">Formas pago asignadas</div>
@@ -69,7 +85,7 @@
         </div>
 
     </div>
-    <input type="button" class="btn btn-success" value="Guardar Recibo"/>
+    <input type="button" class="btn btn-success save-recibo" value="Guardar Recibo"/>
 </div>
 
 <hr>
