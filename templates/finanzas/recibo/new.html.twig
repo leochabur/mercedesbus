@@ -30,13 +30,18 @@
 
                 function loadTable()
                 {
+
                     tableBody.empty();
+                    let tfp = 0;
 
                     formas.forEach(function (el, indice, array) {
+                                                                      tfp = tfp + parseFloat(el.monto);
                                                                       let btn = '<input onclick="removeItem(' + indice +');" type="button" class="btn btn-sm btn-danger btn-remove" value="Quitar"/>';
-                                                                      tableBody.append("<tr><td>" + el.type.name + "</td><td></td><td>" + el.monto + "</td><td>" + btn +"</td>/tr>" );
+                                                                      tableBody.append("<tr><td>" + el.type.name + "</td><td>"+el.caja.name+"</td><td>" + el.monto + "</td><td>" + btn +"</td>/tr>" );
                                                                     });
-
+                    tableBody.append("<tr><td>Total</td><td></td><td>" + tfp.toFixed(2) + "</td><td></td>/tr>" );
+                        $('.forma-select').val('');
+                        $('.all-formas').hide();
                     
                 }
 
@@ -49,10 +54,18 @@
                                                                                                                             return obj;
                                                                                                                         }, {});
                                                                                         data.formas = JSON.stringify(formas);
+                                                                                        console.log(data);
                                                                                         $.post("{{ path('app_finanzas_recibo_new') }}",
                                                                                                 data,
                                                                                                 function(result){
-                                                                                                                        console.log(result);
+                                                                                                                   if (result.ok)
+                                                                                                                   {
+
+                                                                                                                   }
+                                                                                                                   else
+                                                                                                                   {
+                                                                                                                        alert(result.message);
+                                                                                                                   }
                                                                                                 });
 
                                                 });
@@ -69,8 +82,7 @@
                                                                                                   };
                                                                                         formas.push(obj);
 
-                                                                                        $('.reset-form')[0].reset();
-
+                                                                                        $('.reset-form')[0].reset();                                                                                        
                                                                                         loadTable();
                                                 });
 
@@ -78,14 +90,14 @@
                                                                                         event.preventDefault();
                                                                                         let cc = $('.trx-caja option:selected');
                                                                                         let obj = {
-                                                                                                        type: { code: 'e', name: 'Transferencia' },
+                                                                                                        type: { code: 't', name: 'Transferencia' },
                                                                                                         caja: { code: cc.val(), name: cc.text()},
                                                                                                         monto: $('.trx-monto').val()
                                                                                                   };
                                                                                         formas.push(obj);
 
                                                                                         $('.reset-form')[0].reset();
-
+                                                                                
                                                                                         loadTable();
                                                 });
 

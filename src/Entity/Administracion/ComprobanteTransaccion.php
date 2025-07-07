@@ -29,11 +29,11 @@ abstract class ComprobanteTransaccion
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Assert\NotBlank(message: 'Campo requerido')]
+    #[Assert\NotBlank(message: 'La fecha es un campo requerido')]
     private ?\DateTimeInterface $fecha = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message: 'Campo requerido')]
+    #[Assert\NotBlank(message: 'El numero es un campo requerido')]
     private ?int $numero = null;
     
     #[ORM\Column]
@@ -60,7 +60,7 @@ abstract class ComprobanteTransaccion
         return $this->fecha;
     }
 
-    public function setFecha(\DateTimeInterface $fecha): static
+    public function setFecha(?\DateTimeInterface $fecha): static
     {
         $this->fecha = $fecha;
 

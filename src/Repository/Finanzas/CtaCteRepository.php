@@ -16,20 +16,20 @@ class CtaCteRepository extends ServiceEntityRepository
         parent::__construct($registry, CtaCte::class);
     }
 
-    //    /**
-    //     * @return CtaCte[] Returns an array of CtaCte objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+       /**
+        * @return CtaCte[] Returns an array of CtaCte objects
+        */
+       public function movimientosCuentas(): array
+       {
+           return $this->createQueryBuilder('c')
+                       ->andWhere('c.exampleField = :val')
+                       ->setParameter('val', $value)
+                       ->orderBy('c.id', 'ASC')
+                       ->setMaxResults(10)
+                       ->getQuery()
+                       ->getResult()
+                   ;
+       }
 
        public function getCtaCteEntidad($titular): ?CtaCte
        {

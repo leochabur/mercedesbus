@@ -14,9 +14,14 @@ use App\Form\Finanzas\MetodoEfectivoType;
 use App\Form\Finanzas\MetodoTransferenciaType;
 use App\Entity\Finanzas\CtaCte;
 use App\Entity\Finanzas\MovimientoPago; 
-
+use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Entity\Finanzas\MetodoEfectivo;
+use App\Entity\Finanzas\MetodoTransferencia;
+use App\Entity\Finanzas\Caja;
+use App\Entity\Finanzas\CtaCteBanco;
 
 #[Route('/finanzas/recibo')]
+
 final class ReciboController extends AbstractController
 {
     #[Route(name: 'app_finanzas_recibo_index', methods: ['GET'])]
@@ -38,32 +43,95 @@ final class ReciboController extends AbstractController
         $formEftvo = $this->createForm(MetodoEfectivoType::class, null);
         $formTrx = $this->createForm(MetodoTransferenciaType::class, null);
 
-        if ($form->isSubmitted() && $form->isValid()) 
+        if ($form->isSubmitted())
         {
-            $repository = $entityManager->getRepository(CtaCte::class);
-            $ctacte = $repository->getCtaCteEntidad($recibo->getEnteComercial());
-            if (!$ctacte)
+            if ($form->isValid()) 
             {
-                $ctacte = new CtaCte();
-                $ctacte->setTitular($recibo->getEnteComercial())
-                        ->setTipo(1);
-                $entityManager->persist($ctacte);
+
+                if (!$recibo->getPrecioTotalConIva())
+                {   
+                    return new JsonResponse(['ok' => false, 'message' => 'El importe del recibo es requerido']);
+
+                }
+                
+                $formas = json_decode($request->request->get('formas'), true);
+
+                if (!count($formas))
+                {
+                    return new JsonResponse(['ok' => false, 'message' => 'No se ha cargado ninguna forma de pago']);
+                }
+
+                $total = 0;
+
+                foreach ($formas as $f)
+                {
+                    $total+= $f['monto'];
+                }
+
+                if ($total != $recibo->getPrecioTotalConIva())
+                {
+                    return new JsonResponse(['ok' => false, 'message' => 'El importe del recibo no coincide con los importes ingresados en la forma de pago']);
+                }
+
+                $metodo = null;
+                foreach ($formas as $f)
+                {
+                    if ($f['type']['code'] == 'e')
+                    {
+                        $caja = $entityManager->find(Caja::class, $f['caja']['code']);
+                        $metodo = new MetodoEfectivo();
+                        $metodo->setCaja($caja)
+                                ->setImporte($f['monto'])
+                                ->setRecibo($recibo);
+                        $entityManager->persist($metodo);
+                    }
+                    elseif ($f['type']['code'] == 't')
+                    {
+                        $cc = $entityManager->find(CtaCteBanco::class, $f['caja']['code']);
+                        $metodo = new MetodoTransferencia();
+                        $metodo->setCtacte($cc)
+                                ->setImporte($f['monto'])
+                                ->setRecibo($recibo);
+                        $entityManager->persist($metodo);
+                    }
+
+                    
+                }
+
+                $repository = $entityManager->getRepository(CtaCte::class);
+                $ctacte = $repository->getCtaCteEntidad($recibo->getEnteComercial());
+                if (!$ctacte)
+                {
+                    $ctacte = new CtaCte();
+                    $ctacte->setTitular($recibo->getEnteComercial())
+                            ->setTipo(1);
+                    $entityManager->persist($ctacte);
+                }
+
+                $movimiento = new MovimientoPago();
+                $movimiento->setRecibo($recibo)
+                           ->setImporte($recibo->getPrecioTotalConIva())
+                           ->setDetalle("Reccibo")
+                           ->setFechaAlta($recibo->getFecha())
+                           ->setCtaCte($ctacte);
+                $ctacte->updateImporte($recibo->getPrecioTotalConIva(), 'P');
+                $entityManager->persist($movimiento);       
+
+
+                $entityManager->persist($recibo);
+                $entityManager->flush();
+
+                return new JsonResponse(['ok' => true, 'message' => 'El importe del recibo es requerido']);
             }
+            else
+            {
+                foreach ($form->getErrors(true) as $error) 
+                {
+                    $message = $error->getCause()->getMessage();
 
-            $movimiento = new MovimientoPago();
-            $movimiento->setRecibo($recibo)
-                       ->setImporte($recibo->getPrecioTotalConIva())
-                       ->setDetalle("Recivo de Pago Nº " . $recibo->getNumero())
-                       ->setFechaAlta($recibo->getFecha())
-                       ->setCtaCte($ctacte);
-            $ctacte->updateImporte($recibo->getPrecioTotalConIva());
-            $entityManager->persist($movimiento);       
-
-
-            $entityManager->persist($recibo);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_finanzas_recibo_index', [], Response::HTTP_SEE_OTHER);
+                    return new JsonResponse(['ok' => false, 'message' => $message]);
+                }
+            }
         }
 
         return $this->render('finanzas/recibo/new.html.twig', [

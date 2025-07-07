@@ -26,32 +26,33 @@
 
     <hr>
 
-    {% if ctacte is defined %}
-        {% set saldo = 0 %}
-        <div class="p-4">
-            <table class="table table-striped table-hover table-bordered  py-4  data-table">
-                <thead>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Descripcion</th>
-                        <th>Credito</th>
-                        <th>Debito</th>
-                        <th>Saldo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for mov in ctacte.movimientos %}
-                    <tr>
-                        <td>{{ mov.fechaAlta|date('d/m/Y') }}</td>
-                        <td>{{ mov.detalle }}</td>
-                        <td>$ {{ mov.importeFactura|number_format(2, ',' ,'.') }}</td>
-                        <td>$ {{ mov.importePago|number_format(2, ',' ,'.') }}</td>
-                        <td>$ {{ saldo|number_format(2, ',' ,'.') }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    {% if ctacte is defined and ctacte %}
+                {% set saldo = 0 %}
+                <div class="p-4">
+                    <table class="table table-striped table-hover table-bordered  py-4  data-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Descripcion</th>
+                                <th>Credito</th>
+                                <th>Debito</th>
+                                <th>Saldo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for mov in ctacte.movimientos %}
+                            <tr>
+                                {% set saldo = saldo + mov.importeFactura - mov.importePago %}
+                                <td data-sort="{{ mov.fechaAlta|date('Y-m-d') }}">{{ mov.fechaAlta|date('d/m/Y') }}</td>
+                                <td>{{ mov.detalle }}</td>
+                                <td>$ {{ mov.importeFactura|number_format(2, ',' ,'.') }}</td>
+                                <td>$ {{ mov.importePago|number_format(2, ',' ,'.') }}</td>
+                                <td>$ {{ saldo|number_format(2, ',' ,'.') }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
 
     {% endif %}
     </div>

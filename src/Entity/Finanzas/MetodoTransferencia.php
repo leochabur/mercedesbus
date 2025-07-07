@@ -11,7 +11,7 @@ class MetodoTransferencia extends MetodoCancelacionRecibo
 {
 
     #[ORM\ManyToOne(targetEntity: CtaCteBanco::class)]
-    #[ORM\JoinColumn(name:'id_caja', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name:'id_ctacte_bco', referencedColumnName: 'id', nullable: true)]
     private CtaCteBanco|null $ctacte = null;
 
     public function getCtacte(): ?CtaCteBanco
