@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ComprobanteProveedor{% endblock %}
+
+{% block body %}
+    <h1>ComprobanteProveedor</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ comprobante_proveedor.id }}</td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{{ comprobante_proveedor.fecha ? comprobante_proveedor.fecha|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ comprobante_proveedor.numero }}</td>
+            </tr>
+            <tr>
+                <th>Visible</th>
+                <td>{{ comprobante_proveedor.visible ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>PrecioTotalConIva</th>
+                <td>{{ comprobante_proveedor.precioTotalConIva }}</td>
+            </tr>
+            <tr>
+                <th>AfectaCtaCte</th>
+                <td>{{ comprobante_proveedor.afectaCtaCte ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>PuntoVenta</th>
+                <td>{{ comprobante_proveedor.puntoVenta }}</td>
+            </tr>
+            <tr>
+                <th>PrecioTotalSinIva</th>
+                <td>{{ comprobante_proveedor.precioTotalSinIva }}</td>
+            </tr>
+            <tr>
+                <th>PrecioIva</th>
+                <td>{{ comprobante_proveedor.precioIva }}</td>
+            </tr>
+            <tr>
+                <th>DocumentoPdf</th>
+                <td>{{ comprobante_proveedor.documentoPdf }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_administracion_comprobante_proveedor_index') }}">back to list</a>
+
+    <a href="{{ path('app_administracion_comprobante_proveedor_edit', {'id': comprobante_proveedor.id}) }}">edit</a>
+
+    {{ include('administracion/comprobante_proveedor/_delete_form.html.twig') }}
+{% endblock %}

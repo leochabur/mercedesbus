@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Proveedor index{% endblock %}
+
+{% block body %}
+    <h1>Proveedor index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>RazonSocial</th>
+                <th>Cuit</th>
+                <th>Activo</th>
+                <th>Direccion</th>
+                <th>Telefono</th>
+                <th>Mail</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for proveedor in proveedors %}
+            <tr>
+                <td>{{ proveedor.id }}</td>
+                <td>{{ proveedor.razonSocial }}</td>
+                <td>{{ proveedor.cuit }}</td>
+                <td>{{ proveedor.activo ? 'Yes' : 'No' }}</td>
+                <td>{{ proveedor.direccion }}</td>
+                <td>{{ proveedor.telefono }}</td>
+                <td>{{ proveedor.mail }}</td>
+                <td>
+                    <a href="{{ path('app_administracion_proveedor_show', {'id': proveedor.id}) }}">show</a>
+                    <a href="{{ path('app_administracion_proveedor_edit', {'id': proveedor.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_administracion_proveedor_new') }}">Create new</a>
+{% endblock %}

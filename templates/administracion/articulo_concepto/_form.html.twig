@@ -1,4 +1,34 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, { 'attr' : { 'novalidate': 'novalidate' }}) }}
+
+    <div class="row pt-3">
+        <div class="col-lg-6">
+            {{ form_label(form.nombre) }}
+            {{ form_widget(form.nombre, { 'attr' : { 'class' : 'form-control'} }) }}
+            {{ form_errors(form.nombre) }}
+        </div>
+        <div class="col-lg-4">
+            {{ form_label(form.circuito) }}
+            {{ form_widget(form.circuito, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+            {{ form_errors(form.circuito) }}
+        </div>
+        <div class="col-lg-2 pt-4 pl-4">
+
+            <div class="form-check form-switch pl-4">
+                {{ form_label(form.activo) }}
+                {{ form_widget(form.activo, { 'attr' : {'class' : 'form-check-input pl-4'}}) }}
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row pt-4">
+
+        <div class="col-lg-6">
+            <a href="{{ path('app_administracion_articulo_concepto_index') }}" class="btn btn-warning"><< Volver </a>
+            <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+        </div>
+
+
+    </div>
+    
 {{ form_end(form) }}

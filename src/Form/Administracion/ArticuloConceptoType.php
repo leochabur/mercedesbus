@@ -6,6 +6,7 @@ use App\Entity\Administracion\ArticuloConcepto;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ArticuloConceptoType extends AbstractType
 {
@@ -14,6 +15,13 @@ class ArticuloConceptoType extends AbstractType
         $builder
             ->add('nombre')
             ->add('activo')
+            ->add('circuito', ChoiceType::class, [
+                                                'choices'  => [
+                                                                    'Ventas' => 1,
+                                                                    'Compras' => 2,
+                                                                    'Todos' => 3,
+                                                                ],
+                                            ])
         ;
     }
 

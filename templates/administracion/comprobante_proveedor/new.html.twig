@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ComprobanteProveedor{% endblock %}
+
+{% block body %}
+    <h1>Create new ComprobanteProveedor</h1>
+
+    {{ include('administracion/comprobante_proveedor/_form.html.twig') }}
+
+    <a href="{{ path('app_administracion_comprobante_proveedor_index') }}">back to list</a>
+{% endblock %}

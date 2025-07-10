@@ -18,15 +18,17 @@ class ItemComprobanteType extends AbstractType
             ->add('cantidad')
             ->add('precioUnitario')
             ->add('descripcion')
-            ->add('articulo', EntityType::class, [
-                'class' => ArticuloConcepto::class,
-            ])
+            ->add('articulo', 
+                    EntityType::class, [
+                                        'class' => ArticuloConcepto::class,
+                                        ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
+        $resolver->setRequired('code')
+                 ->setDefaults([
             'data_class' => ItemComprobante::class,
         ]);
     }

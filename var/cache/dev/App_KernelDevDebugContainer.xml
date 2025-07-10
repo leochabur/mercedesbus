@@ -322,11 +322,25 @@
         <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\Administracion\ComprobanteClienteController"/>
       </call>
     </service>
+    <service id="App\Controller\Administracion\ComprobanteProveedorController" class="App\Controller\Administracion\ComprobanteProveedorController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\Administracion\ComprobanteProveedorController"/>
+      </call>
+    </service>
     <service id="App\Controller\Administracion\ItemComprobanteController" class="App\Controller\Administracion\ItemComprobanteController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\Administracion\ItemComprobanteController"/>
+      </call>
+    </service>
+    <service id="App\Controller\Administracion\ProveedorController" class="App\Controller\Administracion\ProveedorController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\Administracion\ProveedorController"/>
       </call>
     </service>
     <service id="App\Controller\Finanzas\CtaCteController" class="App\Controller\Finanzas\CtaCteController" public="true" autowire="true" autoconfigure="true">
@@ -394,7 +408,13 @@
     <service id="App\Form\Administracion\ComprobanteClienteType" class="App\Form\Administracion\ComprobanteClienteType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Form\Administracion\ComprobanteProveedorType" class="App\Form\Administracion\ComprobanteProveedorType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\Administracion\ItemComprobanteType" class="App\Form\Administracion\ItemComprobanteType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\Administracion\ProveedorType" class="App\Form\Administracion\ProveedorType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\Finanzas\CtaCteType" class="App\Form\Finanzas\CtaCteType" autowire="true" autoconfigure="true">
@@ -427,6 +447,10 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\Administracion\ComprobanteClienteRepository" class="App\Repository\Administracion\ComprobanteClienteRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\Administracion\ComprobanteProveedorRepository" class="App\Repository\Administracion\ComprobanteProveedorRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -537,7 +561,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.nUzxPHN"/>
+      <argument type="service" id=".service_locator.a9ciMNh"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1157,7 +1181,9 @@
         <argument>App\Form\Administracion\ArticuloConceptoType</argument>
         <argument>App\Form\Administracion\ClienteType</argument>
         <argument>App\Form\Administracion\ComprobanteClienteType</argument>
+        <argument>App\Form\Administracion\ComprobanteProveedorType</argument>
         <argument>App\Form\Administracion\ItemComprobanteType</argument>
+        <argument>App\Form\Administracion\ProveedorType</argument>
         <argument>App\Form\Finanzas\CtaCteType</argument>
         <argument>App\Form\Finanzas\MetodoEfectivoType</argument>
         <argument>App\Form\Finanzas\MetodoTransferenciaType</argument>
@@ -2218,7 +2244,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.nUzxPHN"/>
+      <argument type="service" id=".service_locator.a9ciMNh"/>
     </service>
     <service id="routing.resolver" class="Symfony\Component\Config\Loader\LoaderResolver">
       <call method="addLoader">
@@ -2527,7 +2553,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.KqgIqpE"/>
+      <argument type="service" id=".service_locator.dMgL.IU"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -4303,7 +4329,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.ZZvGNNR"/>
+      <argument type="service" id=".service_locator..4PUcT1"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -5321,9 +5347,15 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Administracion\ComprobanteClienteController" class="App\Controller\Administracion\ComprobanteClienteController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Administracion\ComprobanteClienteController" class="App\Controller\Administracion\ComprobanteClienteController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Administracion\ComprobanteClienteController" class="App\Controller\Administracion\ComprobanteClienteController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Administracion\ComprobanteProveedorController" class="App\Controller\Administracion\ComprobanteProveedorController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Administracion\ComprobanteProveedorController" class="App\Controller\Administracion\ComprobanteProveedorController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\Administracion\ComprobanteProveedorController" class="App\Controller\Administracion\ComprobanteProveedorController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Administracion\ItemComprobanteController" class="App\Controller\Administracion\ItemComprobanteController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Administracion\ItemComprobanteController" class="App\Controller\Administracion\ItemComprobanteController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Administracion\ItemComprobanteController" class="App\Controller\Administracion\ItemComprobanteController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Administracion\ProveedorController" class="App\Controller\Administracion\ProveedorController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Administracion\ProveedorController" class="App\Controller\Administracion\ProveedorController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\Administracion\ProveedorController" class="App\Controller\Administracion\ProveedorController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Finanzas\CtaCteController" class="App\Controller\Finanzas\CtaCteController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Finanzas\CtaCteController" class="App\Controller\Finanzas\CtaCteController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Finanzas\CtaCteController" class="App\Controller\Finanzas\CtaCteController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -5354,8 +5386,12 @@
     <service id=".abstract.instanceof.App\Form\Administracion\ClienteType" class="App\Form\Administracion\ClienteType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Administracion\ComprobanteClienteType" class="App\Form\Administracion\ComprobanteClienteType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\Administracion\ComprobanteClienteType" class="App\Form\Administracion\ComprobanteClienteType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Administracion\ComprobanteProveedorType" class="App\Form\Administracion\ComprobanteProveedorType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\Administracion\ComprobanteProveedorType" class="App\Form\Administracion\ComprobanteProveedorType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Administracion\ItemComprobanteType" class="App\Form\Administracion\ItemComprobanteType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\Administracion\ItemComprobanteType" class="App\Form\Administracion\ItemComprobanteType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Administracion\ProveedorType" class="App\Form\Administracion\ProveedorType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\Administracion\ProveedorType" class="App\Form\Administracion\ProveedorType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Finanzas\CtaCteType" class="App\Form\Finanzas\CtaCteType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\Finanzas\CtaCteType" class="App\Form\Finanzas\CtaCteType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Finanzas\MetodoEfectivoType" class="App\Form\Finanzas\MetodoEfectivoType" autowire="true" abstract="true"/>
@@ -5376,6 +5412,8 @@
     <service id=".abstract.instanceof.App\Repository\Administracion\ClienteRepository" class="App\Repository\Administracion\ClienteRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Administracion\ComprobanteClienteRepository" class="App\Repository\Administracion\ComprobanteClienteRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\Administracion\ComprobanteClienteRepository" class="App\Repository\Administracion\ComprobanteClienteRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Administracion\ComprobanteProveedorRepository" class="App\Repository\Administracion\ComprobanteProveedorRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\Administracion\ComprobanteProveedorRepository" class="App\Repository\Administracion\ComprobanteProveedorRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Administracion\ComprobanteTransaccionRepository" class="App\Repository\Administracion\ComprobanteTransaccionRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\Administracion\ComprobanteTransaccionRepository" class="App\Repository\Administracion\ComprobanteTransaccionRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Administracion\ItemComprobanteRepository" class="App\Repository\Administracion\ItemComprobanteRepository" autowire="true" abstract="true"/>
@@ -5872,10 +5910,11 @@
         <argument key="articuloRepository" type="service_closure" id="App\Repository\Administracion\ArticuloConceptoRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.JjJSm8h" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.bF2HUwl" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="clienteRepository" type="service_closure" id="App\Repository\Administracion\ClienteRepository"/>
+        <argument key="proveedorRepository" type="service_closure" id="App\Repository\Administracion\ProveedorRepository"/>
       </argument>
     </service>
     <service id=".service_locator.k26XZeK" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -5910,6 +5949,25 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
+    <service id=".service_locator.Nz.4ZW3" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="comprobanteProveedorRepository" type="service_closure" id="App\Repository\Administracion\ComprobanteProveedorRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator..tb2j2c" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="comprobanteProveedor" type="service_closure" id=".errored..service_locator..tb2j2c.App\Entity\Administracion\ComprobanteProveedor"/>
+      </argument>
+    </service>
+    <service id=".service_locator.PNatnbX" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="comprobanteProveedor" type="service_closure" id=".errored..service_locator.PNatnbX.App\Entity\Administracion\ComprobanteProveedor"/>
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
     <service id=".service_locator.6Jnuh_F" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -5927,6 +5985,25 @@
       <argument type="collection">
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
         <argument key="itemComprobante" type="service_closure" id=".errored..service_locator.kWRcZDu.App\Entity\Administracion\ItemComprobante"/>
+      </argument>
+    </service>
+    <service id=".service_locator.0nQEs6z" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="proveedorRepository" type="service_closure" id="App\Repository\Administracion\ProveedorRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.YvQDUQ1" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="proveedor" type="service_closure" id=".errored..service_locator.YvQDUQ1.App\Entity\Administracion\Proveedor"/>
+      </argument>
+    </service>
+    <service id=".service_locator.OyvJ4y2" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="proveedor" type="service_closure" id=".errored..service_locator.OyvJ4y2.App\Entity\Administracion\Proveedor"/>
       </argument>
     </service>
     <service id=".service_locator.1I9OYjF" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -6056,7 +6133,7 @@
         <argument key="authenticationUtils" type="service_closure" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.nUzxPHN" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.a9ciMNh" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Administracion\ArticuloConceptoController::delete" type="service_closure" id=".service_locator.60g6H9Q"/>
@@ -6067,7 +6144,7 @@
         <argument key="App\Controller\Administracion\ArticuloConceptoController::show" type="service_closure" id=".service_locator.6Cq6LAs"/>
         <argument key="App\Controller\Administracion\ClienteController::delete" type="service_closure" id=".service_locator.2iuK4Fx"/>
         <argument key="App\Controller\Administracion\ClienteController::edit" type="service_closure" id=".service_locator.2iuK4Fx"/>
-        <argument key="App\Controller\Administracion\ClienteController::index" type="service_closure" id=".service_locator.JjJSm8h"/>
+        <argument key="App\Controller\Administracion\ClienteController::index" type="service_closure" id=".service_locator.bF2HUwl"/>
         <argument key="App\Controller\Administracion\ClienteController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Administracion\ClienteController::show" type="service_closure" id=".service_locator.k26XZeK"/>
         <argument key="App\Controller\Administracion\ComprobanteClienteController::delete" type="service_closure" id=".service_locator.sTWvy2P"/>
@@ -6075,11 +6152,21 @@
         <argument key="App\Controller\Administracion\ComprobanteClienteController::index" type="service_closure" id=".service_locator.sCzevdK"/>
         <argument key="App\Controller\Administracion\ComprobanteClienteController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Administracion\ComprobanteClienteController::show" type="service_closure" id=".service_locator.mdYySFQ"/>
+        <argument key="App\Controller\Administracion\ComprobanteProveedorController::delete" type="service_closure" id=".service_locator.PNatnbX"/>
+        <argument key="App\Controller\Administracion\ComprobanteProveedorController::edit" type="service_closure" id=".service_locator.PNatnbX"/>
+        <argument key="App\Controller\Administracion\ComprobanteProveedorController::index" type="service_closure" id=".service_locator.Nz.4ZW3"/>
+        <argument key="App\Controller\Administracion\ComprobanteProveedorController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Administracion\ComprobanteProveedorController::show" type="service_closure" id=".service_locator..tb2j2c"/>
         <argument key="App\Controller\Administracion\ItemComprobanteController::delete" type="service_closure" id=".service_locator.kWRcZDu"/>
         <argument key="App\Controller\Administracion\ItemComprobanteController::edit" type="service_closure" id=".service_locator.kWRcZDu"/>
         <argument key="App\Controller\Administracion\ItemComprobanteController::index" type="service_closure" id=".service_locator.6Jnuh_F"/>
         <argument key="App\Controller\Administracion\ItemComprobanteController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Administracion\ItemComprobanteController::show" type="service_closure" id=".service_locator.BOxvqZw"/>
+        <argument key="App\Controller\Administracion\ProveedorController::delete" type="service_closure" id=".service_locator.OyvJ4y2"/>
+        <argument key="App\Controller\Administracion\ProveedorController::edit" type="service_closure" id=".service_locator.OyvJ4y2"/>
+        <argument key="App\Controller\Administracion\ProveedorController::index" type="service_closure" id=".service_locator.0nQEs6z"/>
+        <argument key="App\Controller\Administracion\ProveedorController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Administracion\ProveedorController::show" type="service_closure" id=".service_locator.YvQDUQ1"/>
         <argument key="App\Controller\Finanzas\CtaCteController::delete" type="service_closure" id=".service_locator.E6u5EBv"/>
         <argument key="App\Controller\Finanzas\CtaCteController::edit" type="service_closure" id=".service_locator.E6u5EBv"/>
         <argument key="App\Controller\Finanzas\CtaCteController::index" type="service_closure" id=".service_locator.1I9OYjF"/>
@@ -6125,7 +6212,7 @@
         <argument key="App\Controller\Administracion\ArticuloConceptoController:show" type="service_closure" id=".service_locator.6Cq6LAs"/>
         <argument key="App\Controller\Administracion\ClienteController:delete" type="service_closure" id=".service_locator.2iuK4Fx"/>
         <argument key="App\Controller\Administracion\ClienteController:edit" type="service_closure" id=".service_locator.2iuK4Fx"/>
-        <argument key="App\Controller\Administracion\ClienteController:index" type="service_closure" id=".service_locator.JjJSm8h"/>
+        <argument key="App\Controller\Administracion\ClienteController:index" type="service_closure" id=".service_locator.bF2HUwl"/>
         <argument key="App\Controller\Administracion\ClienteController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Administracion\ClienteController:show" type="service_closure" id=".service_locator.k26XZeK"/>
         <argument key="App\Controller\Administracion\ComprobanteClienteController:delete" type="service_closure" id=".service_locator.sTWvy2P"/>
@@ -6133,11 +6220,21 @@
         <argument key="App\Controller\Administracion\ComprobanteClienteController:index" type="service_closure" id=".service_locator.sCzevdK"/>
         <argument key="App\Controller\Administracion\ComprobanteClienteController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Administracion\ComprobanteClienteController:show" type="service_closure" id=".service_locator.mdYySFQ"/>
+        <argument key="App\Controller\Administracion\ComprobanteProveedorController:delete" type="service_closure" id=".service_locator.PNatnbX"/>
+        <argument key="App\Controller\Administracion\ComprobanteProveedorController:edit" type="service_closure" id=".service_locator.PNatnbX"/>
+        <argument key="App\Controller\Administracion\ComprobanteProveedorController:index" type="service_closure" id=".service_locator.Nz.4ZW3"/>
+        <argument key="App\Controller\Administracion\ComprobanteProveedorController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Administracion\ComprobanteProveedorController:show" type="service_closure" id=".service_locator..tb2j2c"/>
         <argument key="App\Controller\Administracion\ItemComprobanteController:delete" type="service_closure" id=".service_locator.kWRcZDu"/>
         <argument key="App\Controller\Administracion\ItemComprobanteController:edit" type="service_closure" id=".service_locator.kWRcZDu"/>
         <argument key="App\Controller\Administracion\ItemComprobanteController:index" type="service_closure" id=".service_locator.6Jnuh_F"/>
         <argument key="App\Controller\Administracion\ItemComprobanteController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Administracion\ItemComprobanteController:show" type="service_closure" id=".service_locator.BOxvqZw"/>
+        <argument key="App\Controller\Administracion\ProveedorController:delete" type="service_closure" id=".service_locator.OyvJ4y2"/>
+        <argument key="App\Controller\Administracion\ProveedorController:edit" type="service_closure" id=".service_locator.OyvJ4y2"/>
+        <argument key="App\Controller\Administracion\ProveedorController:index" type="service_closure" id=".service_locator.0nQEs6z"/>
+        <argument key="App\Controller\Administracion\ProveedorController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Administracion\ProveedorController:show" type="service_closure" id=".service_locator.YvQDUQ1"/>
         <argument key="App\Controller\Finanzas\CtaCteController:delete" type="service_closure" id=".service_locator.E6u5EBv"/>
         <argument key="App\Controller\Finanzas\CtaCteController:edit" type="service_closure" id=".service_locator.E6u5EBv"/>
         <argument key="App\Controller\Finanzas\CtaCteController:index" type="service_closure" id=".service_locator.1I9OYjF"/>
@@ -6252,13 +6349,15 @@
       <argument type="service" id="argument_resolver.query_parameter_value_resolver"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.KqgIqpE" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.dMgL.IU" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\Administracion\ArticuloConceptoType" type="service_closure" id="App\Form\Administracion\ArticuloConceptoType"/>
         <argument key="App\Form\Administracion\ClienteType" type="service_closure" id="App\Form\Administracion\ClienteType"/>
         <argument key="App\Form\Administracion\ComprobanteClienteType" type="service_closure" id="App\Form\Administracion\ComprobanteClienteType"/>
+        <argument key="App\Form\Administracion\ComprobanteProveedorType" type="service_closure" id="App\Form\Administracion\ComprobanteProveedorType"/>
         <argument key="App\Form\Administracion\ItemComprobanteType" type="service_closure" id="App\Form\Administracion\ItemComprobanteType"/>
+        <argument key="App\Form\Administracion\ProveedorType" type="service_closure" id="App\Form\Administracion\ProveedorType"/>
         <argument key="App\Form\Finanzas\CtaCteType" type="service_closure" id="App\Form\Finanzas\CtaCteType"/>
         <argument key="App\Form\Finanzas\MetodoEfectivoType" type="service_closure" id="App\Form\Finanzas\MetodoEfectivoType"/>
         <argument key="App\Form\Finanzas\MetodoTransferenciaType" type="service_closure" id="App\Form\Finanzas\MetodoTransferenciaType"/>
@@ -6309,12 +6408,13 @@
         <argument key="doctrine.orm.listeners.pdo_session_handler_schema_listener" type="service_closure" id="doctrine.orm.listeners.pdo_session_handler_schema_listener"/>
       </argument>
     </service>
-    <service id=".service_locator.ZZvGNNR" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator..4PUcT1" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\Administracion\ArticuloConceptoRepository" type="service_closure" id="App\Repository\Administracion\ArticuloConceptoRepository"/>
         <argument key="App\Repository\Administracion\ClienteRepository" type="service_closure" id="App\Repository\Administracion\ClienteRepository"/>
         <argument key="App\Repository\Administracion\ComprobanteClienteRepository" type="service_closure" id="App\Repository\Administracion\ComprobanteClienteRepository"/>
+        <argument key="App\Repository\Administracion\ComprobanteProveedorRepository" type="service_closure" id="App\Repository\Administracion\ComprobanteProveedorRepository"/>
         <argument key="App\Repository\Administracion\ComprobanteTransaccionRepository" type="service_closure" id="App\Repository\Administracion\ComprobanteTransaccionRepository"/>
         <argument key="App\Repository\Administracion\ItemComprobanteRepository" type="service_closure" id="App\Repository\Administracion\ItemComprobanteRepository"/>
         <argument key="App\Repository\Administracion\LetraComprobanteRepository" type="service_closure" id="App\Repository\Administracion\LetraComprobanteRepository"/>
@@ -6497,9 +6597,21 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.O2p6Lk7" method="withContext"/>
     </service>
+    <service id=".service_locator.O2p6Lk7.App\Controller\Administracion\ComprobanteProveedorController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Administracion\ComprobanteProveedorController"/>
+      <argument>App\Controller\Administracion\ComprobanteProveedorController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.O2p6Lk7" method="withContext"/>
+    </service>
     <service id=".service_locator.O2p6Lk7.App\Controller\Administracion\ItemComprobanteController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\Administracion\ItemComprobanteController"/>
       <argument>App\Controller\Administracion\ItemComprobanteController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.O2p6Lk7" method="withContext"/>
+    </service>
+    <service id=".service_locator.O2p6Lk7.App\Controller\Administracion\ProveedorController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Administracion\ProveedorController"/>
+      <argument>App\Controller\Administracion\ProveedorController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.O2p6Lk7" method="withContext"/>
     </service>
@@ -6699,7 +6811,9 @@
           <argument>App\Controller\Administracion\ArticuloConceptoController</argument>
           <argument>App\Controller\Administracion\ClienteController</argument>
           <argument>App\Controller\Administracion\ComprobanteClienteController</argument>
+          <argument>App\Controller\Administracion\ComprobanteProveedorController</argument>
           <argument>App\Controller\Administracion\ItemComprobanteController</argument>
+          <argument>App\Controller\Administracion\ProveedorController</argument>
           <argument>App\Controller\Finanzas\CtaCteController</argument>
           <argument>App\Controller\Finanzas\MetodoEfectivoController</argument>
           <argument>App\Controller\Finanzas\MetodoTransferenciaController</argument>
@@ -6785,11 +6899,23 @@
     <service id=".errored..service_locator.sTWvy2P.App\Entity\Administracion\ComprobanteCliente" class="App\Entity\Administracion\ComprobanteCliente">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.sTWvy2P&quot;: it needs an instance of &quot;App\Entity\Administracion\ComprobanteCliente&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
+    <service id=".errored..service_locator..tb2j2c.App\Entity\Administracion\ComprobanteProveedor" class="App\Entity\Administracion\ComprobanteProveedor">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator..tb2j2c&quot;: it needs an instance of &quot;App\Entity\Administracion\ComprobanteProveedor&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.PNatnbX.App\Entity\Administracion\ComprobanteProveedor" class="App\Entity\Administracion\ComprobanteProveedor">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.PNatnbX&quot;: it needs an instance of &quot;App\Entity\Administracion\ComprobanteProveedor&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
     <service id=".errored..service_locator.BOxvqZw.App\Entity\Administracion\ItemComprobante" class="App\Entity\Administracion\ItemComprobante">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.BOxvqZw&quot;: it needs an instance of &quot;App\Entity\Administracion\ItemComprobante&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
     <service id=".errored..service_locator.kWRcZDu.App\Entity\Administracion\ItemComprobante" class="App\Entity\Administracion\ItemComprobante">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.kWRcZDu&quot;: it needs an instance of &quot;App\Entity\Administracion\ItemComprobante&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.YvQDUQ1.App\Entity\Administracion\Proveedor" class="App\Entity\Administracion\Proveedor">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.YvQDUQ1&quot;: it needs an instance of &quot;App\Entity\Administracion\Proveedor&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.OyvJ4y2.App\Entity\Administracion\Proveedor" class="App\Entity\Administracion\Proveedor">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.OyvJ4y2&quot;: it needs an instance of &quot;App\Entity\Administracion\Proveedor&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
     <service id=".errored..service_locator.PFvszmw.App\Entity\Finanzas\CtaCte" class="App\Entity\Finanzas\CtaCte">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.PFvszmw&quot;: it needs an instance of &quot;App\Entity\Finanzas\CtaCte&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
@@ -7814,20 +7940,21 @@
     <service id="Twig\Environment" alias="twig"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.w7.f4fT" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.nUzxPHN"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.a9ciMNh"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>
     <service id=".service_locator.bJ.4HC5" alias=".service_locator.w7.f4fT"/>
     <service id=".service_locator.oR6wE36" alias=".service_locator.kWRcZDu"/>
+    <service id=".service_locator.TXNohy5" alias=".service_locator.OyvJ4y2"/>
     <service id=".service_locator.36_TMiD" alias=".service_locator.pG8igIo"/>
     <service id=".service_locator._1Y7byx" alias=".service_locator.eSj3Cq0"/>
     <service id=".service_locator.Y6L0VdR" alias=".service_locator.9CEEjne"/>
     <service id=".service_locator.xLizhxf" alias=".service_locator.Sf2naB0"/>
     <service id=".service_locator.V6D1oJY" alias=".service_locator.e_4zbH4"/>
-    <service id=".service_locator.2wGLAr0" alias=".service_locator.nUzxPHN"/>
+    <service id=".service_locator.uijoHst" alias=".service_locator.a9ciMNh"/>
     <service id=".service_locator.BFrsqsn" alias=".service_locator.fGvEh3."/>
-    <service id=".service_locator.ewOsA1k" alias=".service_locator.KqgIqpE"/>
+    <service id=".service_locator.pUSV5NU" alias=".service_locator.dMgL.IU"/>
     <service id=".service_locator.LMuqDDe" alias=".service_locator.VHsrTPK"/>
     <service id=".service_locator.jUv.zyj" alias=".service_locator.O2p6Lk7"/>
     <service id="validator" alias="debug.validator"/>
@@ -7851,15 +7978,21 @@
     <service id=".service_locator.AunowUR" alias=".service_locator.6Cq6LAs"/>
     <service id=".service_locator.yCt9v98" alias=".service_locator.60g6H9Q"/>
     <service id=".service_locator.99qN3bz" alias=".service_locator.5BChroS"/>
-    <service id=".service_locator.WWJNbpX" alias=".service_locator.JjJSm8h"/>
+    <service id=".service_locator.hDsvsqN" alias=".service_locator.bF2HUwl"/>
     <service id=".service_locator.UJajpTm" alias=".service_locator.k26XZeK"/>
     <service id=".service_locator.HRKhrAP" alias=".service_locator.2iuK4Fx"/>
     <service id=".service_locator.EgFSCJx" alias=".service_locator.sCzevdK"/>
     <service id=".service_locator.x.zwcGe" alias=".service_locator.mdYySFQ"/>
     <service id=".service_locator.ZO.Jf36" alias=".service_locator.sTWvy2P"/>
+    <service id=".service_locator.UJQqgyN" alias=".service_locator.Nz.4ZW3"/>
+    <service id=".service_locator.m7n4GSv" alias=".service_locator..tb2j2c"/>
+    <service id=".service_locator.EbScaoV" alias=".service_locator.PNatnbX"/>
     <service id=".service_locator.n1MIRTX" alias=".service_locator.6Jnuh_F"/>
     <service id=".service_locator.MbRVCwm" alias=".service_locator.BOxvqZw"/>
     <service id=".service_locator.qfvNSgi" alias=".service_locator.kWRcZDu"/>
+    <service id=".service_locator.dd5RnoX" alias=".service_locator.0nQEs6z"/>
+    <service id=".service_locator.NXNQVFp" alias=".service_locator.YvQDUQ1"/>
+    <service id=".service_locator.lkf28O1" alias=".service_locator.OyvJ4y2"/>
     <service id=".service_locator.tdHYroK" alias=".service_locator.1I9OYjF"/>
     <service id=".service_locator.9IQ8_U6" alias=".service_locator.PFvszmw"/>
     <service id=".service_locator.CnRLbdT" alias=".service_locator.E6u5EBv"/>

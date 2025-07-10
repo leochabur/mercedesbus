@@ -84,10 +84,32 @@
               <a class="dropdown-item dropdown-toggle" href="#">Ventas</a>
               <ul class="dropdown-menu dropdown-submenu">
                 <li>
-                  <a class="dropdown-item" href="{{ path('app_administracion_cliente_index') }}">Clientes</a>
+                  <a class="dropdown-item" href="{{ path('app_administracion_cliente_index', { code : 'c'}) }}">Clientes</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="{{ path('app_administracion_comprobante_cliente_new') }}">Registrar Ventas</a>
+                  <a class="dropdown-item" href="{{ path('app_administracion_comprobante_cliente_new', { code : 'c' }) }}">Registrar Ventas</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{{ path('app_finanzas_recibo_new') }}">Registrar Cobranza</a>
+                </li>
+
+
+                <li>
+                  <a class="dropdown-item" href="{{ path('app_finanzas_cta_cte_index', { t : 'c' }) }}">Cuentas Corrientes</a>
+                  
+                </ul>
+            </li>
+
+            <li><hr class="dropdown-divider"></li>
+
+            <li>
+              <a class="dropdown-item dropdown-toggle" href="#">Compras</a>
+              <ul class="dropdown-menu dropdown-submenu">
+                <li>
+                  <a class="dropdown-item" href="{{ path('app_administracion_cliente_index', { code : 'p'}) }}">Proveedor</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="{{ path('app_administracion_comprobante_cliente_new', { code : 'p' }) }}">Registrar Compras</a>
                 </li>
                 <li>
                   <a class="dropdown-item" href="{{ path('app_finanzas_recibo_new') }}">Registrar Pagos</a>
@@ -98,14 +120,8 @@
                   <a class="dropdown-item" href="{{ path('app_finanzas_cta_cte_index', { t : 'c' }) }}">Cuentas Corrientes</a>
                   
                 </ul>
-                </li>
-            
+            </li>
 
-            <li><a class="dropdown-item" href="#">Software Development</a></li>
-            <li><a class="dropdown-item" href="#">Networking and Cloud</a></li>
-            <li><a class="dropdown-item" href="#">Cyber Defence and offensive</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">More</a></li>
           </ul>
         </li>
         </div>
@@ -114,10 +130,7 @@
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+
     </div>
   </div>
 </nav>

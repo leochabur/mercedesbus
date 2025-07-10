@@ -19,7 +19,10 @@ class ArticuloConcepto
     private ?string $nombre = null;
 
     #[ORM\Column]
-    private ?bool $activo = null;
+    private ?bool $activo = true;
+
+    #[ORM\Column]
+    private ?int $circuito = null; //1 Ventas - 2 Compras - 3 Todos
 
     public function __toString()
     {
@@ -51,6 +54,18 @@ class ArticuloConcepto
     public function setActivo(bool $activo): static
     {
         $this->activo = $activo;
+
+        return $this;
+    }
+
+    public function getCircuito(): ?int
+    {
+        return $this->circuito;
+    }
+
+    public function setCircuito(int $circuito): static
+    {
+        $this->circuito = $circuito;
 
         return $this;
     }

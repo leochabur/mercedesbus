@@ -1,13 +1,13 @@
 {% extends 'navBar.html.twig' %}
 
-{% block title %}Clientes{% endblock %}
+{% block title %}{{ label }}{% endblock %}
 
 {% block body %}
     {{ parent() }}
 
     <div class="container pt-4">
 
-        <div class="h5 pb-4">Clientes</div>
+        <div class="h5 pb-4">Administrar {{ label }}</div>
 
         <table class="table table-striped table-hover table-bordered  py-4  data-table">
         <thead>
@@ -33,7 +33,6 @@
                 <td>{{ cliente.telefono }}</td>
                 <td>{{ cliente.mail }}</td>
                 <td>
-                    <a href="{{ path('app_administracion_cliente_show', {'id': cliente.id}) }}">show</a>
                     <a href="{{ path('app_administracion_cliente_edit', {'id': cliente.id}) }}">edit</a>
                 </td>
             </tr>
@@ -45,5 +44,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_administracion_cliente_new') }}" class="btn btn-primary" >Nuevo Cliente</a>
+    <a href="{{ path('app_administracion_cliente_new', { code : code }) }}" class="btn btn-primary" >Nuevo {{ label }}</a>
 {% endblock %}

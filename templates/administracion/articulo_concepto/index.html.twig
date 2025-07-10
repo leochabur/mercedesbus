@@ -1,37 +1,43 @@
-{% extends 'base.html.twig' %}
+{% extends 'navBar.html.twig' %}
 
-{% block title %}ArticuloConcepto index{% endblock %}
+{% block title %}Cuentas Corrientes Clientes{% endblock %}
 
 {% block body %}
-    <h1>ArticuloConcepto index</h1>
+    {{ parent() }}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Activo</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for articulo_concepto in articulo_conceptos %}
-            <tr>
-                <td>{{ articulo_concepto.id }}</td>
-                <td>{{ articulo_concepto.nombre }}</td>
-                <td>{{ articulo_concepto.activo ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('app_administracion_articulo_concepto_show', {'id': articulo_concepto.id}) }}">show</a>
-                    <a href="{{ path('app_administracion_articulo_concepto_edit', {'id': articulo_concepto.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="container px-4">
 
-    <a href="{{ path('app_administracion_articulo_concepto_new') }}">Create new</a>
+        <div class="py-4 h5">
+                Administrar Articulos - Conceptos
+        </div>
+
+        <table class="table table-striped table-hover table-bordered  py-4  data-table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Activo</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for articulo_concepto in articulo_conceptos %}
+                <tr>
+                    <td>{{ articulo_concepto.id }}</td>
+                    <td>{{ articulo_concepto.nombre }}</td>
+                    <td>{{ articulo_concepto.activo ? 'Yes' : 'No' }}</td>
+                    <td>
+                        <a class="btn btn-sm btn-warning" href="{{ path('app_administracion_articulo_concepto_edit', {'id': articulo_concepto.id}) }}">Modificar</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a class="btn btn-success" href="{{ path('app_administracion_articulo_concepto_new') }}">Nuevo Articulo</a>
+    </div>
 {% endblock %}

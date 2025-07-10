@@ -2,8 +2,8 @@
 
 namespace App\Form\Administracion;
 
-use App\Entity\Administracion\Cliente;
-use App\Entity\Administracion\ComprobanteCliente;
+use App\Entity\Administracion\Proveedor;
+use App\Entity\Administracion\ComprobanteProveedor;
 use App\Entity\Administracion\TipoComprobante;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -14,7 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Administracion\LetraComprobante;
 
-class ComprobanteClienteType extends AbstractType
+class ComprobanteProveedorType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -32,11 +32,11 @@ class ComprobanteClienteType extends AbstractType
                 'class' => TipoComprobante::class,
             ])
             ->add('enteComercial', EntityType::class, [
-                'class' => Cliente::class,
+                'class' => Proveedor::class,
             ])
             ->add('items', CollectionType::class, [
                 'entry_type' => ItemComprobanteType::class,
-                'entry_options' => ['label' => false, 'code' => 'c'],
+                'entry_options' => ['label' => false, 'code' => 'p'],
                 'allow_add' => true,
                 'allow_delete' => true,
                 'prototype' => true,
@@ -52,7 +52,9 @@ class ComprobanteClienteType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-                                    'data_class' => ComprobanteCliente::class,
-                                ]);
+            'data_class' => ComprobanteProveedor::class,
+        ]);
     }
 }
+
+

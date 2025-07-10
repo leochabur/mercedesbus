@@ -4,6 +4,8 @@ namespace App\Controller\Administracion;
 
 use App\Entity\Administracion\ComprobanteCliente;
 use App\Form\Administracion\ComprobanteClienteType;
+use App\Entity\Administracion\ComprobanteProveedor;
+use App\Form\Administracion\ComprobanteProveedorType;
 use App\Repository\Administracion\ComprobanteClienteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,7 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Finanzas\CtaCte;
 use App\Entity\Finanzas\MovimientoVenta; 
 
-#[Route('/administracion/comprobante/cliente')]
+#[Route('/administracion/comprobante')]
 final class ComprobanteClienteController extends AbstractController
 {
     #[Route(name: 'app_administracion_comprobante_cliente_index', methods: ['GET'])]
@@ -24,11 +26,22 @@ final class ComprobanteClienteController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_administracion_comprobante_cliente_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/{code}/new', name: 'app_administracion_comprobante_cliente_new', methods: ['GET', 'POST'])]
+    public function new($code, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $comprobanteCliente = new ComprobanteCliente();
-        $form = $this->createForm(ComprobanteClienteType::class, $comprobanteCliente);
+
+        if ($code == 'c')
+        {
+            $comprobanteCliente = new ComprobanteCliente();
+            $form = $this->createForm(ComprobanteClienteType::class, $comprobanteCliente);
+        }
+        else
+        {
+            $comprobanteCliente = new ComprobanteProveedor();
+            $form = $this->createForm(ComprobanteProveedorType::class, $comprobanteCliente);            
+        }
+
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted())
@@ -64,6 +77,7 @@ final class ComprobanteClienteController extends AbstractController
         return $this->render('administracion/comprobante_cliente/new.html.twig', [
             'comprobante_cliente' => $comprobanteCliente,
             'form' => $form,
+            'label' => ($code == 'c' ? 'Venta' : 'Compra')
         ]);
     }
 

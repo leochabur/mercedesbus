@@ -18,6 +18,7 @@ use App\Entity\Finanzas\Recibo;
                         'CBTE' => ComprobanteTransaccion::class,
                         'CF' => ComprobanteFactura::class,
                         'CC' => ComprobanteCliente::class, 
+                        'CP' => ComprobanteProveedor::class,
                         'RE' => Recibo::class])]
 #[ORM\Table(name: 'admin_comprobantes_transaccion')]
 

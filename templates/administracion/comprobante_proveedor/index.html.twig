@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ComprobanteProveedor index{% endblock %}
+
+{% block body %}
+    <h1>ComprobanteProveedor index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fecha</th>
+                <th>Numero</th>
+                <th>Visible</th>
+                <th>PrecioTotalConIva</th>
+                <th>AfectaCtaCte</th>
+                <th>PuntoVenta</th>
+                <th>PrecioTotalSinIva</th>
+                <th>PrecioIva</th>
+                <th>DocumentoPdf</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comprobante_proveedor in comprobante_proveedors %}
+            <tr>
+                <td>{{ comprobante_proveedor.id }}</td>
+                <td>{{ comprobante_proveedor.fecha ? comprobante_proveedor.fecha|date('Y-m-d') : '' }}</td>
+                <td>{{ comprobante_proveedor.numero }}</td>
+                <td>{{ comprobante_proveedor.visible ? 'Yes' : 'No' }}</td>
+                <td>{{ comprobante_proveedor.precioTotalConIva }}</td>
+                <td>{{ comprobante_proveedor.afectaCtaCte ? 'Yes' : 'No' }}</td>
+                <td>{{ comprobante_proveedor.puntoVenta }}</td>
+                <td>{{ comprobante_proveedor.precioTotalSinIva }}</td>
+                <td>{{ comprobante_proveedor.precioIva }}</td>
+                <td>{{ comprobante_proveedor.documentoPdf }}</td>
+                <td>
+                    <a href="{{ path('app_administracion_comprobante_proveedor_show', {'id': comprobante_proveedor.id}) }}">show</a>
+                    <a href="{{ path('app_administracion_comprobante_proveedor_edit', {'id': comprobante_proveedor.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_administracion_comprobante_proveedor_new') }}">Create new</a>
+{% endblock %}

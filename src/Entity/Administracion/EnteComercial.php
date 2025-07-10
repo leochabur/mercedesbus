@@ -4,6 +4,8 @@ namespace App\Entity\Administracion;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
@@ -19,10 +21,11 @@ class EnteComercial
     private ?int $id = null;
 
     #[ORM\Column(length: 255, name: 'razon_social')]
+    #[Assert\NotBlank(message: 'Campo requerido')]
     private ?string $razonSocial = null;
 
-    #[ORM\Column]
-    private ?int $cuit = null;
+    #[ORM\Column(nullable: true, type: Types::BIGINT)]
+    private $cuit = null;
 
     #[ORM\Column]
     private ?bool $activo = true;
@@ -59,18 +62,6 @@ class EnteComercial
     public function setRazonSocial(string $razonSocial): static
     {
         $this->razonSocial = $razonSocial;
-
-        return $this;
-    }
-
-    public function getCuit(): ?int
-    {
-        return $this->cuit;
-    }
-
-    public function setCuit(int $cuit): static
-    {
-        $this->cuit = $cuit;
 
         return $this;
     }
@@ -131,6 +122,18 @@ class EnteComercial
     public function setRespIva(?RespIva $respIva): static
     {
         $this->respIva = $respIva;
+
+        return $this;
+    }
+
+    public function getCuit()
+    {
+        return $this->cuit;
+    }
+
+    public function setCuit($cuit): static
+    {
+        $this->cuit = $cuit;
 
         return $this;
     }

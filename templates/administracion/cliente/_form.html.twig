@@ -46,7 +46,7 @@
     <div class="row pt-4">
 
         <div class="col-lg-6">
-            <a href="{{ path('app_administracion_cliente_index') }}" class="btn btn-warning"><< Volver </a>
+            <a href="{{ path('app_administracion_cliente_index', { code : code }) }}" class="btn btn-warning"><< Volver </a>
             <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
         </div>
 
