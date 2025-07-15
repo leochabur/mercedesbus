@@ -27,10 +27,12 @@ class EntityManagerConfig
     private $classMetadataFactoryName;
     private $defaultRepositoryClass;
     private $autoMapping;
+    private $enableNativeLazyObjects;
     private $namingStrategy;
     private $quoteStrategy;
     private $typedFieldMapper;
     private $entityListenerResolver;
+    private $fetchModeSubselectBatchSize;
     private $repositoryFactory;
     private $schemaIgnoreClasses;
     private $reportFieldsWhereDeclared;
@@ -198,6 +200,20 @@ class EntityManagerConfig
     }
     
     /**
+     * Enables the new native implementation of PHP lazy objects instead of generated proxies
+     * @default false
+     * @param ParamConfigurator|bool $value
+     * @return $this
+     */
+    public function enableNativeLazyObjects($value): static
+    {
+        $this->_usedProperties['enableNativeLazyObjects'] = true;
+        $this->enableNativeLazyObjects = $value;
+    
+        return $this;
+    }
+    
+    /**
      * @default 'doctrine.orm.naming_strategy.default'
      * @param ParamConfigurator|mixed $value
      * @return $this
@@ -245,6 +261,19 @@ class EntityManagerConfig
     {
         $this->_usedProperties['entityListenerResolver'] = true;
         $this->entityListenerResolver = $value;
+    
+        return $this;
+    }
+    
+    /**
+     * @default null
+     * @param ParamConfigurator|mixed $value
+     * @return $this
+     */
+    public function fetchModeSubselectBatchSize($value): static
+    {
+        $this->_usedProperties['fetchModeSubselectBatchSize'] = true;
+        $this->fetchModeSubselectBatchSize = $value;
     
         return $this;
     }
@@ -450,6 +479,12 @@ class EntityManagerConfig
             unset($value['auto_mapping']);
         }
     
+        if (array_key_exists('enable_native_lazy_objects', $value)) {
+            $this->_usedProperties['enableNativeLazyObjects'] = true;
+            $this->enableNativeLazyObjects = $value['enable_native_lazy_objects'];
+            unset($value['enable_native_lazy_objects']);
+        }
+    
         if (array_key_exists('naming_strategy', $value)) {
             $this->_usedProperties['namingStrategy'] = true;
             $this->namingStrategy = $value['naming_strategy'];
@@ -472,6 +507,12 @@ class EntityManagerConfig
             $this->_usedProperties['entityListenerResolver'] = true;
             $this->entityListenerResolver = $value['entity_listener_resolver'];
             unset($value['entity_listener_resolver']);
+        }
+    
+        if (array_key_exists('fetch_mode_subselect_batch_size', $value)) {
+            $this->_usedProperties['fetchModeSubselectBatchSize'] = true;
+            $this->fetchModeSubselectBatchSize = $value['fetch_mode_subselect_batch_size'];
+            unset($value['fetch_mode_subselect_batch_size']);
         }
     
         if (array_key_exists('repository_factory', $value)) {
@@ -566,6 +607,9 @@ class EntityManagerConfig
         if (isset($this->_usedProperties['autoMapping'])) {
             $output['auto_mapping'] = $this->autoMapping;
         }
+        if (isset($this->_usedProperties['enableNativeLazyObjects'])) {
+            $output['enable_native_lazy_objects'] = $this->enableNativeLazyObjects;
+        }
         if (isset($this->_usedProperties['namingStrategy'])) {
             $output['naming_strategy'] = $this->namingStrategy;
         }
@@ -577,6 +621,9 @@ class EntityManagerConfig
         }
         if (isset($this->_usedProperties['entityListenerResolver'])) {
             $output['entity_listener_resolver'] = $this->entityListenerResolver;
+        }
+        if (isset($this->_usedProperties['fetchModeSubselectBatchSize'])) {
+            $output['fetch_mode_subselect_batch_size'] = $this->fetchModeSubselectBatchSize;
         }
         if (isset($this->_usedProperties['repositoryFactory'])) {
             $output['repository_factory'] = $this->repositoryFactory;

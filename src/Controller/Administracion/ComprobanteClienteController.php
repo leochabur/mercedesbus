@@ -29,16 +29,20 @@ final class ComprobanteClienteController extends AbstractController
     #[Route('/{code}/new', name: 'app_administracion_comprobante_cliente_new', methods: ['GET', 'POST'])]
     public function new($code, Request $request, EntityManagerInterface $entityManager): Response
     {
-
         if ($code == 'c')
         {
             $comprobanteCliente = new ComprobanteCliente();
-            $form = $this->createForm(ComprobanteClienteType::class, $comprobanteCliente);
+            $form = $this->createForm(ComprobanteClienteType::class, $comprobanteCliente, [
+                'ente' => 'Cliente'
+            ]);
         }
         else
         {
             $comprobanteCliente = new ComprobanteProveedor();
-            $form = $this->createForm(ComprobanteProveedorType::class, $comprobanteCliente);            
+            $form = $this->createForm(ComprobanteProveedorType::class, $comprobanteCliente, [
+                'ente' => 'Proveedor'
+            ]);            
+            $ente = 'Proveedor';
         }
 
 
@@ -52,11 +56,12 @@ final class ComprobanteClienteController extends AbstractController
                 if ($comprobanteCliente->isAfectaCtaCte())
                 {
                     $repository = $entityManager->getRepository(CtaCte::class);
-                    $ctacte = $repository->getCtaCteEntidad($comprobanteCliente->getEnteComercial());
+                    $ctacte = $repository->getCtaCteEntidad($comprobanteCliente->getEnteComercial(), $comprobanteCliente->getEmpresaGrupo());
                     if (!$ctacte)
                     {
                         $ctacte = new CtaCte();
                         $ctacte->setTitular($comprobanteCliente->getEnteComercial())
+                                ->setEmpresaGrupo($comprobanteCliente->getEmpresaGrupo())
                                 ->setTipo(1);
                         $entityManager->persist($ctacte);
                     }

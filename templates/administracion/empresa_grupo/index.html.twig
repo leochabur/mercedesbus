@@ -1,0 +1,49 @@
+{% extends 'navBar.html.twig' %}
+
+{% block title %}EmpresaGrupo index{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="container pt-4">
+
+        <div class="h5 pb-4">Administrar empresas del grupo</div>
+
+        <table class="table table-striped table-hover table-bordered  py-4  data-table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>RazonSocial</th>
+                    <th>Cuit</th>
+                    <th>Activo</th>
+                    <th>Direccion</th>
+                    <th>Telefono</th>
+                    <th>Mail</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for empresa_grupo in empresa_grupos %}
+                <tr>
+                    <td>{{ empresa_grupo.id }}</td>
+                    <td>{{ empresa_grupo.razonSocial }}</td>
+                    <td>{{ empresa_grupo.cuit }}</td>
+                    <td>{{ empresa_grupo.activo ? 'Yes' : 'No' }}</td>
+                    <td>{{ empresa_grupo.direccion }}</td>
+                    <td>{{ empresa_grupo.telefono }}</td>
+                    <td>{{ empresa_grupo.mail }}</td>
+                    <td>
+                        <a href="{{ path('app_administracion_empresa_grupo_show', {'id': empresa_grupo.id}) }}">show</a>
+                        <a href="{{ path('app_administracion_empresa_grupo_edit', {'id': empresa_grupo.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_administracion_empresa_grupo_new') }}">Create new</a>
+    </div>
+{% endblock %}

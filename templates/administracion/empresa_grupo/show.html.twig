@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EmpresaGrupo{% endblock %}
+
+{% block body %}
+    <h1>EmpresaGrupo</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ empresa_grupo.id }}</td>
+            </tr>
+            <tr>
+                <th>RazonSocial</th>
+                <td>{{ empresa_grupo.razonSocial }}</td>
+            </tr>
+            <tr>
+                <th>Cuit</th>
+                <td>{{ empresa_grupo.cuit }}</td>
+            </tr>
+            <tr>
+                <th>Activo</th>
+                <td>{{ empresa_grupo.activo ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ empresa_grupo.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Telefono</th>
+                <td>{{ empresa_grupo.telefono }}</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>{{ empresa_grupo.mail }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_administracion_empresa_grupo_index') }}">back to list</a>
+
+    <a href="{{ path('app_administracion_empresa_grupo_edit', {'id': empresa_grupo.id}) }}">edit</a>
+
+    {{ include('administracion/empresa_grupo/_delete_form.html.twig') }}
+{% endblock %}

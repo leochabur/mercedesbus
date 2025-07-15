@@ -19,7 +19,7 @@ class CtaCteRepository extends ServiceEntityRepository
        /**
         * @return CtaCte[] Returns an array of CtaCte objects
         */
-       public function movimientosCuentas(): array
+       public function movimientosCuentas($value): array
        {
            return $this->createQueryBuilder('c')
                        ->andWhere('c.exampleField = :val')
@@ -31,11 +31,13 @@ class CtaCteRepository extends ServiceEntityRepository
                    ;
        }
 
-       public function getCtaCteEntidad($titular): ?CtaCte
+       public function getCtaCteEntidad($titular, $grupo): ?CtaCte
        {
            return $this->createQueryBuilder('c')
                         ->andWhere('c.titular = :titular')
+                        ->andWhere('c.empresaGrupo = :grupo')
                         ->setParameter('titular', $titular)
+                        ->setParameter('grupo', $grupo)
                         ->getQuery()
                         ->getOneOrNullResult()
                     ;

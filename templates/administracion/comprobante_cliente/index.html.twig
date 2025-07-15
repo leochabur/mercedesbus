@@ -12,7 +12,6 @@
                 <th>Fecha</th>
                 <th>PuntoVenta</th>
                 <th>Numero</th>
-                <th>Letra</th>
                 <th>DocumentoPdf</th>
                 <th>actions</th>
             </tr>
@@ -24,7 +23,6 @@
                 <td>{{ comprobante_cliente.fecha ? comprobante_cliente.fecha|date('Y-m-d') : '' }}</td>
                 <td>{{ comprobante_cliente.puntoVenta }}</td>
                 <td>{{ comprobante_cliente.numero }}</td>
-                <td>{{ comprobante_cliente.letra }}</td>
                 <td>{{ comprobante_cliente.documentoPdf }}</td>
                 <td>
                     <a href="{{ path('app_administracion_comprobante_cliente_show', {'id': comprobante_cliente.id}) }}">show</a>
@@ -39,5 +37,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_administracion_comprobante_cliente_new') }}">Create new</a>
+    <a href="{{ path('app_administracion_comprobante_cliente_new', { code : 'c' }) }}">Create new</a>
 {% endblock %}

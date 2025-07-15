@@ -14,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Administracion\LetraComprobante;
 
+use App\Entity\Administracion\EmpresaGrupo;
+
 class ComprobanteClienteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -33,6 +35,19 @@ class ComprobanteClienteType extends AbstractType
             ])
             ->add('enteComercial', EntityType::class, [
                 'class' => Cliente::class,
+                'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->where('c.activo = :activo')
+                        ->setParameter('activo', true)
+                        ->orderBy('c.razonSocial', 'ASC');
+                },
+                'label' => $options['ente']
+            ])
+            ->add('empresaGrupo', EntityType::class, [
+                'class' => EmpresaGrupo::class,
+                'required' => false,
+                'placeholder' => 'Seleccione un grupo',
+                'label' => 'Grupo Empresarial',
             ])
             ->add('items', CollectionType::class, [
                 'entry_type' => ItemComprobanteType::class,
@@ -51,7 +66,8 @@ class ComprobanteClienteType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
+        $resolver->setRequired('ente')
+                    ->setDefaults([
                                     'data_class' => ComprobanteCliente::class,
                                 ]);
     }

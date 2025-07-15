@@ -1,0 +1,15 @@
+{% extends 'navBar.html.twig' %}
+
+{% block title %}Nuevo Cliente{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="container pt-4 pl-2">
+    <div class="h5">
+        Nueva empresa del grupo
+        <hr>
+    </div>
+
+    {{ include('administracion/empresa_grupo/_form.html.twig') }}
+    
+{% endblock %}

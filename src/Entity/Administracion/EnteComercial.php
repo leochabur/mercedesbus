@@ -10,7 +10,7 @@ use Doctrine\DBAL\Types\Types;
 #[ORM\Entity]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
-#[ORM\DiscriminatorMap(['ENTE' => EnteComercial::class, 'CLI' => Cliente::class, 'PRO' => Proveedor::class])]
+#[ORM\DiscriminatorMap(['ENTE' => EnteComercial::class, 'CLI' => Cliente::class, 'PRO' => Proveedor::class, 'EG' => EmpresaGrupo::class])]
 #[ORM\Table(name: 'admin_entes_comerciales')]
 
 class EnteComercial

@@ -28,6 +28,11 @@ final class CtaCteController extends AbstractController
                            [
                                 'class' => ($type == 'c' ? Cliente::class : Proveedor::class),
                             ])
+                    ->add('empresa_grupo', 
+                           EntityType::class, 
+                           [
+                                'class' => \App\Entity\Administracion\EmpresaGrupo::class,
+                            ])
                     ->getForm();
     }
 
@@ -40,7 +45,7 @@ final class CtaCteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) 
         {
             $data = $form->getData();
-            $ctacte = $ctaCteRepository->getCtaCteEntidad($data['ente']);
+            $ctacte = $ctaCteRepository->getCtaCteEntidad($data['ente'], $data['empresa_grupo']);
             return $this->render('finanzas/cta_cte/index.html.twig', 
                                 [
                                     'cta_ctes' => $ctaCteRepository->findAll(), 

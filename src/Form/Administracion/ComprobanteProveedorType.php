@@ -14,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Administracion\LetraComprobante;
 
+use App\Entity\Administracion\EmpresaGrupo;
+
 class ComprobanteProveedorType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -33,6 +35,13 @@ class ComprobanteProveedorType extends AbstractType
             ])
             ->add('enteComercial', EntityType::class, [
                 'class' => Proveedor::class,
+                'label' => $options['ente']
+            ])
+            ->add('empresaGrupo', EntityType::class, [
+                'class' => EmpresaGrupo::class,
+                'required' => false,
+                'placeholder' => 'Seleccione un grupo',
+                'label' => 'Grupo Empresarial',
             ])
             ->add('items', CollectionType::class, [
                 'entry_type' => ItemComprobanteType::class,
@@ -51,7 +60,8 @@ class ComprobanteProveedorType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
+        $resolver->setRequired('ente')
+        ->setDefaults([
             'data_class' => ComprobanteProveedor::class,
         ]);
     }

@@ -21,6 +21,9 @@ class ArticuloConcepto
     #[ORM\Column]
     private ?bool $activo = true;
 
+    #[ORM\Column(type: 'float', nullable: true)]
+    private ?float $alicuotaIva = null;
+
     #[ORM\Column]
     private ?int $circuito = null; //1 Ventas - 2 Compras - 3 Todos
 
@@ -66,6 +69,19 @@ class ArticuloConcepto
     public function setCircuito(int $circuito): static
     {
         $this->circuito = $circuito;
+
+        return $this;
+    }
+
+
+    public function getAlicuotaIva(): ?float
+    {
+        return $this->alicuotaIva;
+    }
+
+    public function setAlicuotaIva(float $alicuotaIva): static
+    {
+        $this->alicuotaIva = $alicuotaIva;
 
         return $this;
     }

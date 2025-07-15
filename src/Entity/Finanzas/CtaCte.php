@@ -7,12 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Administracion\EnteComercial;
+use App\Entity\Administracion\EmpresaGrupo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: CtaCteRepository::class)]
 #[ORM\Table(name: 'finanzas_ctas_ctes')]
 #[UniqueEntity(
-    fields: ['titular'],
+    fields: ['titular', 'empresaGrupo'],
     message: 'Existe una cuenta corriente para el titular ingresado.',
     errorPath: 'titular',
 )]
@@ -30,6 +31,10 @@ class CtaCte
     #[ORM\ManyToOne(targetEntity: EnteComercial::class)]
     #[ORM\JoinColumn(name: 'id_titular', referencedColumnName: 'id')]
     private EnteComercial|null $titular = null;
+
+    #[ORM\ManyToOne(targetEntity: EmpresaGrupo::class)]
+    #[ORM\JoinColumn(name: 'id_empresa_grupo', referencedColumnName: 'id')]
+    private ?EmpresaGrupo $empresaGrupo = null;
 
     #[ORM\OneToMany(targetEntity: MovimientoCuenta::class, mappedBy: 'ctaCte', cascade: ['persist', 'remove'])]
     #[ORM\OrderBy(["fechaAlta" => "ASC"])]
@@ -140,6 +145,17 @@ class CtaCte
     {
         $this->importePagos = $importePagos;
 
+        return $this;
+    }
+
+    public function getEmpresaGrupo(): ?EmpresaGrupo
+    {
+        return $this->empresaGrupo;
+    }
+
+    public function setEmpresaGrupo(?EmpresaGrupo $empresaGrupo): static
+    {
+        $this->empresaGrupo = $empresaGrupo;
         return $this;
     }
 }

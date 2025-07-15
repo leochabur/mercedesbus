@@ -51,6 +51,11 @@ abstract class ComprobanteTransaccion
     #[Assert\NotBlank(message: 'Campo requerido')]
     private EnteComercial|null $enteComercial = null;
 
+    #[ORM\ManyToOne(targetEntity: EmpresaGrupo::class)]
+    #[ORM\JoinColumn(name: 'id_empresa_grupo', referencedColumnName: 'id', nullable: false)]
+    #[Assert\NotBlank(message: 'El campo requerido')]
+    private ?EmpresaGrupo $empresaGrupo = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -125,6 +130,17 @@ abstract class ComprobanteTransaccion
     {
         $this->enteComercial = $enteComercial;
 
+        return $this;
+    }
+
+    public function getEmpresaGrupo(): ?EmpresaGrupo
+    {
+        return $this->empresaGrupo;
+    }
+
+    public function setEmpresaGrupo(?EmpresaGrupo $empresaGrupo): static
+    {
+        $this->empresaGrupo = $empresaGrupo;
         return $this;
     }
 

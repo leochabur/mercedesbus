@@ -38,6 +38,10 @@ class ReciboType extends AbstractType
                 // 'required' => true,
                 // 'empty_data' => '0.00',
             ])
+            ->add('empresaGrupo', EntityType::class, [
+                'class' => \App\Entity\Administracion\EmpresaGrupo::class,
+
+            ])
             ->add('forma', ChoiceType::class, [
                                                     'mapped' => false,
                                                     'placeholder' => 'Elejite una',
