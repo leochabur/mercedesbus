@@ -85,6 +85,7 @@ class ComposerStaticInitfe0503e2b8c5ad1a892a8a0571c8c1e7
             'Symfony\\Bundle\\DebugBundle\\' => 27,
             'Symfony\\Bridge\\Twig\\' => 20,
             'Symfony\\Bridge\\Doctrine\\' => 24,
+            'Stof\\DoctrineExtensionsBundle\\' => 30,
         ),
         'P' => 
         array (
@@ -94,6 +95,10 @@ class ComposerStaticInitfe0503e2b8c5ad1a892a8a0571c8c1e7
             'Psr\\Clock\\' => 10,
             'Psr\\Cache\\' => 10,
             'PhpParser\\' => 10,
+        ),
+        'G' => 
+        array (
+            'Gedmo\\' => 6,
         ),
         'D' => 
         array (
@@ -107,7 +112,6 @@ class ComposerStaticInitfe0503e2b8c5ad1a892a8a0571c8c1e7
             'Doctrine\\DBAL\\' => 14,
             'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Collections\\' => 28,
-            'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\' => 16,
             'Doctrine\\Bundle\\MigrationsBundle\\' => 33,
             'Doctrine\\Bundle\\DoctrineBundle\\' => 31,
@@ -115,6 +119,10 @@ class ComposerStaticInitfe0503e2b8c5ad1a892a8a0571c8c1e7
         'C' => 
         array (
             'Composer\\Semver\\' => 16,
+        ),
+        'B' => 
+        array (
+            'Behat\\Transliterator\\' => 21,
         ),
         'A' => 
         array (
@@ -348,6 +356,10 @@ class ComposerStaticInitfe0503e2b8c5ad1a892a8a0571c8c1e7
         array (
             0 => __DIR__ . '/..' . '/symfony/doctrine-bridge',
         ),
+        'Stof\\DoctrineExtensionsBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/stof/doctrine-extensions-bundle/src',
+        ),
         'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
@@ -371,6 +383,10 @@ class ComposerStaticInitfe0503e2b8c5ad1a892a8a0571c8c1e7
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
+        ),
+        'Gedmo\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/gedmo/doctrine-extensions/src',
         ),
         'Doctrine\\SqlFormatter\\' => 
         array (
@@ -412,10 +428,6 @@ class ComposerStaticInitfe0503e2b8c5ad1a892a8a0571c8c1e7
         array (
             0 => __DIR__ . '/..' . '/doctrine/collections/src',
         ),
-        'Doctrine\\Common\\Cache\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache',
-        ),
         'Doctrine\\Common\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/event-manager/src',
@@ -431,6 +443,10 @@ class ComposerStaticInitfe0503e2b8c5ad1a892a8a0571c8c1e7
         'Composer\\Semver\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/semver/src',
+        ),
+        'Behat\\Transliterator\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/behat/transliterator/src/Behat/Transliterator',
         ),
         'App\\Tests\\' => 
         array (

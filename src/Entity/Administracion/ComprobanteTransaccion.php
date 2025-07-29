@@ -56,6 +56,10 @@ abstract class ComprobanteTransaccion
     #[Assert\NotBlank(message: 'El campo requerido')]
     private ?EmpresaGrupo $empresaGrupo = null;
 
+    // Campo para el borrado suave
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    private ?\DateTimeImmutable $deletedAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -141,6 +145,18 @@ abstract class ComprobanteTransaccion
     public function setEmpresaGrupo(?EmpresaGrupo $empresaGrupo): static
     {
         $this->empresaGrupo = $empresaGrupo;
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeImmutable
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeImmutable $deletedAt): static
+    {
+        $this->deletedAt = $deletedAt;
+
         return $this;
     }
 

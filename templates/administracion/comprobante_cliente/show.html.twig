@@ -1,42 +1,37 @@
-{% extends 'base.html.twig' %}
+   <ul class="h5">
+        <li class="py-2">Fecha : {{ comprobante.fecha ? comprobante.fecha|date('d/m/Y') : '' }}</li>
+        <li class="py-2">Comprobante: {{ comprobante }}</li>
+        <li class="py-2">{{ label }}: {{ comprobante.enteComercial }}</li>
+    </ul>
+    
+    
+<hr>
 
-{% block title %}ComprobanteCliente{% endblock %}
+    <table class="table table-">
+        <thead>
+            <tr>
+                    <th>Articulo/Concepto</th>
+                    <th>Descripcion</th>
+                    <th>Cantidad</th>
+                    <th>Total S/ IVA </th>
+                    <th>IVA</th>
+                    <th>Total IVA Inc.</th>
+            </tr>
+            </thead>
+            <tbody>
+          
+                    {% for it in comprobante.items %}
+                        <tr>
+                            <td>{{ it.articulo }}</td>
+                            <td>{{ it.descripcion }}</td>
+                            <td>{{ it.cantidad  }}</td>
+                            <td>{{ it.precioTotalSinIva|number_format(2, ',' ,'.') }}</td>
+                            <td>{{ (it.precioTotal - it.precioTotalSinIva)|number_format(2, ',' ,'.') }}</td>
+                            <td>{{ (it.precioTotal)|number_format(2, ',' ,'.') }}</td>
+                        </tr>
+                    {% endfor %}
+  
+            </tbody>
 
-{% block body %}
-    <h1>ComprobanteCliente</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ comprobante_cliente.id }}</td>
-            </tr>
-            <tr>
-                <th>Fecha</th>
-                <td>{{ comprobante_cliente.fecha ? comprobante_cliente.fecha|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>PuntoVenta</th>
-                <td>{{ comprobante_cliente.puntoVenta }}</td>
-            </tr>
-            <tr>
-                <th>Numero</th>
-                <td>{{ comprobante_cliente.numero }}</td>
-            </tr>
-            <tr>
-                <th>Letra</th>
-                <td>{{ comprobante_cliente.letra }}</td>
-            </tr>
-            <tr>
-                <th>DocumentoPdf</th>
-                <td>{{ comprobante_cliente.documentoPdf }}</td>
-            </tr>
-        </tbody>
     </table>
 
-    <a href="{{ path('app_administracion_comprobante_cliente_index') }}">back to list</a>
-
-    <a href="{{ path('app_administracion_comprobante_cliente_edit', {'id': comprobante_cliente.id}) }}">edit</a>
-
-    {{ include('administracion/comprobante_cliente/_delete_form.html.twig') }}
-{% endblock %}

@@ -1,0 +1,36 @@
+{{ form_start(form, { 'attr' : { 'novalidate': 'novalidate' }}) }}
+
+    <div class="row pt-3">
+        <div class="col col-lg-3">
+            {{ form_label(form.numero) }}
+            {{ form_widget(form.numero, { 'attr' : { 'class' : 'form-control'} }) }}
+            {{ form_errors(form.numero) }}
+        </div>
+        <div class="col col-lg-3">
+            {{ form_label(form.moneda) }}
+            {{ form_widget(form.moneda, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+            {{ form_errors(form.moneda) }}
+        </div>
+        <div class="col col-lg-4">
+            {{ form_label(form.banco) }}
+            {{ form_widget(form.banco, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+            {{ form_errors(form.banco) }}
+        </div>
+        <div class="col col-lg-2 mt-4 pt-2">
+            <div class="form-check form-switch">
+                {{ form_widget(form.liberaValores, { 'attr' : { 'class' : 'form-check-input'}}) }}
+            
+            </div>
+        </div>
+    </div>
+    <div class="row pt-4">
+
+        <div class="col-lg-6">
+            <a href="{{ path('app_finanzas_cta_cte_banco_index') }}" class="btn btn-warning"><< Volver </a>
+            <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+        </div>
+
+
+    </div>
+    
+{{ form_end(form) }}

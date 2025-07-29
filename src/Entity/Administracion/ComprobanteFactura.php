@@ -2,14 +2,14 @@
 
 namespace App\Entity\Administracion;
 
-use App\Repository\Administracion\ComprobanteClienteRepository;
+use App\Repository\Administracion\ComprobanteFacturaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: ComprobanteFacturaRepository::class)]
 
 abstract class ComprobanteFactura extends ComprobanteTransaccion
 {
@@ -41,6 +41,38 @@ abstract class ComprobanteFactura extends ComprobanteTransaccion
     public function __toString()
     {
         return $this->tipoComprobante . '  ' .$this->identificacionComprobante . ' ' . $this->puntoVenta . ' ' . $this->getNumero();
+    }
+
+    #[Assert\IsTrue(message: 'Debe cargar al menos un item')]
+    public function isItemLoad(): bool
+    {
+        return $this->getItems()->count() > 0;
+    }
+
+
+    public function updateValues()
+    {
+        $total = $totalSinIva = 0;
+        foreach ($this->getItems() as $it) 
+        {
+            $art = $it->getArticulo();
+            $iva = $art->getAlicuotaIva();
+            $precioUnitario = $it->getPrecioUnitario();
+            $precioUnitarioSinIva = $precioUnitario / (1+($iva/100));
+            $precioTotal = $precioUnitario * $it->getCantidad();
+            $precioTotalSinIva = $precioUnitarioSinIva * $it->getCantidad();
+
+
+            $it->setPrecioUnitarioSinIva($precioUnitarioSinIva);
+            $it->setPrecioTotal($precioTotal);
+            $it->setPrecioTotalSinIva($precioTotalSinIva);
+
+            $total+= $precioTotal;
+            $totalSinIva+= $precioTotalSinIva;
+        }
+        $this->setPrecioTotalSinIva($totalSinIva);
+        $this->setPrecioIva(($total - $totalSinIva));
+        $this->setPrecioTotalConIva($total);
     }
 
     public function __construct()

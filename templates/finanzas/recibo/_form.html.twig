@@ -2,9 +2,17 @@
   <h5 class="card-header">Encabezado Recibo</h5>
   <div class="card-body">
         {{ form_start(form, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'p-0 form-recibo' }}) }}
+
             <div class="row pt-1">
                 <div class="col col-lg-6">
-                    {{ form_label(form.enteComercial) }}
+                    {{ form_label(form.empresaGrupo) }}
+                    {{ form_widget(form.empresaGrupo, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+                    {{ form_errors(form.empresaGrupo) }}
+                </div>
+            </div>  
+            <div class="row pt-1">
+                <div class="col col-lg-6">
+                    {{ form_label(form.enteComercial, type == 'c' ? 'Cliente' : 'Proveedor') }}
                     {{ form_widget(form.enteComercial, { 'attr' : { 'class' : 'form-control form-select'} }) }}
                     {{ form_errors(form.enteComercial) }}
                 </div>
@@ -65,6 +73,39 @@
                         </div>
                     </div>
                 {{ form_end(formTrx) }}
+
+                {{ form_start(formCheque, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'px-4 all-formas C reset-form' }}) }}
+                    <div class="row pt-3">
+                        <div class="col col-lg-2">
+                            {{ form_label(formCheque.numeroCheque) }}
+                            {{ form_widget(formCheque.numeroCheque, { 'attr' : { 'class' : 'form-control ch-num '} }) }}
+                            {{ form_errors(formCheque.numeroCheque) }}
+                        </div>
+                        <div class="col col-lg-2">
+                            {{ form_label(formCheque.banco) }}
+                            {{ form_widget(formCheque.banco, { 'attr' : { 'class' : 'form-control form-select ch-bco '} }) }}
+                            {{ form_errors(formCheque.banco) }}
+                        </div>
+                        <div class="col col-lg-2">
+                            {{ form_label(formCheque.fechaPago) }}
+                            {{ form_widget(formCheque.fechaPago, { 'attr' : { 'class' : 'form-control form-select ch-fecha '} }) }}
+                            {{ form_errors(formCheque.fechaPago) }}
+                        </div>
+                        <div class="col col-lg-2">
+                            {{ form_label(formCheque.librador) }}
+                            {{ form_widget(formCheque.librador, { 'attr' : { 'class' : 'form-control ch-lib '} }) }}
+                            {{ form_errors(formCheque.librador) }}
+                        </div>
+                        <div class="col col-lg-2">
+                            {{ form_label(formCheque.importe) }}
+                            {{ form_widget(formCheque.importe, { 'attr' : { 'class' : 'form-control ch-monto'} }) }}
+                            {{ form_errors(formCheque.importe) }}
+                        </div>
+                        <div class="col col-lg-2 pt-4 mt-2">
+                            <input type="button" value="Guardar" class="btn btn-warning ch-save" name="">
+                        </div>
+                    </div>
+                {{ form_end(formCheque) }}
                 <hr>
                 <br>
                 <div class="card-header text-muted">Formas pago asignadas</div>

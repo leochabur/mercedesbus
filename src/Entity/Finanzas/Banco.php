@@ -4,6 +4,7 @@ namespace App\Entity\Finanzas;
 
 use App\Repository\Finanzas\BancoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BancoRepository::class)]
 #[ORM\Table(name: 'finanzas_bancos')]
@@ -16,10 +17,11 @@ class Banco
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotNull(message: 'Campo requerido')]
     private ?string $nombre = null;
 
     #[ORM\Column]
-    private ?bool $activo = null;
+    private ?bool $activo = true;
 
     public function __toString()
     {

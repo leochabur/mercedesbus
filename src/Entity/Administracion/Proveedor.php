@@ -9,5 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 class Proveedor extends EnteComercial
 {
-
+    public function getCode()
+    {
+        return 'p';
+    }
 }

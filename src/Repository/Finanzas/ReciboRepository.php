@@ -16,6 +16,14 @@ class ReciboRepository extends ServiceEntityRepository
         parent::__construct($registry, Recibo::class);
     }
 
+    public function findLastId(): ?int
+    {
+        return $this->createQueryBuilder('e')
+            ->select('MAX(e.id) + 1')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     //    /**
     //     * @return Recibo[] Returns an array of Recibo objects
     //     */

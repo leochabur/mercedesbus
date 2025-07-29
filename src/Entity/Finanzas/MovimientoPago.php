@@ -10,6 +10,23 @@ use Doctrine\ORM\Mapping as ORM;
 class MovimientoPago extends MovimientoCuenta
 {
 
+
+    public function borrarComprobanteAsociado($user)
+    {
+        $this->recibo->setDeletedAt(new \DateTimeImmutable());
+    }
+    
+    public function getIdComprobante()
+    {
+        return $this->getRecibo()->getId();
+    }
+
+
+    public function getTipo()
+    {
+        return 'P';
+    }
+
     public function getImporteFactura()
     {
 

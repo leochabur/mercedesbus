@@ -11,23 +11,5 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ComprobanteCliente extends ComprobanteFactura
 {
 
-    #[Assert\IsTrue(message: 'Debe cargar al menos un item')]
-    public function isItemLoad(): bool
-    {
-        return $this->getItems()->count() > 0;
-    }
 
-
-    public function updateValues()
-    {
-        $total = 0;
-        foreach ($this->getItems() as $it) 
-        {
-            $it->setPrecioTotal($it->getCantidad() * $it->getPrecioUnitario());
-            $total+= $it->getPrecioTotal();
-        }
-        $this->setPrecioTotalSinIva($total);
-        $this->setPrecioIva(($total * 0.105));
-        $this->setPrecioTotalConIva(($total * 1.105));
-    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Finanzas;
 
+use App\Entity\Finanzas\Banco;
 use App\Entity\Finanzas\Recibo;
 use App\Form\Finanzas\ReciboType;
 use App\Repository\Finanzas\ReciboRepository;
@@ -19,6 +20,9 @@ use App\Entity\Finanzas\MetodoEfectivo;
 use App\Entity\Finanzas\MetodoTransferencia;
 use App\Entity\Finanzas\Caja;
 use App\Entity\Finanzas\CtaCteBanco;
+use App\Entity\Finanzas\MetodoCheque;
+use App\Form\Finanzas\MetodoChequeType;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/finanzas/recibo')]
 
@@ -32,16 +36,20 @@ final class ReciboController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_finanzas_recibo_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/{type}/new', name: 'app_finanzas_recibo_new', methods: ['GET', 'POST'])]
+    public function new($type, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator, ReciboRepository $reciboRepository): Response
     {
+        $lastId = $reciboRepository->findLastId();
         $recibo = new Recibo();
-        $recibo->setNumero(123);
-        $form = $this->createForm(ReciboType::class, $recibo);
+        $recibo->setNumero($lastId);
+        $form = $this->createForm(ReciboType::class, $recibo, ['tipo' => $type]);
         $form->handleRequest($request);
 
         $formEftvo = $this->createForm(MetodoEfectivoType::class, null);
         $formTrx = $this->createForm(MetodoTransferenciaType::class, null);
+
+        $formCheque = $this->createForm(MetodoChequeType::class, null);
+
 
         if ($form->isSubmitted())
         {
@@ -65,7 +73,14 @@ final class ReciboController extends AbstractController
 
                 foreach ($formas as $f)
                 {
-                    $total+= $f['monto'];
+                    if ($f['monto'] && is_numeric($f['monto']))
+                    {   
+                        $total+= $f['monto'];
+                    }
+                    else
+                    {
+                        return new JsonResponse(['ok' => false, 'message' => 'El importe de la forma de pago es requerido y debe ser numerico.']);
+                    }
                 }
 
                 if ($total != $recibo->getPrecioTotalConIva())
@@ -83,7 +98,15 @@ final class ReciboController extends AbstractController
                         $metodo->setCaja($caja)
                                 ->setImporte($f['monto'])
                                 ->setRecibo($recibo);
-                        $entityManager->persist($metodo);
+                        $errors = $validator->validate($metodo);
+                        if (count($errors) > 0) 
+                        {
+                            $errorString = "Forma Pago Efectivo:\n";
+                            foreach ($errors as $error) {
+                                $errorString .= '#  ' . $error->getMessage() . "\n";
+                            }
+                            return new JsonResponse(['ok' => false, 'message' => $errorString]);
+                        }
                     }
                     elseif ($f['type']['code'] == 't')
                     {
@@ -92,18 +115,54 @@ final class ReciboController extends AbstractController
                         $metodo->setCtacte($cc)
                                 ->setImporte($f['monto'])
                                 ->setRecibo($recibo);
-                        $entityManager->persist($metodo);
+                        $errors = $validator->validate($metodo);
+                        if (count($errors) > 0) 
+                        {
+                            $errorString = "Forma Pago Transferencia:\n";
+                            foreach ($errors as $error) {
+                                $errorString .= '#  ' . $error->getMessage() . "\n";
+                            }
+                            return new JsonResponse(['ok' => false, 'message' => $errorString]);
+                        }
                     }
+                    elseif ($f['type']['code'] == 'c')
+                    {
+                        
+                        $fecha = \DateTime::createFromFormat('Y-m-d', $f['fecha']);
+                        $fecha = $fecha ? $fecha : null;
+                        $bco = $entityManager->find(Banco::class, $f['caja']['code']);
+         
+                        $metodo = new MetodoCheque();
+                        $metodo->setBanco($bco)
+                                ->setImporte($f['monto'])
+                                ->setFechaPago($fecha)
+                                ->setNumeroCheque($f['numero'])
+                                ->setDelCliente(($f['librador'] ? false : true))
+                                ->setLibrador($f['librador'])                                
+                                ->setRecibo($recibo);
 
+                        $errors = $validator->validate($metodo);
+                        if (count($errors) > 0) 
+                        {
+                            $errorString = "Forma Pago Cheque:\n";
+                            foreach ($errors as $error) {
+                                $errorString .= '#  ' . $error->getMessage() . "\n";
+                            }
+                            return new JsonResponse(['ok' => false, 'message' => $errorString]);
+                        }
+                        
+                    }
+                    $entityManager->persist($metodo);
                     
                 }
 
                 $repository = $entityManager->getRepository(CtaCte::class);
-                $ctacte = $repository->getCtaCteEntidad($recibo->getEnteComercial());
+                $ctacte = $repository->getCtaCteEntidad($recibo->getEnteComercial(), $recibo->getEmpresaGrupo());
                 if (!$ctacte)
                 {
                     $ctacte = new CtaCte();
                     $ctacte->setTitular($recibo->getEnteComercial())
+                            ->setEmpresaGrupo($recibo->getEmpresaGrupo())
                             ->setTipo(1);
                     $entityManager->persist($ctacte);
                 }
@@ -111,7 +170,7 @@ final class ReciboController extends AbstractController
                 $movimiento = new MovimientoPago();
                 $movimiento->setRecibo($recibo)
                            ->setImporte($recibo->getPrecioTotalConIva())
-                           ->setDetalle("Reccibo")
+                           ->setDetalle("Recibo")
                            ->setFechaAlta($recibo->getFecha())
                            ->setCtaCte($ctacte);
                 $ctacte->updateImporte($recibo->getPrecioTotalConIva(), 'P');
@@ -121,6 +180,7 @@ final class ReciboController extends AbstractController
                 $entityManager->persist($recibo);
                 $entityManager->flush();
 
+                $this->addFlash('success', 'Recibo creado correctamente');
                 return new JsonResponse(['ok' => true, 'message' => 'El importe del recibo es requerido']);
             }
             else
@@ -138,7 +198,9 @@ final class ReciboController extends AbstractController
             'recibo' => $recibo,
             'form' => $form,
             'formEftvo' => $formEftvo,
-            'formTrx' => $formTrx
+            'formTrx' => $formTrx,
+            'formCheque' => $formCheque,
+            'type' => $type
         ]);
     }
 

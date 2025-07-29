@@ -61,7 +61,6 @@ class ReciboType extends AbstractType
     {
         $resolver->setDefaults([
                                     'data_class' => Recibo::class,
-                                    'tipo' => 'c'
                                 ])
                 ->setRequired('tipo');
     }

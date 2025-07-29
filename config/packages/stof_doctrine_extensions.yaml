@@ -1,0 +1,5 @@
+# config/packages/stof_doctrine_extensions.yaml
+stof_doctrine_extensions:
+    orm:
+        default:
+            softdeleteable: true # Habilita la extensión softdeleteable

@@ -16,6 +16,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Nombre</th>
+                    <th>Circuito</th>
                     <th>Activo</th>
                     <th>actions</th>
                 </tr>
@@ -25,7 +26,8 @@
                 <tr>
                     <td>{{ articulo_concepto.id }}</td>
                     <td>{{ articulo_concepto.nombre }}</td>
-                    <td>{{ articulo_concepto.activo ? 'Yes' : 'No' }}</td>
+                    <td>{{ articulo_concepto.circuitoText }}</td>
+                    <td>{{ articulo_concepto.activo ? 'Si' : 'No' }}</td>
                     <td>
                         <a class="btn btn-sm btn-warning" href="{{ path('app_administracion_articulo_concepto_edit', {'id': articulo_concepto.id}) }}">Modificar</a>
                     </td>

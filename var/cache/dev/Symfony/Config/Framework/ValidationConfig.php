@@ -106,7 +106,7 @@ class ValidationConfig
     
     /**
      * @default null
-     * @param ParamConfigurator|'html5'|'loose'|'strict' $value
+     * @param ParamConfigurator|'html5-allow-no-tld'|'html5'|'strict'|'loose' $value
      * @return $this
      */
     public function emailValidationMode($value): static

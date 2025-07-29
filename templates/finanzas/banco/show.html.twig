@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Banco{% endblock %}
+
+{% block body %}
+    <h1>Banco</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ banco.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ banco.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Activo</th>
+                <td>{{ banco.activo ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_finanzas_banco_index') }}">back to list</a>
+
+    <a href="{{ path('app_finanzas_banco_edit', {'id': banco.id}) }}">edit</a>
+
+    {{ include('finanzas/banco/_delete_form.html.twig') }}
+{% endblock %}

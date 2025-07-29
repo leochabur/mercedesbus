@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MetodoCheque index{% endblock %}
+
+{% block body %}
+    <h1>MetodoCheque index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Importe</th>
+                <th>NumeroCheque</th>
+                <th>FechaPago</th>
+                <th>DelCliente</th>
+                <th>Librador</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for metodo_cheque in metodo_cheques %}
+            <tr>
+                <td>{{ metodo_cheque.id }}</td>
+                <td>{{ metodo_cheque.importe }}</td>
+                <td>{{ metodo_cheque.numeroCheque }}</td>
+                <td>{{ metodo_cheque.fechaPago ? metodo_cheque.fechaPago|date('Y-m-d') : '' }}</td>
+                <td>{{ metodo_cheque.delCliente ? 'Yes' : 'No' }}</td>
+                <td>{{ metodo_cheque.librador }}</td>
+                <td>
+                    <a href="{{ path('app_finanzas_metodo_cheque_show', {'id': metodo_cheque.id}) }}">show</a>
+                    <a href="{{ path('app_finanzas_metodo_cheque_edit', {'id': metodo_cheque.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_finanzas_metodo_cheque_new') }}">Create new</a>
+{% endblock %}

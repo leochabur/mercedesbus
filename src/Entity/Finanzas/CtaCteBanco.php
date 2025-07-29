@@ -25,6 +25,11 @@ class CtaCteBanco
     #[ORM\JoinColumn(name: 'id_banco', referencedColumnName: 'id')]
     private Banco|null $banco = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $moneda = null;
+
+
+
     public function __toString()
     {
         return $this->numero . "  -  (" . $this->banco . ")";
@@ -67,6 +72,18 @@ class CtaCteBanco
     public function setBanco(?Banco $banco): static
     {
         $this->banco = $banco;
+
+        return $this;
+    }
+
+    public function getMoneda(): ?string
+    {
+        return $this->moneda;
+    }
+
+    public function setMoneda(?string $moneda): static
+    {
+        $this->moneda = $moneda;
 
         return $this;
     }

@@ -2,6 +2,8 @@
 
 namespace App\Repository\Finanzas;
 
+use App\Entity\Administracion\Cliente;
+use App\Entity\Administracion\Proveedor;
 use App\Entity\Finanzas\CtaCte;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -42,4 +44,27 @@ class CtaCteRepository extends ServiceEntityRepository
                         ->getOneOrNullResult()
                     ;
        }
+
+        public function resumenCtaCte($grupo, $t): ?array
+       {
+            return $this->createQueryBuilder('cc')
+                        ->select(
+                            'cc.id as id',
+                            't.razonSocial AS titular',
+                            'SUM(CASE WHEN c INSTANCE OF App\Entity\Finanzas\MovimientoVenta THEN c.importe ELSE 0 END) AS totalFacturas',
+                            'SUM(CASE WHEN c INSTANCE OF App\Entity\Finanzas\MovimientoPago THEN c.importe ELSE 0 END) AS totalRecibos'
+                        )
+                        ->join('cc.titular', 't')                        
+                        ->join('cc.movimientos', 'c') 
+                        ->where('c.deletedAt IS NULL')
+                        ->andWhere('cc.empresaGrupo = :grupo')
+                        ->andWhere('t INSTANCE OF ' . ($t == 'c' ?  Cliente::class : Proveedor::class))
+                        ->setParameter('grupo', $grupo)
+                        ->groupBy('cc.id')
+                        ->orderBy('t.razonSocial', 'ASC')
+                        ->getQuery()
+                        ->getArrayResult();
+       }
+
+
 }

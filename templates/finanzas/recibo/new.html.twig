@@ -6,11 +6,36 @@
     {{ parent() }}
     <div class="container pt-4">
 
-        <div class="h5 pb-4">Nuevo Recibo {{ label|default('Pago') }}</div>
+        <div class="h5 pb-4">Nuevo Recibo {{ type == 'c' ? 'Cobranza Cliente' : 'Pago a Proveedor' }}</div>
+
+        <div id="flash-messages-container py-2">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success flash-message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger flash-message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {% for message in app.flashes('warning') %}
+                <div class="alert alert-warning flash-message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            {% for message in app.flashes('info') %}
+                <div class="alert alert-info flash-message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
 
         {{ include('finanzas/recibo/_form.html.twig') }}
 
-        <a href="{{ path('app_finanzas_recibo_index') }}">back to list</a>
     </div>
 {% endblock %}
 
@@ -37,9 +62,9 @@
                     formas.forEach(function (el, indice, array) {
                                                                       tfp = tfp + parseFloat(el.monto);
                                                                       let btn = '<input onclick="removeItem(' + indice +');" type="button" class="btn btn-sm btn-danger btn-remove" value="Quitar"/>';
-                                                                      tableBody.append("<tr><td>" + el.type.name + "</td><td>"+el.caja.name+"</td><td>" + el.monto + "</td><td>" + btn +"</td>/tr>" );
+                                                                      tableBody.append("<tr><td>" + el.type.name + "</td><td>"+el.caja.name+"</td><td class='text-right'>$ " + parseFloat(el.monto).toFixed(2) + "</td><td>" + btn +"</td>/tr>" );
                                                                     });
-                    tableBody.append("<tr><td>Total</td><td></td><td>" + tfp.toFixed(2) + "</td><td></td>/tr>" );
+                    tableBody.append("<tr class='text-muted'><td class='text-muted'>Total</td><td></td><td class='text-right text-muted'>$ " + tfp.toFixed(2) + "</td><td></td>/tr>" );
                         $('.forma-select').val('');
                         $('.all-formas').hide();
                     
@@ -48,23 +73,28 @@
                 $(document).ready(function(){
 
                                                 $('.save-recibo').click(function(event){
-                                                                                        event.preventDefault();                                                              
+                                                                                        event.preventDefault();  
+                                                                                        let btn = $(this);
+                                                                                        btn.hide();                                                         
+                                                                                           
                                                                                         var data = $('.form-recibo').serializeArray().reduce(function(obj, item) {
                                                                                                                             obj[item.name] = item.value;
                                                                                                                             return obj;
                                                                                                                         }, {});
                                                                                         data.formas = JSON.stringify(formas);
                                                                                         console.log(data);
-                                                                                        $.post("{{ path('app_finanzas_recibo_new') }}",
+                                                                                        $.post("{{ path('app_finanzas_recibo_new', { type : type }) }}",
                                                                                                 data,
                                                                                                 function(result){
                                                                                                                    if (result.ok)
                                                                                                                    {
-
+                                                                                                                        window.location.href = "{{ path('app_finanzas_recibo_new', { type : type }) }}";
                                                                                                                    }
                                                                                                                    else
                                                                                                                    {
-                                                                                                                        alert(result.message);
+
+                                                                                                                        bootbox.alert(result.message);
+                                                                                                                        btn.show();                                                                                                                        
                                                                                                                    }
                                                                                                 });
 
@@ -82,7 +112,7 @@
                                                                                                   };
                                                                                         formas.push(obj);
 
-                                                                                        $('.reset-form')[0].reset();                                                                                        
+                                                                                        $('.E')[0].reset();                                                                                        
                                                                                         loadTable();
                                                 });
 
@@ -96,10 +126,30 @@
                                                                                                   };
                                                                                         formas.push(obj);
 
-                                                                                        $('.reset-form')[0].reset();
+                                                                                        $('.T')[0].reset();
                                                                                 
                                                                                         loadTable();
                                                 });
+
+                                                $('.ch-save').click(function(event){
+                                                                                        event.preventDefault();
+                                                                                        let bco = $('.ch-bco option:selected');
+                                                                                        let obj = {
+                                                                                                        type: { code: 'c', name: 'Cheque' },
+                                                                                                        caja: { code: bco.val(), name: 'Nº: '+ $('.ch-num').val() + ' - ' + bco.text()},
+                                                                                                        monto: $('.ch-monto').val(),
+                                                                                                        fecha: $('.ch-fecha').val(),
+                                                                                                        numero: $('.ch-num').val(),
+                                                                                                        librador: $('.ch-lib').val()
+                                                                                                  };
+                                                                                        formas.push(obj);
+
+                                                                                        $('.C')[0].reset();
+                                                                                
+                                                                                        loadTable();
+                                                }); 
+
+                                        
 
                                                 $('.forma-select').change(function(){
                                                                                         $('.all-formas').hide();

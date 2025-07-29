@@ -9,5 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 class EmpresaGrupo  extends EnteComercial
 {
-
+    public function getCode()
+    {
+        return 'e';
+    }
 }

@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType; 
 
 class ArticuloConceptoType extends AbstractType
 {
@@ -15,6 +16,21 @@ class ArticuloConceptoType extends AbstractType
         $builder
             ->add('nombre')
             ->add('activo')
+            ->add('alicuotaIva', NumberType::class, [
+                'label' => '% IVA',
+                'scale' => 2, // Número de decimales permitidos
+                'html5' => true, // Para usar <input type="number">
+                'attr' => [
+                    'step' => '0.01', // Paso para el input type="number" (ej. de 0.01 en 0.01)
+                    'min' => '0',      // Valor mínimo (opcional)
+                    // 'max' => '1000' // Valor máximo (opcional)
+                ],
+                // Opciones de redondeo si la precisión no es exacta
+                'rounding_mode' => \NumberFormatter::ROUND_HALFUP, 
+                // Otras opciones comunes:
+                // 'required' => true,
+                // 'empty_data' => '0.00',
+            ])
             ->add('circuito', ChoiceType::class, [
                                                 'choices'  => [
                                                                     'Ventas' => 1,

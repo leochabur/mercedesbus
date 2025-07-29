@@ -3,6 +3,7 @@
 namespace App\Controller\Administracion;
 
 use App\Entity\Administracion\Cliente;
+use App\Entity\Administracion\EnteComercial;
 use App\Form\Administracion\ClienteType;
 use App\Entity\Administracion\Proveedor;
 use App\Form\Administracion\ProveedorType;
@@ -76,20 +77,32 @@ final class ClienteController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_administracion_cliente_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Cliente $cliente, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, EnteComercial $ente, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ClienteType::class, $cliente);
+        $code = $ente->getCode();
+        if ($code == 'c')
+        {
+            $form = $this->createForm(ClienteType::class, $ente);
+        }
+        else
+        {
+            $form = $this->createForm(ProveedorType::class, $ente);
+        }
+
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
             $entityManager->flush();
 
             return $this->redirectToRoute('app_administracion_cliente_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('administracion/cliente/edit.html.twig', [
-            'cliente' => $cliente,
+            'cliente' => $ente,
             'form' => $form,
+            'code' => $code,
+            'label' => ($code == 'c' ? 'Clientes' : 'Proveedores')
         ]);
     }
 

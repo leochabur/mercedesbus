@@ -5,16 +5,16 @@ namespace App\Entity\Finanzas;
 use App\Repository\Finanzas\MovimientoCuentaRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: MovimientoCuentaRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name:'discr', type:'string')]
 #[ORM\DiscriminatorMap(['MCTA' => MovimientoCuenta::class, 'MVTA' => MovimientoVenta::class, 'MPAY' => MovimientoPago::class ])]
 #[ORM\Table(name:'finanzas_mov_ctas_ctes')]
+#[Gedmo\SoftDeleteable(fieldName: "deletedAt", timeAware: false, hardDelete: false)] 
 
-
-class MovimientoCuenta
+abstract class MovimientoCuenta
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -30,12 +30,23 @@ class MovimientoCuenta
     #[ORM\Column(length: 255)]
     private ?string $detalle = null;
 
+    // Campo para el borrado suave
+    #[ORM\Column(type: 'datetime_immutable', nullable: true)]
+    #[Gedmo\Timestampable(on: 'change', field: 'deletedAt')] // Opcional: Para actualizar deletedAt si se cambia
+    private ?\DateTimeImmutable $deletedAt = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $fechaAlta = null;
 
     #[ORM\ManyToOne(targetEntity: CtaCte::class, inversedBy: 'movimientos')]
     #[ORM\JoinColumn(name:'id_ctacte', referencedColumnName: 'id')]
     private CtaCte|null $ctaCte = null;
+
+    public abstract function borrarComprobanteAsociado($user);
+
+    abstract public function getTipo();
+
+    abstract public function getIdComprobante(); 
 
     public function getImporteFactura()
     {}
@@ -105,6 +116,18 @@ class MovimientoCuenta
     public function setCtaCte(?CtaCte $ctaCte): static
     {
         $this->ctaCte = $ctaCte;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeImmutable
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeImmutable $deletedAt): static
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }

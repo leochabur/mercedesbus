@@ -10,5 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Cliente extends EnteComercial
 {
 
+    public function getCode()
+    {
+        return 'c';
+    }
 
 }

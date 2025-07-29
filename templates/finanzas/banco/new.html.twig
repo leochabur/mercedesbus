@@ -1,0 +1,17 @@
+{% extends 'navBar.html.twig' %}
+
+{% block title %}Banco{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="container pt-4 pl-2">
+    <div class="h5">
+        Nuevo Banco
+        <hr>
+    </div>
+
+
+    {{ include('finanzas/banco/_form.html.twig') }}
+
+
+{% endblock %}

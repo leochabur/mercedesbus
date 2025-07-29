@@ -43,10 +43,14 @@ class EnteComercial
     #[ORM\JoinColumn(name: 'id_resp_iva', referencedColumnName: 'id')]
     private RespIva|null $respIva = null;
 
+    public function getCode()
+    {
+        
+    }
 
     public function __toString()
     {
-        return $this->razonSocial;
+        return strtoupper($this->razonSocial);
     }
 
     public function getId(): ?int

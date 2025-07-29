@@ -14,6 +14,9 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Administracion\Cliente;
 use App\Entity\Administracion\Proveedor;
+use App\Entity\Finanzas\MovimientoCuenta;
+use App\Repository\Finanzas\MovimientoCuentaRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/finanzas/ctacte')]
 
@@ -27,6 +30,14 @@ final class CtaCteController extends AbstractController
                            EntityType::class, 
                            [
                                 'class' => ($type == 'c' ? Cliente::class : Proveedor::class),
+                                'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
+                                    return $er->createQueryBuilder('c')
+                                        ->where('c.activo = :activo')
+                                        ->setParameter('activo', true)
+                                        ->orderBy('c.razonSocial', 'ASC');
+                                },
+                                'label' => 'Seleccione un ente',
+                                'placeholder' => 'Todas las opciones'
                             ])
                     ->add('empresa_grupo', 
                            EntityType::class, 
@@ -36,8 +47,18 @@ final class CtaCteController extends AbstractController
                     ->getForm();
     }
 
+    #[Route('/delete/{id}/movimiento', name: 'app_finanzas_cta_cte_delete_movimiento', methods: ['DELETE'])]
+    public function eliminarMovimientoCuenta(MovimientoCuenta $movimiento, EntityManagerInterface $entityManager): Response
+    {
+        $movimiento->borrarComprobanteAsociado($this->getUser());
+        $entityManager->remove($movimiento);
+        $entityManager->flush();
+
+        return new JsonResponse(['ok' => true]);
+    }
+
     #[Route('/{t}', name:'app_finanzas_cta_cte_index', methods: ['GET', 'POST'])]
-    public function index($t, Request $request, CtaCteRepository $ctaCteRepository): Response
+    public function index($t, Request $request, CtaCteRepository $ctaCteRepository, MovimientoCuentaRepository $movimientoCuentaRepository): Response
     {
 
         $form = $this->getFormSelect($t);
@@ -45,18 +66,35 @@ final class CtaCteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) 
         {
             $data = $form->getData();
-            $ctacte = $ctaCteRepository->getCtaCteEntidad($data['ente'], $data['empresa_grupo']);
+
+            if (!$data['ente'])
+            {
+                $ctacte = $ctaCteRepository->resumenCtaCte($data['empresa_grupo'], $t);
+
+                dd($ctacte);
+                return $this->render('finanzas/cta_cte/index.html.twig', 
+                                    [
+                                      //  'cta_ctes' => $ctaCteRepository->findAll(), 
+                                        'form' => $form->createView(),
+                                        'movimientos' => $ctacte,
+                                        'tipo' => $t,
+                                        'only' => true
+                                    ]);
+            }
+
+            $ctacte = $movimientoCuentaRepository->resumenCtresumenMovimientosaCte($data['ente'], $data['empresa_grupo']);
             return $this->render('finanzas/cta_cte/index.html.twig', 
                                 [
-                                    'cta_ctes' => $ctaCteRepository->findAll(), 
+                
                                     'form' => $form->createView(),
-                                    'ctacte' => $ctacte
+                                    'movimientos' => $ctacte,
+                                    'tipo' => $t
                                 ]);
         }
 
 
         return $this->render('finanzas/cta_cte/index.html.twig', [
-            'cta_ctes' => $ctaCteRepository->findAll(), 'form' => $form->createView()
+            'cta_ctes' => $ctaCteRepository->findAll(), 'form' => $form->createView(), 'tipo' => $t
         ]);
     }
 

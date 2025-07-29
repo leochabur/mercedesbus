@@ -16,6 +16,22 @@ class MovimientoCuentaRepository extends ServiceEntityRepository
         parent::__construct($registry, MovimientoCuenta::class);
     }
 
+
+        public function resumenCtresumenMovimientosaCte( $titular , $grupo): ?array
+       {
+            return $this->createQueryBuilder('m')                   
+                        ->join('m.ctaCte', 'cc') 
+                        ->where('m.deletedAt IS NULL')
+                        ->andWhere('cc.empresaGrupo = :grupo')
+                        ->andWhere('cc.titular = :titular')
+                        ->setParameter('titular', $titular)
+                        ->setParameter('grupo', $grupo)
+                        ->orderBy('m.fechaAlta', 'ASC')
+                        ->getQuery()
+                        ->getResult();
+       }
+
+
     //    /**
     //     * @return MovimientoCuenta[] Returns an array of MovimientoCuenta objects
     //     */

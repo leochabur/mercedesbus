@@ -27,6 +27,20 @@ class ArticuloConcepto
     #[ORM\Column]
     private ?int $circuito = null; //1 Ventas - 2 Compras - 3 Todos
 
+    public function getCircuitoText()
+    {   
+        if ($this->circuito == 1)
+        {
+            return "Ventas";
+        }
+        elseif ($this->circuito == 2)
+        {
+            return "Compras";
+        }
+
+        return "Compras / Ventas";
+    }
+
     public function __toString()
     {
         return $this->nombre;

@@ -1,13 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'navBar.html.twig' %}
 
-{% block title %}Edit Cliente{% endblock %}
+{% block title %}Editar{% endblock %}
 
 {% block body %}
-    <h1>Edit Cliente</h1>
+    {{ parent() }}
+    <div class="container pt-4 pl-2">
+    <div class="h5">
+        Modificar {{ label }}
+        <hr>
+    </div>
 
-    {{ include('administracion/cliente/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('administracion/cliente/_form.html.twig', {'button_label': 'Modificar'}) }}
 
-    <a href="{{ path('app_administracion_cliente_index') }}">back to list</a>
-
-    {{ include('administracion/cliente/_delete_form.html.twig') }}
 {% endblock %}

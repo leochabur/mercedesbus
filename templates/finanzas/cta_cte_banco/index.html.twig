@@ -1,0 +1,42 @@
+{% extends 'navBar.html.twig' %}
+
+{% block title %}Cuentas Bancos{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <div class="container pt-4">
+
+        <div class="h5 pb-4">Administrar Cuentas Banco</div>
+
+        <table class="table table-striped table-hover table-bordered data-table">
+        <thead>
+            <tr>
+                <th>Banco</th>
+                <th>Moneda</th>
+                <th>Numero</th>
+                <th>Libera Valores</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cta_cte_banco in cta_cte_bancos %}
+            <tr>
+                <td>{{ cta_cte_banco.banco|upper }}</td>
+                <td>{{ cta_cte_banco.moneda }}</td>
+                <td>{{ cta_cte_banco.numero }}</td>
+                <td>{{ cta_cte_banco.liberaValores ? 'Si' : 'No' }}</td>
+                <td>
+                    <a class="btn btn-success" href="{{ path('app_finanzas_cta_cte_banco_edit', {'id': cta_cte_banco.id}) }}">Modificar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('app_finanzas_cta_cte_banco_new') }}">Nueva Cuenta Bancaria </a>
+{% endblock %}

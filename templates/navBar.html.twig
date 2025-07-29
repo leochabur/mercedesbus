@@ -27,7 +27,7 @@
 {% block body %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="#">MiApp</a>
+    <a class="navbar-brand" href="#">MB</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -40,28 +40,12 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="ejemploMulti">
             <li><a class="dropdown-item" href="{{ path('app_administracion_empresa_grupo_index') }}">Empresas del grupo</a></li>
-            <li class="dropdown-submenu">
-              <a class="dropdown-item dropdown-toggle" href="#">Submenú 1</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Subopción 1.1</a></li>
-                <li class="dropdown-submenu">
-                  <a class="dropdown-item dropdown-toggle" href="#">Submenú 1.2</a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Subopción 1.2.1</a></li>
-                    <li class="dropdown-item">Subopción 1.2.2</li>
-                    <li class="dropdown-submenu">
-                      <a class="dropdown-item dropdown-toggle" href="#">Submenú 1.2.3</a>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Subopción 1.2.3.1</a></li>
-                        <li><a class="dropdown-item" href="#">Subopción 1.2.3.2</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li><a class="dropdown-item" href="#">Subopción 1.3</a></li>
-              </ul>
-            </li>
-            <li><a class="dropdown-item" href="#">Opción 2</a></li>
+
+            <li><a class="dropdown-item" href="{{ path('app_administracion_articulo_concepto_index') }}">Articulos/Conceptos</a></li>
+
+            <li><a  class="dropdown-item"href="{{ path('app_finanzas_banco_index') }}">Administrar Bancos</a></li>
+            <li><a  class="dropdown-item"href="{{ path('app_finanzas_cta_cte_banco_index') }}">Administrar Centas Bancarias</a></li>
+
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -69,20 +53,13 @@
             Ventas
           </a>
           <ul class="dropdown-menu" aria-labelledby="menu2">
-            <li><a class="dropdown-item" href="{{ path('app_administracion_cliente_index', { code : 'c' }) }}">Clientes</a></li>
-            <li><a class="dropdown-item" href="{{ path('app_administracion_comprobante_cliente_new', { code : 'c' }) }}">Registrar Venta</a></li>
+            <li><a class="dropdown-item py-2" href="{{ path('app_administracion_cliente_index', { code : 'c' }) }}">Clientes</a></li>
+            <li><a class="dropdown-item py-2" href="{{ path('app_administracion_comprobante_cliente_new', { code : 'c' }) }}">Registrar Venta</a></li>
             <li class="dropdown-submenu">
-              <a class="dropdown-item dropdown-toggle" href="#">Cuenta Corriente</a>
+              <a class="dropdown-item dropdown-toggle py-2" href="#">Cuenta Corriente</a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{{ path('app_finanzas_cta_cte_index', { t : 'c' }) }}">Ver estado</a></li>
-                <li><a class="dropdown-item" href="{{ path('app_finanzas_recibo_new') }}">Cobranzas</a></li>
-                <li class="dropdown-submenu">
-                  <a class="dropdown-item dropdown-toggle" href="#">Detalle</a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Por Banco</a></li>
-                    <li><a class="dropdown-item" href="#">Por Fecha</a></li>
-                  </ul>
-                </li>
+                <li><a class="dropdown-item py-2" href="{{ path('app_finanzas_cta_cte_index', { t : 'c' }) }}">Ver estado</a></li>
+                <li><a class="dropdown-item py-2" href="{{ path('app_finanzas_recibo_new',  { type : 'c' }) }}">Cobranzas</a></li>
               </ul>
             </li>
           </ul>
@@ -92,8 +69,15 @@
             Compras
           </a>
           <ul class="dropdown-menu" aria-labelledby="menu3">
-            <li><a class="dropdown-item" href="#">Cuentas Corrientes</a></li>
-            <li><a class="dropdown-item" href="#">Recibos</a></li>
+            <li><a class="dropdown-item  py-2" href="{{ path('app_administracion_cliente_index', { code : 'p' }) }}">Proveedores</a></li>
+            <li><a class="dropdown-item  py-2" href="{{ path('app_administracion_comprobante_cliente_new', { code : 'p' }) }}">Registrar Compra</a>  </li>
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle  py-2" href="#">Cuenta Corriente</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item  py-2" href="{{ path('app_finanzas_cta_cte_index', { t : 'p' }) }}">Ver estado</a></li>
+                <li><a class="dropdown-item  py-2" href="{{ path('app_finanzas_recibo_new',  { type : 'p' }) }}">Pagos</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
       </ul>

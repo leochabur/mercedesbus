@@ -4,11 +4,12 @@ namespace App\Entity\Finanzas;
 
 use App\Repository\Finanzas\MetodoCancelacionReciboRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MetodoCancelacionReciboRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
-#[ORM\DiscriminatorMap(['MCR' => MetodoCancelacionRecibo::class, 'MEE' => MetodoEfectivo::class, 'MET' => MetodoTransferencia::class])]
+#[ORM\DiscriminatorMap(['MCR' => MetodoCancelacionRecibo::class, 'MEE' => MetodoEfectivo::class, 'MET' => MetodoTransferencia::class, 'MEC' => MetodoCheque::class])]
 #[ORM\Table(name: 'finanzas_metodo_pago_recibo')]
 
 abstract class MetodoCancelacionRecibo
@@ -19,10 +20,12 @@ abstract class MetodoCancelacionRecibo
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\NotNull(message: 'El importe es requerido')]
     private ?float $importe = null;
 
     #[ORM\ManyToOne(targetEntity: Recibo::class, inversedBy: 'metodos')]
     #[ORM\JoinColumn(name: 'id_recibo', referencedColumnName: 'id')]
+    #[Assert\NotNull(message: 'El recibo es requerido')]
     private Recibo|null $recibo = null;
 
     public function getId(): ?int

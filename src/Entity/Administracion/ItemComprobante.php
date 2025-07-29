@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Validator\Constraints as Assert;
-
+ 
 #[ORM\Entity(repositoryClass: ItemComprobanteRepository::class)]
 #[ORM\Table(name: 'admin_items_comprobante')]
 
@@ -26,9 +26,15 @@ class ItemComprobante
     #[Assert\NotNull(message : 'Campo requerido')]
     private ?float $precioUnitario = null;
 
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
+    private ?float $precioUnitarioSinIva = null;
+
     #[ORM\Column]
     #[Assert\NotBlank(message: 'Campo requerido')]
     private ?float $precioTotal = null;
+
+    #[ORM\Column(type: Types::FLOAT, nullable: true)]
+    private ?float $precioTotalSinIva = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $descripcion = null;
@@ -114,6 +120,30 @@ class ItemComprobante
     public function setComprobante(?ComprobanteTransaccion $comprobante): static
     {
         $this->comprobante = $comprobante;
+
+        return $this;
+    }
+
+    public function getPrecioUnitarioSinIva(): ?float
+    {
+        return $this->precioUnitarioSinIva;
+    }
+
+    public function setPrecioUnitarioSinIva(?float $precioUnitarioSinIva): static
+    {
+        $this->precioUnitarioSinIva = $precioUnitarioSinIva;
+
+        return $this;
+    }
+
+    public function getPrecioTotalSinIva(): ?float
+    {
+        return $this->precioTotalSinIva;
+    }
+
+    public function setPrecioTotalSinIva(?float $precioTotalSinIva): static
+    {
+        $this->precioTotalSinIva = $precioTotalSinIva;
 
         return $this;
     }

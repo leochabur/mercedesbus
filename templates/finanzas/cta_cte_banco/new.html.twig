@@ -1,0 +1,17 @@
+{% extends 'navBar.html.twig' %}
+
+{% block title %}Cuenta Bancaria{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="container pt-4 pl-2">
+    <div class="h5">
+        Nueva Cuenta Bancaria
+        <hr>
+    </div>
+
+
+    {{ include('finanzas/cta_cte_banco/_form.html.twig') }}
+
+
+{% endblock %}

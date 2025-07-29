@@ -36,7 +36,9 @@ class CtaCte
     #[ORM\JoinColumn(name: 'id_empresa_grupo', referencedColumnName: 'id')]
     private ?EmpresaGrupo $empresaGrupo = null;
 
-    #[ORM\OneToMany(targetEntity: MovimientoCuenta::class, mappedBy: 'ctaCte', cascade: ['persist', 'remove'])]
+     // #[ORM\OneToMany(targetEntity: DetalleFactura::class, mappedBy: 'factura', orphanRemoval: true, fetch: 'LAZY')]
+
+    #[ORM\OneToMany(targetEntity: MovimientoCuenta::class, mappedBy: 'ctaCte', cascade: ['persist', 'remove'], orphanRemoval: true, fetch: 'LAZY')]
     #[ORM\OrderBy(["fechaAlta" => "ASC"])]
     private $movimientos;
 

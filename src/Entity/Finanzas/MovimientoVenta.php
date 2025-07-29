@@ -14,6 +14,22 @@ class MovimientoVenta extends MovimientoCuenta
     #[ORM\ManyToOne(targetEntity: ComprobanteTransaccion::class)]
     #[ORM\JoinColumn(name:'id_comprobante', referencedColumnName: 'id')]
     private ComprobanteTransaccion|null $comprobante = null;
+    
+    public function borrarComprobanteAsociado($user)
+    {
+        $this->comprobante->setDeletedAt(new \DateTimeImmutable());
+    }
+
+    public function getIdComprobante()
+    {
+        return $this->comprobante->getId();
+    }
+
+
+    public function getTipo()
+    {
+        return 'V';
+    }
 
     public function getImporteFactura()
     {

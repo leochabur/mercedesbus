@@ -3,6 +3,7 @@
 namespace App\Controller\Administracion;
 
 use App\Entity\Administracion\ComprobanteCliente;
+use App\Entity\Administracion\ComprobanteFactura;
 use App\Form\Administracion\ComprobanteClienteType;
 use App\Entity\Administracion\ComprobanteProveedor;
 use App\Form\Administracion\ComprobanteProveedorType;
@@ -18,6 +19,9 @@ use App\Entity\Finanzas\MovimientoVenta;
 #[Route('/administracion/comprobante')]
 final class ComprobanteClienteController extends AbstractController
 {
+
+
+
     #[Route(name: 'app_administracion_comprobante_cliente_index', methods: ['GET'])]
     public function index(ComprobanteClienteRepository $comprobanteClienteRepository): Response
     {
@@ -26,19 +30,34 @@ final class ComprobanteClienteController extends AbstractController
         ]);
     }
 
-    #[Route('/{code}/new', name: 'app_administracion_comprobante_cliente_new', methods: ['GET', 'POST'])]
-    public function new($code, Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/{code}/new/{id}', name: 'app_administracion_comprobante_cliente_new', methods: ['GET', 'POST'], defaults: ['id' => 0])]
+    public function new($code, ?string $id = null, Request $request, EntityManagerInterface $entityManager): Response
     {
         if ($code == 'c')
         {
-            $comprobanteCliente = new ComprobanteCliente();
+            if ($id)
+            {
+                $comprobanteCliente = $entityManager->getRepository(ComprobanteCliente::class)->find($id);
+            }
+            else
+            {
+                $comprobanteCliente = new ComprobanteCliente();
+            }
+
             $form = $this->createForm(ComprobanteClienteType::class, $comprobanteCliente, [
                 'ente' => 'Cliente'
             ]);
         }
         else
         {
-            $comprobanteCliente = new ComprobanteProveedor();
+            if ($id)
+            {
+                $comprobanteCliente = $entityManager->getRepository(ComprobanteProveedor::class)->find($id);
+            }
+            else
+            {
+                $comprobanteCliente = new ComprobanteProveedor();
+            }
             $form = $this->createForm(ComprobanteProveedorType::class, $comprobanteCliente, [
                 'ente' => 'Proveedor'
             ]);            
@@ -50,9 +69,10 @@ final class ComprobanteClienteController extends AbstractController
 
         if ($form->isSubmitted())
         {
-            $comprobanteCliente->updateValues();
+           
             if ($form->isValid()) 
             {
+                 $comprobanteCliente->updateValues();
                 if ($comprobanteCliente->isAfectaCtaCte())
                 {
                     $repository = $entityManager->getRepository(CtaCte::class);
@@ -74,7 +94,10 @@ final class ComprobanteClienteController extends AbstractController
                     $ctacte->updateImporte($comprobanteCliente->getPrecioTotalConIva());
                     $entityManager->persist($movimiento);             
                 }
-                $entityManager->persist($comprobanteCliente);
+                if (!$id)
+                {
+                    $entityManager->persist($comprobanteCliente);
+                }
                 $entityManager->flush();
                 return $this->redirectToRoute('app_administracion_comprobante_cliente_index', [], Response::HTTP_SEE_OTHER);
             }
@@ -86,11 +109,12 @@ final class ComprobanteClienteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_administracion_comprobante_cliente_show', methods: ['GET'])]
-    public function show(ComprobanteCliente $comprobanteCliente): Response
+    #[Route('/{id}/show', name: 'app_administracion_comprobante_cliente_show', methods: ['GET'])]
+    public function show(ComprobanteFactura $comprobanteFactura): Response
     {
         return $this->render('administracion/comprobante_cliente/show.html.twig', [
-            'comprobante_cliente' => $comprobanteCliente,
+            'comprobante' => $comprobanteFactura,
+            'label' => 'Venta'
         ]);
     }
 

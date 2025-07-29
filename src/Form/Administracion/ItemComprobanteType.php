@@ -14,13 +14,15 @@ class ItemComprobanteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $code = $options['code'];
         $builder
             ->add('cantidad')
             ->add('precioUnitario')
             ->add('descripcion')
             ->add('articulo', 
-                    EntityType::class, [
+                  EntityType::class, [
                                         'class' => ArticuloConcepto::class,
+
                                         ])
         ;
     }
@@ -33,3 +35,14 @@ class ItemComprobanteType extends AbstractType
         ]);
     }
 }
+
+/*
+                                        'query_builder' => function (\Doctrine\ORM\EntityRepository $er) use ($code) {
+                                                                                                            return $er->createQueryBuilder('c')
+                                                                                                                ->where('c.activo = :activo')
+                                                                                                                ->andWhere('c.circuito in (:circuito)')
+                                                                                                                ->setParameter('activo', true)
+                                                                                                                ->setParameter('circuito', ($code == 'c' ? "1,3" : "2,3"))
+                                                                                                                ->orderBy('c.nombre', 'ASC');
+                                                                                                        },
+*/

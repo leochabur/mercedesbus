@@ -4,6 +4,7 @@ namespace App\Entity\Finanzas;
 
 use App\Repository\Finanzas\MetodoTransferenciaRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MetodoTransferenciaRepository::class)]
 
@@ -12,6 +13,7 @@ class MetodoTransferencia extends MetodoCancelacionRecibo
 
     #[ORM\ManyToOne(targetEntity: CtaCteBanco::class)]
     #[ORM\JoinColumn(name:'id_ctacte_bco', referencedColumnName: 'id', nullable: true)]
+    #[Assert\NotNull(message: 'La cuenta corriente es requerida')]
     private CtaCteBanco|null $ctacte = null;
 
     public function getCtacte(): ?CtaCteBanco
