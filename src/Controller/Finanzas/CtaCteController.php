@@ -71,14 +71,12 @@ final class CtaCteController extends AbstractController
             {
                 $ctacte = $ctaCteRepository->resumenCtaCte($data['empresa_grupo'], $t);
 
-                dd($ctacte);
-                return $this->render('finanzas/cta_cte/index.html.twig', 
+              //  dd($ctacte);
+                return $this->render('finanzas/cta_cte/index_resume.html.twig', 
                                     [
-                                      //  'cta_ctes' => $ctaCteRepository->findAll(), 
                                         'form' => $form->createView(),
                                         'movimientos' => $ctacte,
                                         'tipo' => $t,
-                                        'only' => true
                                     ]);
             }
 
