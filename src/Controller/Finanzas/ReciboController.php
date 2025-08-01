@@ -21,6 +21,10 @@ use App\Entity\Finanzas\MetodoTransferencia;
 use App\Entity\Finanzas\Caja;
 use App\Entity\Finanzas\CtaCteBanco;
 use App\Entity\Finanzas\MetodoCheque;
+use App\Entity\Finanzas\MetodoChequeCartera;
+use App\Entity\Finanzas\MetodoChequePropio;
+use App\Form\Finanzas\MetodoChequeCarteraType;
+use App\Form\Finanzas\MetodoChequePropioType;
 use App\Form\Finanzas\MetodoChequeType;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -47,8 +51,11 @@ final class ReciboController extends AbstractController
 
         $formEftvo = $this->createForm(MetodoEfectivoType::class, null);
         $formTrx = $this->createForm(MetodoTransferenciaType::class, null);
-
         $formCheque = $this->createForm(MetodoChequeType::class, null);
+        $formChequePropio = $this->createForm(MetodoChequePropioType::class, null);
+        $formChequeCartera = $this->createForm(MetodoChequeCarteraType::class, null);
+
+        
 
 
         if ($form->isSubmitted())
@@ -152,6 +159,60 @@ final class ReciboController extends AbstractController
                         }
                         
                     }
+                    elseif ($f['type']['code'] == 'cp')
+                    {
+                        
+                        $fecha = \DateTime::createFromFormat('Y-m-d', $f['fecha']);
+                        $fecha = $fecha ? $fecha : null;
+                        $cta = $entityManager->find(CtaCteBanco::class, $f['caja']['code']);
+         
+                        $metodo = new MetodoChequePropio();
+                        $metodo->setCtaCteBanco($cta)
+                                ->setImporte($f['monto'])
+                                ->setFechaPago($fecha)
+                                ->setNumeroCheque($f['numero'])                              
+                                ->setRecibo($recibo);
+
+                        $errors = $validator->validate($metodo);
+                        if (count($errors) > 0) 
+                        {
+                            $errorString = "Forma Pago Cheque:\n";
+                            foreach ($errors as $error) {
+                                $errorString .= '#  ' . $error->getMessage() . "\n";
+                            }
+                            return new JsonResponse(['ok' => false, 'message' => $errorString]);
+                        }
+                        
+                    }
+                    elseif ($f['type']['code'] == 'chc')
+                    {
+                        $ch = $entityManager->find(MetodoCheque::class, $f['caja']['code']);
+
+                        if (!$ch)
+                        {
+                            return new JsonResponse(['ok' => false, 'message' => 'No se encuentra el cheque en cartera']);
+                        }
+
+                        $ch->setEntregado(true);
+
+
+                        $metodo = new MetodoChequeCartera();
+                          
+                        $metodo->setChequeCartera($ch)
+                                ->setImporte($f['monto'])                         
+                                ->setRecibo($recibo);
+
+                        $errors = $validator->validate($metodo);
+                        if (count($errors) > 0) 
+                        {
+                            $errorString = "Forma Pago Cheque:\n";
+                            foreach ($errors as $error) {
+                                $errorString .= '#  ' . $error->getMessage() . "\n";
+                            }
+                            return new JsonResponse(['ok' => false, 'message' => $errorString]);
+                        }
+                        
+                    }
                     $entityManager->persist($metodo);
                     
                 }
@@ -200,6 +261,8 @@ final class ReciboController extends AbstractController
             'formEftvo' => $formEftvo,
             'formTrx' => $formTrx,
             'formCheque' => $formCheque,
+            'formChequePropio' => $formChequePropio,
+            'formChequeCartera' => $formChequeCartera,
             'type' => $type
         ]);
     }

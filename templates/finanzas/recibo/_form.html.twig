@@ -74,6 +74,34 @@
                     </div>
                 {{ form_end(formTrx) }}
 
+                {{ form_start(formChequePropio, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'px-4 all-formas CP reset-form' }}) }}
+                    <div class="row pt-3">
+                        <div class="col col-lg-2">
+                            {{ form_label(formChequePropio.numeroCheque) }}
+                            {{ form_widget(formChequePropio.numeroCheque, { 'attr' : { 'class' : 'form-control chp-num '} }) }}
+                            {{ form_errors(formChequePropio.numeroCheque) }}
+                        </div>
+                        <div class="col col-lg-4">
+                            {{ form_label(formChequePropio.ctaCteBanco) }}
+                            {{ form_widget(formChequePropio.ctaCteBanco, { 'attr' : { 'class' : 'form-control form-select chp-cta '} }) }}
+                            {{ form_errors(formChequePropio.ctaCteBanco) }}
+                        </div>
+                        <div class="col col-lg-2">
+                            {{ form_label(formChequePropio.fechaPago) }}
+                            {{ form_widget(formChequePropio.fechaPago, { 'attr' : { 'class' : 'form-control chp-fecha '} }) }}
+                            {{ form_errors(formChequePropio.fechaPago) }}
+                        </div> 
+                        <div class="col col-lg-2">
+                            {{ form_label(formChequePropio.importe) }}
+                            {{ form_widget(formChequePropio.importe, { 'attr' : { 'class' : 'form-control chp-monto'} }) }}
+                            {{ form_errors(formChequePropio.importe) }}
+                        </div>
+                        <div class="col col-lg-2 pt-4 mt-2">
+                            <input type="button" value="Guardar" class="btn btn-warning chp-save" name="">
+                        </div>
+                    </div>
+                {{ form_end(formChequePropio) }}
+
                 {{ form_start(formCheque, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'px-4 all-formas C reset-form' }}) }}
                     <div class="row pt-3">
                         <div class="col col-lg-2">
@@ -88,7 +116,7 @@
                         </div>
                         <div class="col col-lg-2">
                             {{ form_label(formCheque.fechaPago) }}
-                            {{ form_widget(formCheque.fechaPago, { 'attr' : { 'class' : 'form-control form-select ch-fecha '} }) }}
+                            {{ form_widget(formCheque.fechaPago, { 'attr' : { 'class' : 'form-control ch-fecha '} }) }}
                             {{ form_errors(formCheque.fechaPago) }}
                         </div>
                         <div class="col col-lg-2">
@@ -106,6 +134,19 @@
                         </div>
                     </div>
                 {{ form_end(formCheque) }}
+
+                {{ form_start(formChequeCartera, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'px-4 all-formas CC reset-form' }}) }}
+                    <div class="row pt-3">
+                        <div class="col col-lg-9">
+                            {{ form_label(formChequeCartera.chequeCartera) }}
+                            {{ form_widget(formChequeCartera.chequeCartera, { 'attr' : { 'class' : 'form-control form-select chc-ch '} }) }}
+                            {{ form_errors(formChequeCartera.chequeCartera) }}
+                        </div>
+                        <div class="col col-lg-3 pt-4 mt-2">
+                            <input type="button" value="Guardar" class="btn btn-warning chc-save" name="">
+                        </div>
+                    </div>
+                {{ form_end(formChequeCartera) }}
                 <hr>
                 <br>
                 <div class="card-header text-muted">Formas pago asignadas</div>

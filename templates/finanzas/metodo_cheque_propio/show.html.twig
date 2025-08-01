@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MetodoChequePropio{% endblock %}
+
+{% block body %}
+    <h1>MetodoChequePropio</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ metodo_cheque_propio.id }}</td>
+            </tr>
+            <tr>
+                <th>Importe</th>
+                <td>{{ metodo_cheque_propio.importe }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_finanzas_metodo_cheque_propio_index') }}">back to list</a>
+
+    <a href="{{ path('app_finanzas_metodo_cheque_propio_edit', {'id': metodo_cheque_propio.id}) }}">edit</a>
+
+    {{ include('finanzas/metodo_cheque_propio/_delete_form.html.twig') }}
+{% endblock %}

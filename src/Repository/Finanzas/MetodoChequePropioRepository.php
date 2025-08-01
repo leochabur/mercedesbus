@@ -2,37 +2,36 @@
 
 namespace App\Repository\Finanzas;
 
-use App\Entity\Finanzas\MetodoTransferencia;
+use App\Entity\Finanzas\MetodoChequePropio;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<MetodoTransferencia>
+ * @extends ServiceEntityRepository<MetodoChequePropio>
  */
-class MetodoTransferenciaRepository extends ServiceEntityRepository
+class MetodoChequePropioRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, MetodoTransferencia::class);
-    }
+        parent::__construct($registry, MetodoChequePropio::class);
+    } 
 
 
-       public function getAllValores($type): array
+       public function getAllValores(): array
        {
-           return $this->createQueryBuilder('tb')
-                        ->select('r.fecha as fechaEntrega, cb.numero as ctacte, tb.fechaPago as fechaPago, tb.numeroCheque as numero, tb.acreditado as acreditado, ec.razonSocial as razonSocial, tb.importe as importe, b.nombre as banco')
-                        ->join('tb.ctaCteBanco', 'cb')
+           return $this->createQueryBuilder('cp')
+                        ->select('r.fecha as fechaEntrega, cb.numero as ctacte, cp.fechaPago as fechaPago, cp.numeroCheque as numero, cp.acreditado as acreditado, ec.razonSocial as razonSocial, cp.importe as importe, b.nombre as banco')
+                        ->join('cp.ctaCteBanco', 'cb')
                         ->join('cb.banco', 'b')
-                        ->join('tb.recibo', 'r')
+                        ->join('cp.recibo', 'r')
                         ->join('r.enteComercial', 'ec')
-                        ->andWhere('ec INSTANCE OF :type')
                         ->getQuery()
                         ->getResult()
            ;
        }
 
     //    /**
-    //     * @return MetodoTransferencia[] Returns an array of MetodoTransferencia objects
+    //     * @return MetodoChequePropio[] Returns an array of MetodoChequePropio objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -46,7 +45,7 @@ class MetodoTransferenciaRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?MetodoTransferencia
+    //    public function findOneBySomeField($value): ?MetodoChequePropio
     //    {
     //        return $this->createQueryBuilder('m')
     //            ->andWhere('m.exampleField = :val')

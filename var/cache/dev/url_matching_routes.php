@@ -28,11 +28,14 @@ return [
         '/finanzas/banco/new' => [[['_route' => 'app_finanzas_banco_new', '_controller' => 'App\\Controller\\Finanzas\\BancoController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/finanzas/cta/cte/banco' => [[['_route' => 'app_finanzas_cta_cte_banco_index', '_controller' => 'App\\Controller\\Finanzas\\CtaCteBancoController::index'], null, ['GET' => 0], null, false, false, null]],
         '/finanzas/cta/cte/banco/new' => [[['_route' => 'app_finanzas_cta_cte_banco_new', '_controller' => 'App\\Controller\\Finanzas\\CtaCteBancoController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/finanzas/metodo/cheque/cartera' => [[['_route' => 'app_finanzas_metodo_cheque_cartera_index', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeCarteraController::index'], null, ['GET' => 0], null, false, false, null]],
+        '/finanzas/metodo/cheque/cartera/new' => [[['_route' => 'app_finanzas_metodo_cheque_cartera_new', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeCarteraController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/finanzas/metodo/cheque' => [[['_route' => 'app_finanzas_metodo_cheque_index', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeController::index'], null, ['GET' => 0], null, false, false, null]],
         '/finanzas/metodo/cheque/new' => [[['_route' => 'app_finanzas_metodo_cheque_new', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/finanzas/metodo/cheque/propio/lista' => [[['_route' => 'app_finanzas_metodo_cheque_propio_index', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequePropioController::index'], null, ['GET' => 0], null, false, false, null]],
+        '/finanzas/metodo/cheque/propio/new' => [[['_route' => 'app_finanzas_metodo_cheque_propio_new', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequePropioController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/finanzas/metodo/efectivo' => [[['_route' => 'app_finanzas_metodo_efectivo_index', '_controller' => 'App\\Controller\\Finanzas\\MetodoEfectivoController::index'], null, ['GET' => 0], null, false, false, null]],
         '/finanzas/metodo/efectivo/new' => [[['_route' => 'app_finanzas_metodo_efectivo_new', '_controller' => 'App\\Controller\\Finanzas\\MetodoEfectivoController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        '/finanzas/metodo/transferencia' => [[['_route' => 'app_finanzas_metodo_transferencia_index', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::index'], null, ['GET' => 0], null, false, false, null]],
         '/finanzas/metodo/transferencia/new' => [[['_route' => 'app_finanzas_metodo_transferencia_new', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/finanzas/recibo' => [[['_route' => 'app_finanzas_recibo_index', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::index'], null, ['GET' => 0], null, false, false, null]],
         '/rrhh/empleado' => [[['_route' => 'app_r_r_h_h_empleado_index', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::index'], null, ['GET' => 0], null, false, false, null]],
@@ -141,40 +144,54 @@ return [
                         .')'
                     .')'
                     .'|metodo/(?'
-                        .'|cheque/([^/]++)(?'
-                            .'|(*:951)'
-                            .'|/edit(*:964)'
-                            .'|(*:972)'
+                        .'|cheque/(?'
+                            .'|cartera/([^/]++)(?'
+                                .'|(*:962)'
+                                .'|/edit(*:975)'
+                                .'|(*:983)'
+                            .')'
+                            .'|([^/]++)(?'
+                                .'|(*:1003)'
+                                .'|/edit(*:1017)'
+                                .'|(*:1026)'
+                            .')'
+                            .'|propio/([^/]++)(?'
+                                .'|(*:1054)'
+                                .'|/edit(*:1068)'
+                                .'|(*:1077)'
+                            .')'
                         .')'
                         .'|efectivo/([^/]++)(?'
-                            .'|(*:1001)'
-                            .'|/edit(*:1015)'
-                            .'|(*:1024)'
+                            .'|(*:1108)'
+                            .'|/edit(*:1122)'
+                            .'|(*:1131)'
                         .')'
                         .'|transferencia/([^/]++)(?'
-                            .'|(*:1059)'
-                            .'|/edit(*:1073)'
-                            .'|(*:1082)'
+                            .'|/(?'
+                                .'|tipo(*:1174)'
+                                .'|edit(*:1187)'
+                            .')'
+                            .'|(*:1197)'
                         .')'
                     .')'
                     .'|recibo/([^/]++)(?'
                         .'|/(?'
-                            .'|new(*:1118)'
-                            .'|edit(*:1131)'
+                            .'|new(*:1233)'
+                            .'|edit(*:1246)'
                         .')'
-                        .'|(*:1141)'
+                        .'|(*:1256)'
                     .')'
                 .')'
                 .'|/rrhh/(?'
                     .'|empleado/([^/]++)(?'
-                        .'|(*:1181)'
-                        .'|/edit(*:1195)'
-                        .'|(*:1204)'
+                        .'|(*:1296)'
+                        .'|/edit(*:1310)'
+                        .'|(*:1319)'
                     .')'
                     .'|puesto/trabajo/([^/]++)(?'
-                        .'|(*:1240)'
-                        .'|/edit(*:1254)'
-                        .'|(*:1263)'
+                        .'|(*:1355)'
+                        .'|/edit(*:1369)'
+                        .'|(*:1378)'
                     .')'
                 .')'
             .')/?$}sDu',
@@ -228,27 +245,36 @@ return [
         891 => [[['_route' => 'app_finanzas_cta_cte_show', '_controller' => 'App\\Controller\\Finanzas\\CtaCteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
         904 => [[['_route' => 'app_finanzas_cta_cte_edit', '_controller' => 'App\\Controller\\Finanzas\\CtaCteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
         912 => [[['_route' => 'app_finanzas_cta_cte_delete', '_controller' => 'App\\Controller\\Finanzas\\CtaCteController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        951 => [[['_route' => 'app_finanzas_metodo_cheque_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        964 => [[['_route' => 'app_finanzas_metodo_cheque_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        972 => [[['_route' => 'app_finanzas_metodo_cheque_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1001 => [[['_route' => 'app_finanzas_metodo_efectivo_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoEfectivoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1015 => [[['_route' => 'app_finanzas_metodo_efectivo_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoEfectivoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1024 => [[['_route' => 'app_finanzas_metodo_efectivo_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoEfectivoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1059 => [[['_route' => 'app_finanzas_metodo_transferencia_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1073 => [[['_route' => 'app_finanzas_metodo_transferencia_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1082 => [[['_route' => 'app_finanzas_metodo_transferencia_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1118 => [[['_route' => 'app_finanzas_recibo_new', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::new'], ['type'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1131 => [[['_route' => 'app_finanzas_recibo_edit', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1141 => [
+        962 => [[['_route' => 'app_finanzas_metodo_cheque_cartera_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeCarteraController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        975 => [[['_route' => 'app_finanzas_metodo_cheque_cartera_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeCarteraController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        983 => [[['_route' => 'app_finanzas_metodo_cheque_cartera_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeCarteraController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1003 => [[['_route' => 'app_finanzas_metodo_cheque_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1017 => [[['_route' => 'app_finanzas_metodo_cheque_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1026 => [[['_route' => 'app_finanzas_metodo_cheque_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1054 => [[['_route' => 'app_finanzas_metodo_cheque_propio_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequePropioController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1068 => [[['_route' => 'app_finanzas_metodo_cheque_propio_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequePropioController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1077 => [[['_route' => 'app_finanzas_metodo_cheque_propio_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequePropioController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1108 => [[['_route' => 'app_finanzas_metodo_efectivo_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoEfectivoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1122 => [[['_route' => 'app_finanzas_metodo_efectivo_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoEfectivoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1131 => [[['_route' => 'app_finanzas_metodo_efectivo_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoEfectivoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1174 => [[['_route' => 'app_finanzas_metodo_transferencia_index', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::index'], ['t'], ['GET' => 0], null, false, false, null]],
+        1187 => [[['_route' => 'app_finanzas_metodo_transferencia_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1197 => [
+            [['_route' => 'app_finanzas_metodo_transferencia_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::show'], ['id'], ['GET' => 0], null, false, true, null],
+            [['_route' => 'app_finanzas_metodo_transferencia_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::delete'], ['id'], ['POST' => 0], null, false, true, null],
+        ],
+        1233 => [[['_route' => 'app_finanzas_recibo_new', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::new'], ['type'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1246 => [[['_route' => 'app_finanzas_recibo_edit', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1256 => [
             [['_route' => 'app_finanzas_recibo_show', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::show'], ['id'], ['GET' => 0], null, false, true, null],
             [['_route' => 'app_finanzas_recibo_delete', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::delete'], ['id'], ['POST' => 0], null, false, true, null],
         ],
-        1181 => [[['_route' => 'app_r_r_h_h_empleado_show', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1195 => [[['_route' => 'app_r_r_h_h_empleado_edit', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1204 => [[['_route' => 'app_r_r_h_h_empleado_delete', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1240 => [[['_route' => 'app_r_r_h_h_puesto_trabajo_show', '_controller' => 'App\\Controller\\RRHH\\PuestoTrabajoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1254 => [[['_route' => 'app_r_r_h_h_puesto_trabajo_edit', '_controller' => 'App\\Controller\\RRHH\\PuestoTrabajoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1263 => [
+        1296 => [[['_route' => 'app_r_r_h_h_empleado_show', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1310 => [[['_route' => 'app_r_r_h_h_empleado_edit', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1319 => [[['_route' => 'app_r_r_h_h_empleado_delete', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1355 => [[['_route' => 'app_r_r_h_h_puesto_trabajo_show', '_controller' => 'App\\Controller\\RRHH\\PuestoTrabajoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1369 => [[['_route' => 'app_r_r_h_h_puesto_trabajo_edit', '_controller' => 'App\\Controller\\RRHH\\PuestoTrabajoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1378 => [
             [['_route' => 'app_r_r_h_h_puesto_trabajo_delete', '_controller' => 'App\\Controller\\RRHH\\PuestoTrabajoController::delete'], ['id'], ['POST' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

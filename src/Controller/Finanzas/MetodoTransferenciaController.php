@@ -14,8 +14,9 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/finanzas/metodo/transferencia')]
 final class MetodoTransferenciaController extends AbstractController
 {
-    #[Route(name: 'app_finanzas_metodo_transferencia_index', methods: ['GET'])]
-    public function index(MetodoTransferenciaRepository $metodoTransferenciaRepository): Response
+    
+    #[Route('/{t}/tipo', name: 'app_finanzas_metodo_transferencia_index', methods: ['GET'])]
+    public function index($t, MetodoTransferenciaRepository $metodoTransferenciaRepository): Response
     {
         return $this->render('finanzas/metodo_transferencia/index.html.twig', [
             'metodo_transferencias' => $metodoTransferenciaRepository->findAll(),

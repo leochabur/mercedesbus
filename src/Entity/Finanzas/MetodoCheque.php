@@ -13,24 +13,39 @@ class MetodoCheque extends MetodoCancelacionRecibo
 {
 
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     #[Assert\NotNull(message: 'El numero de cheque es requerido')]
     private ?string $numeroCheque = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     #[Assert\NotNull(message: 'La fecha de pago es requerida')]
     private ?\DateTimeInterface $fechaPago = null;
 
     #[ORM\Column]
-    private ?bool $delCliente = null;
+    private ?bool $delCliente = false;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $librador = null;
 
     #[ORM\ManyToOne(targetEntity: Banco::class)]
-    #[ORM\JoinColumn(name: 'id_banco', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name: 'id_banco', referencedColumnName: 'id', nullable: true)]
     #[Assert\NotNull(message: 'El banco es requerido')]
     private Banco|null $banco = null;
+
+    #[ORM\Column]
+    private ?bool $entregado = false;
+
+    public function __toString()
+    {
+        $recibo = $this->getRecibo();
+        $movimiento = $recibo->getMovimiento();
+        $ctacte = $movimiento->getCtaCte();
+
+        $titular = $ctacte->getTitular();
+
+        return 'Nº Cheque: ' . $this->numeroCheque . '  -  Banco: ' . $this->banco->getNombre() . '  -  Titular: ' . $titular ;  
+    
+    }
 
     public function getNumeroCheque(): ?string
     {
@@ -88,6 +103,18 @@ class MetodoCheque extends MetodoCancelacionRecibo
     public function setBanco(?Banco $banco): static
     {
         $this->banco = $banco;
+
+        return $this;
+    }
+
+    public function isEntregado(): ?bool
+    {
+        return $this->entregado;
+    }
+
+    public function setEntregado(bool $entregado): static
+    {
+        $this->entregado = $entregado;
 
         return $this;
     }

@@ -149,7 +149,37 @@
                                                                                         loadTable();
                                                 }); 
 
-                                        
+                                                $('.chp-save').click(function(event){
+                                                                                        event.preventDefault();
+                                                                                        let cta = $('.chp-cta option:selected');
+                                                                                        let obj = {
+                                                                                                        type: { code: 'cp', name: 'Cheque Propio' },
+                                                                                                        caja: { code: cta.val(), name: 'Cta: ' + cta.text() + '  -  Nº: ' + $('.chp-num').val()},
+                                                                                                        monto: $('.chp-monto').val(),
+                                                                                                        fecha: $('.chp-fecha').val(),
+                                                                                                        numero: $('.chp-num').val(),
+                                                                                                  };
+                                                                                        formas.push(obj);
+
+                                                                                        $('.CP')[0].reset();
+                                                                                
+                                                                                        loadTable();
+                                                }); 
+
+                                                $('.chc-save').click(function(event){
+                                                                                        event.preventDefault();
+                                                                                        let cc = $('.chc-ch option:selected');
+                                                                                        let obj = {
+                                                                                                        type: { code: 'chc', name: 'Cheque en Cartera' },
+                                                                                                        caja: { code: cc.val(), name: cc.text()},
+                                                                                                        monto: cc.data('monto')
+                                                                                                  };
+                                                                                        formas.push(obj);
+
+                                                                                        $('.CC')[0].reset();
+                                                                                
+                                                                                        loadTable();
+                                                });
 
                                                 $('.forma-select').change(function(){
                                                                                         $('.all-formas').hide();

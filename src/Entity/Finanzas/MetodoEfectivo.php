@@ -12,7 +12,7 @@ class MetodoEfectivo extends MetodoCancelacionRecibo
 {
 
     #[ORM\ManyToOne(targetEntity: Caja::class)]
-    #[ORM\JoinColumn(name:'id_caja', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name:'id_caja', referencedColumnName: 'id', nullable: true)]
     #[Assert\NotNull(message: 'La caja es requerida')]
     private Caja|null $caja = null;
 

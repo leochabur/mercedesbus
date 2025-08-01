@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New MetodoChequePropio{% endblock %}
+
+{% block body %}
+    <h1>Create new MetodoChequePropio</h1>
+
+    {{ include('finanzas/metodo_cheque_propio/_form.html.twig') }}
+
+    <a href="{{ path('app_finanzas_metodo_cheque_propio_index') }}">back to list</a>
+{% endblock %}

@@ -80,6 +80,22 @@
             </li>
           </ul>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle btn btn-default" href="#" id="menu3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Finanzas
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="menu3">
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle  py-2" href="#">Transferencias Bancarias</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item  py-2" href="{{ path('app_finanzas_metodo_transferencia_index', { t : 'c' }) }}">Cobranzas a Clientes</a></li>
+                <li><a class="dropdown-item  py-2" href="{{ path('app_finanzas_metodo_transferencia_index',  { t : 'p' }) }}">Pagos a Proveedores</a></li>
+              </ul>
+            </li>
+            <li><a class="dropdown-item  py-2" href="{{ path('app_finanzas_metodo_cheque_cartera_index') }}">Valores En Cartera</a></li>
+            <li><a class="dropdown-item  py-2" href="{{ path('app_finanzas_metodo_cheque_propio_index') }}">Valores Propios</a>  </li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>

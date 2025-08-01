@@ -19,6 +19,23 @@ class ReciboType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        if ($options['tipo'] == 'c')
+        {
+            $formas = array(
+                            'Efectivo' => 'E',
+                            'Transferencia' => 'T',
+                            'Cheque' => 'C',
+            );
+        }
+        else
+        {
+            $formas = array(
+                            'Efectivo' => 'E',
+                            'Transferencia' => 'T',
+                            'Cheque Propio' => 'CP',
+                            'Cheque en cartera' => 'CC'
+            );
+        }
         $builder
             ->add('fecha', null, [
                 'widget' => 'single_text',
@@ -45,11 +62,7 @@ class ReciboType extends AbstractType
             ->add('forma', ChoiceType::class, [
                                                     'mapped' => false,
                                                     'placeholder' => 'Elejite una',
-                                                    'choices'  => [
-                                                                        'Efectivo' => 'E',
-                                                                        'Transferencia' => 'T',
-                                                                        'Cheque' => 'C',
-                                                                    ],
+                                                    'choices'  => $formas,
                                                 ])
             ->add('enteComercial', EntityType::class, [
                 'class' => $options['tipo'] == 'c' ? Cliente::class : Proveedor::class,
