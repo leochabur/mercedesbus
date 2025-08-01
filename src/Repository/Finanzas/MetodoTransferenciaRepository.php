@@ -2,9 +2,12 @@
 
 namespace App\Repository\Finanzas;
 
+use App\Entity\Administracion\Cliente;
+use App\Entity\Administracion\Proveedor;
 use App\Entity\Finanzas\MetodoTransferencia;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+
 
 /**
  * @extends ServiceEntityRepository<MetodoTransferencia>
@@ -17,19 +20,21 @@ class MetodoTransferenciaRepository extends ServiceEntityRepository
     }
 
 
-       public function getAllValores($type): array
-       {
-           return $this->createQueryBuilder('tb')
-                        ->select('r.fecha as fechaEntrega, cb.numero as ctacte, tb.fechaPago as fechaPago, tb.numeroCheque as numero, tb.acreditado as acreditado, ec.razonSocial as razonSocial, tb.importe as importe, b.nombre as banco')
-                        ->join('tb.ctaCteBanco', 'cb')
-                        ->join('cb.banco', 'b')
-                        ->join('tb.recibo', 'r')
-                        ->join('r.enteComercial', 'ec')
-                        ->andWhere('ec INSTANCE OF :type')
-                        ->getQuery()
-                        ->getResult()
-           ;
-       }
+    public function getAllValores($type)
+    {
+
+        return $this->createQueryBuilder('tb')
+                    ->select('r.fecha as fechaEntrega, cb.numero as ctacte, r.fecha as fecha, ec.razonSocial as razonSocial, tb.importe as importe, b.nombre as banco')
+                    ->join('tb.CtaCteBanco', 'cb')
+                    ->join('cb.banco', 'b')
+                    ->join('tb.recibo', 'r')
+                    ->join('r.enteComercial', 'ec')
+                    ->andWhere('ec INSTANCE OF :type')
+                    ->setParameter('type', ($type == 'c' ? Cliente::class : Proveedor::class ))
+                    ->getQuery()
+                    ->getResult()
+        ;
+    }
 
     //    /**
     //     * @return MetodoTransferencia[] Returns an array of MetodoTransferencia objects
