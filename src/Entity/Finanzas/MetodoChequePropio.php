@@ -26,6 +26,18 @@ class MetodoChequePropio extends MetodoCancelacionRecibo
     #[Assert\NotNull(message: 'El numero de cheque es requerido')]
     private ?string $numeroCheque = null;
 
+
+    public function getTipo()
+    {
+        return 'Valores Propios';
+    }
+
+    public function __toString()
+    {
+        return 'Cta: ' . $this->ctaCteBanco . ' - Banco: ' . $this->ctaCteBanco->getBanco() . ' - Nº ' .$this->numeroCheque . ' - Fecha Pago: ' . $this->fechaPago->format('d/m/Y');
+    }
+
+
     public function getCtaCteBanco(): ?CtaCteBanco
     {
         return $this->ctaCteBanco;

@@ -16,6 +16,16 @@ class MetodoEfectivo extends MetodoCancelacionRecibo
     #[Assert\NotNull(message: 'La caja es requerida')]
     private Caja|null $caja = null;
 
+    public function getTipo()
+    {
+        return 'Efectivo';
+    }
+
+    public function __toString()
+    {
+        return $this->caja . '';
+    }
+
     public function getCaja(): ?Caja
     {
         return $this->caja;

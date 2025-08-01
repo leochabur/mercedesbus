@@ -19,7 +19,7 @@ final class MetodoTransferenciaController extends AbstractController
     public function index($t, MetodoTransferenciaRepository $metodoTransferenciaRepository): Response
     {
         return $this->render('finanzas/metodo_transferencia/index.html.twig', [
-            'metodo_transferencias' => $metodoTransferenciaRepository->findAll($t),
+            'metodo_transferencias' => $metodoTransferenciaRepository->getAllValores($t), 't' => $t
         ]);
     }
 

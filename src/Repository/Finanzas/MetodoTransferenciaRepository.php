@@ -25,12 +25,12 @@ class MetodoTransferenciaRepository extends ServiceEntityRepository
 
         return $this->createQueryBuilder('tb')
                     ->select('r.fecha as fechaEntrega, cb.numero as ctacte, r.fecha as fecha, ec.razonSocial as razonSocial, tb.importe as importe, b.nombre as banco')
-                    ->join('tb.CtaCteBanco', 'cb')
+                    ->join('tb.ctacte', 'cb')
                     ->join('cb.banco', 'b')
                     ->join('tb.recibo', 'r')
                     ->join('r.enteComercial', 'ec')
-                    ->andWhere('ec INSTANCE OF :type')
-                    ->setParameter('type', ($type == 'c' ? Cliente::class : Proveedor::class ))
+                    ->andWhere('ec INSTANCE OF ' . ($type == 'c' ?  Cliente::class : Proveedor::class))
+
                     ->getQuery()
                     ->getResult()
         ;

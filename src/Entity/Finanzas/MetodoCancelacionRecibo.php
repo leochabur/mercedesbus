@@ -28,6 +28,8 @@ abstract class MetodoCancelacionRecibo
     #[Assert\NotNull(message: 'El recibo es requerido')]
     private Recibo|null $recibo = null;
 
+    public abstract function getTipo();
+
     public function getId(): ?int
     {
         return $this->id;

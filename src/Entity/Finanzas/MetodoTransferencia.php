@@ -16,6 +16,17 @@ class MetodoTransferencia extends MetodoCancelacionRecibo
     #[Assert\NotNull(message: 'La cuenta corriente es requerida')]
     private CtaCteBanco|null $ctacte = null;
 
+
+    public function getTipo()
+    {
+        return 'Transferencia Bancaria';
+    }
+
+    public function __toString()
+    {
+        return 'Cta: ' . $this->ctacte . ' - Banco: ' . $this->ctacte->getBanco();
+    }
+
     public function getCtacte(): ?CtaCteBanco
     {
         return $this->ctacte;

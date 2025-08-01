@@ -99,7 +99,7 @@ final class ComprobanteClienteController extends AbstractController
                     $entityManager->persist($comprobanteCliente);
                 }
                 $entityManager->flush();
-                return $this->redirectToRoute('app_administracion_comprobante_cliente_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_administracion_comprobante_cliente_new', ['code' => $code], Response::HTTP_SEE_OTHER);
             }
         }
         return $this->render('administracion/comprobante_cliente/new.html.twig', [

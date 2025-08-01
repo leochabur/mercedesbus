@@ -1,58 +1,29 @@
-{% extends 'base.html.twig' %}
+   <ul class="h5">
+        <li class="py-2">Fecha : {{ recibo.fecha ? recibo.fecha|date('d/m/Y') : '' }}</li>
+        <li class="py-2">{{ label }}: {{ recibo.enteComercial }}</li>
+    </ul>
+    
+    
+<hr>
 
-{% block title %}Recibo{% endblock %}
+    <table class="table table-">
+        <thead>
+            <tr>
+                    <th>Metodo Pago</th>
+                    <th>Descripcion</th>
+                    <th>Importe</th>
+            </tr>
+            </thead>
+            <tbody>
+          
+                    {% for it in recibo.metodos %}
+                        <tr>
+                            <td>{{ it.tipo }}</td>
+                            <td>{{ it }}</td>
+                            <td>{{ (it.importe)|number_format(2, ',' ,'.') }}</td>
+                        </tr>
+                    {% endfor %}
+  
+            </tbody>
 
-{% block body %}
-    <h1>Recibo</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ recibo.id }}</td>
-            </tr>
-            <tr>
-                <th>Fecha</th>
-                <td>{{ recibo.fecha ? recibo.fecha|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>PuntoVenta</th>
-                <td>{{ recibo.puntoVenta }}</td>
-            </tr>
-            <tr>
-                <th>Numero</th>
-                <td>{{ recibo.numero }}</td>
-            </tr>
-            <tr>
-                <th>Letra</th>
-                <td>{{ recibo.letra }}</td>
-            </tr>
-            <tr>
-                <th>DocumentoPdf</th>
-                <td>{{ recibo.documentoPdf }}</td>
-            </tr>
-            <tr>
-                <th>PrecioTotalSinIva</th>
-                <td>{{ recibo.precioTotalSinIva }}</td>
-            </tr>
-            <tr>
-                <th>PrecioTotalConIva</th>
-                <td>{{ recibo.precioTotalConIva }}</td>
-            </tr>
-            <tr>
-                <th>PrecioIva</th>
-                <td>{{ recibo.precioIva }}</td>
-            </tr>
-            <tr>
-                <th>AfectaCtaCte</th>
-                <td>{{ recibo.afectaCtaCte ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
     </table>
-
-    <a href="{{ path('app_finanzas_recibo_index') }}">back to list</a>
-
-    <a href="{{ path('app_finanzas_recibo_edit', {'id': recibo.id}) }}">edit</a>
-
-    {{ include('finanzas/recibo/_delete_form.html.twig') }}
-{% endblock %}

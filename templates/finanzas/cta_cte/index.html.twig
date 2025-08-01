@@ -67,7 +67,7 @@
                 
 
                                     <div class="action-buttons">
-                                        <a href="{{ (mov.tipo == 'V' ? path('app_administracion_comprobante_cliente_show', { id : mov.idComprobante }) : '#' ) }}" class="btn btn-info btn-sm  btn-open" title="Ver Detalles">
+                                        <a href="{{ (mov.tipo == 'V' ? path('app_administracion_comprobante_cliente_show', { id : mov.idComprobante }) : path('app_finanzas_recibo_show',{ id : mov.idComprobante, 'tipo': tipo }) ) }}" class="btn btn-info btn-sm  btn-open" title="Ver Detalles">
                                             <i class="bi bi-eye"></i>
                                         </a>
 

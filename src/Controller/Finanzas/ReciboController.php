@@ -267,11 +267,11 @@ final class ReciboController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_finanzas_recibo_show', methods: ['GET'])]
-    public function show(Recibo $recibo): Response
+    #[Route('/{id}/tipo/{tipo}', name: 'app_finanzas_recibo_show', methods: ['GET'])]
+    public function show(Recibo $id, $tipo): Response
     {
         return $this->render('finanzas/recibo/show.html.twig', [
-            'recibo' => $recibo,
+            'recibo' => $id, 'label' => ($tipo =='p' ? 'Proveedor' : 'Cliente')
         ]);
     }
 

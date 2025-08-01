@@ -14,6 +14,16 @@ class MetodoChequeCartera extends MetodoCancelacionRecibo
     #[ORM\JoinColumn(name: 'ic_cheque_cartera', referencedColumnName: 'id', nullable:true)]
     private MetodoCheque|null $chequeCartera = null;
 
+    public function getTipo()
+    {
+        return 'Valores En Cartera';
+    }
+
+    public function __toString()
+    {
+        return $this->chequeCartera . '';
+    }
+
     public function getChequeCartera(): ?MetodoCheque
     {
         return $this->chequeCartera;

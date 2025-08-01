@@ -35,6 +35,12 @@ class MetodoCheque extends MetodoCancelacionRecibo
     #[ORM\Column]
     private ?bool $entregado = false;
 
+    public function getTipo()
+    {
+        return 'Valores Terceros';
+    }
+
+
     public function __toString()
     {
         $recibo = $this->getRecibo();
