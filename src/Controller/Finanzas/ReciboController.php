@@ -44,6 +44,11 @@ final class ReciboController extends AbstractController
     public function new($type, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator, ReciboRepository $reciboRepository): Response
     {
         $lastId = $reciboRepository->findLastId();
+        if (!$lastId)
+        {
+            $lastId = 1;
+        }
+        $lastId++;
         $recibo = new Recibo();
         $recibo->setNumero($lastId);
         $form = $this->createForm(ReciboType::class, $recibo, ['tipo' => $type]);
