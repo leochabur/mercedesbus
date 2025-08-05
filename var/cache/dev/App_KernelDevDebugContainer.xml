@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
   <parameters>
-    <parameter key="kernel.project_dir">E:\proyectos\mercedesBus</parameter>
+    <parameter key="kernel.project_dir">C:\mercedesBus</parameter>
     <parameter key="kernel.environment">dev</parameter>
     <parameter key="kernel.runtime_environment">%env(default:kernel.environment:APP_RUNTIME_ENV)%</parameter>
     <parameter key="kernel.runtime_mode">%env(query_string:default:container.runtime_mode:APP_RUNTIME_MODE)%</parameter>
@@ -9,9 +9,9 @@
     <parameter key="kernel.runtime_mode.cli">%env(not:default:kernel.runtime_mode.web:)%</parameter>
     <parameter key="kernel.runtime_mode.worker">%env(bool:default::key:worker:default:kernel.runtime_mode:)%</parameter>
     <parameter key="kernel.debug">true</parameter>
-    <parameter key="kernel.build_dir">E:\proyectos\mercedesBus\var\cache\dev</parameter>
-    <parameter key="kernel.cache_dir">E:\proyectos\mercedesBus\var\cache\dev</parameter>
-    <parameter key="kernel.logs_dir">E:\proyectos\mercedesBus\var\log</parameter>
+    <parameter key="kernel.build_dir">C:\mercedesBus\var\cache\dev</parameter>
+    <parameter key="kernel.cache_dir">C:\mercedesBus\var\cache\dev</parameter>
+    <parameter key="kernel.logs_dir">C:\mercedesBus\var\log</parameter>
     <parameter key="kernel.bundles" type="collection">
       <parameter key="FrameworkBundle">Symfony\Bundle\FrameworkBundle\FrameworkBundle</parameter>
       <parameter key="SecurityBundle">Symfony\Bundle\SecurityBundle\SecurityBundle</parameter>
@@ -27,47 +27,47 @@
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
-        <parameter key="path">E:\proyectos\mercedesBus\vendor\symfony\framework-bundle</parameter>
+        <parameter key="path">C:\mercedesBus\vendor\symfony\framework-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\FrameworkBundle</parameter>
       </parameter>
       <parameter key="SecurityBundle" type="collection">
-        <parameter key="path">E:\proyectos\mercedesBus\vendor\symfony\security-bundle</parameter>
+        <parameter key="path">C:\mercedesBus\vendor\symfony\security-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\SecurityBundle</parameter>
       </parameter>
       <parameter key="MakerBundle" type="collection">
-        <parameter key="path">E:\proyectos\mercedesBus\vendor\symfony\maker-bundle</parameter>
+        <parameter key="path">C:\mercedesBus\vendor\symfony\maker-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\MakerBundle</parameter>
       </parameter>
       <parameter key="DoctrineBundle" type="collection">
-        <parameter key="path">E:\proyectos\mercedesBus\vendor\doctrine\doctrine-bundle</parameter>
+        <parameter key="path">C:\mercedesBus\vendor\doctrine\doctrine-bundle</parameter>
         <parameter key="namespace">Doctrine\Bundle\DoctrineBundle</parameter>
       </parameter>
       <parameter key="DoctrineMigrationsBundle" type="collection">
-        <parameter key="path">E:\proyectos\mercedesBus\vendor\doctrine\doctrine-migrations-bundle</parameter>
+        <parameter key="path">C:\mercedesBus\vendor\doctrine\doctrine-migrations-bundle</parameter>
         <parameter key="namespace">Doctrine\Bundle\MigrationsBundle</parameter>
       </parameter>
       <parameter key="TwigBundle" type="collection">
-        <parameter key="path">E:\proyectos\mercedesBus\vendor\symfony\twig-bundle</parameter>
+        <parameter key="path">C:\mercedesBus\vendor\symfony\twig-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\TwigBundle</parameter>
       </parameter>
       <parameter key="TwigExtraBundle" type="collection">
-        <parameter key="path">E:\proyectos\mercedesBus\vendor\twig\extra-bundle</parameter>
+        <parameter key="path">C:\mercedesBus\vendor\twig\extra-bundle</parameter>
         <parameter key="namespace">Twig\Extra\TwigExtraBundle</parameter>
       </parameter>
       <parameter key="WebProfilerBundle" type="collection">
-        <parameter key="path">E:\proyectos\mercedesBus\vendor\symfony\web-profiler-bundle</parameter>
+        <parameter key="path">C:\mercedesBus\vendor\symfony\web-profiler-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\WebProfilerBundle</parameter>
       </parameter>
       <parameter key="StimulusBundle" type="collection">
-        <parameter key="path">E:\proyectos\mercedesBus\vendor\symfony\stimulus-bundle</parameter>
+        <parameter key="path">C:\mercedesBus\vendor\symfony\stimulus-bundle</parameter>
         <parameter key="namespace">Symfony\UX\StimulusBundle</parameter>
       </parameter>
       <parameter key="DebugBundle" type="collection">
-        <parameter key="path">E:\proyectos\mercedesBus\vendor\symfony\debug-bundle</parameter>
+        <parameter key="path">C:\mercedesBus\vendor\symfony\debug-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\DebugBundle</parameter>
       </parameter>
       <parameter key="StofDoctrineExtensionsBundle" type="collection">
-        <parameter key="path">E:\proyectos\mercedesBus\vendor\stof\doctrine-extensions-bundle\src</parameter>
+        <parameter key="path">C:\mercedesBus\vendor\stof\doctrine-extensions-bundle\src</parameter>
         <parameter key="namespace">Stof\DoctrineExtensionsBundle</parameter>
       </parameter>
     </parameter>
@@ -108,15 +108,15 @@
     <parameter key="asset.request_context.base_path">null</parameter>
     <parameter key="asset.request_context.secure">null</parameter>
     <parameter key="debug.error_handler.throw_at">-1</parameter>
-    <parameter key="debug.container.dump">E:\proyectos\mercedesBus\var\cache\dev/App_KernelDevDebugContainer.xml</parameter>
+    <parameter key="debug.container.dump">C:\mercedesBus\var\cache\dev/App_KernelDevDebugContainer.xml</parameter>
     <parameter key="router.request_context.host">localhost</parameter>
     <parameter key="router.request_context.scheme">http</parameter>
     <parameter key="router.request_context.base_url"></parameter>
     <parameter key="router.resource">kernel::loadRoutes</parameter>
-    <parameter key="router.cache_dir">E:\proyectos\mercedesBus\var\cache\dev</parameter>
+    <parameter key="router.cache_dir">C:\mercedesBus\var\cache\dev</parameter>
     <parameter key="request_listener.http_port">80</parameter>
     <parameter key="request_listener.https_port">443</parameter>
-    <parameter key="cache.prefix.seed">_E:\proyectos\mercedesBus.App_KernelDevDebugContainer</parameter>
+    <parameter key="cache.prefix.seed">_C:\mercedesBus.App_KernelDevDebugContainer</parameter>
     <parameter key="session.metadata.storage_key">_sf2_meta</parameter>
     <parameter key="session.storage.options" type="collection">
       <parameter key="cache_limiter" type="string">0</parameter>
@@ -129,11 +129,11 @@
     <parameter key="session.metadata.update_threshold">0</parameter>
     <parameter key="form.type_extension.csrf.enabled">true</parameter>
     <parameter key="form.type_extension.csrf.field_name">_token</parameter>
-    <parameter key="validator.mapping.cache.file">E:\proyectos\mercedesBus\var\cache\dev/validation.php</parameter>
+    <parameter key="validator.mapping.cache.file">C:\mercedesBus\var\cache\dev/validation.php</parameter>
     <parameter key="validator.translation_domain">validators</parameter>
     <parameter key="profiler_listener.only_exceptions">false</parameter>
     <parameter key="profiler_listener.only_main_requests">false</parameter>
-    <parameter key="profiler.storage.dsn">file:E:\proyectos\mercedesBus\var\cache\dev/profiler</parameter>
+    <parameter key="profiler.storage.dsn">file:C:\mercedesBus\var\cache\dev/profiler</parameter>
     <parameter key="security.role_hierarchy.roles" type="collection"/>
     <parameter key="security.access.denied_url">null</parameter>
     <parameter key="security.authentication.manager.erase_credentials">true</parameter>
@@ -209,7 +209,7 @@
     <parameter key="doctrine.orm.second_level_cache.regions_configuration.class">Doctrine\ORM\Cache\RegionsConfiguration</parameter>
     <parameter key="doctrine.orm.auto_generate_proxy_classes">true</parameter>
     <parameter key="doctrine.orm.enable_lazy_ghost_objects">true</parameter>
-    <parameter key="doctrine.orm.proxy_dir">E:\proyectos\mercedesBus\var\cache\dev/doctrine/orm/Proxies</parameter>
+    <parameter key="doctrine.orm.proxy_dir">C:\mercedesBus\var\cache\dev/doctrine/orm/Proxies</parameter>
     <parameter key="doctrine.orm.proxy_namespace">Proxies</parameter>
     <parameter key="doctrine.migrations.preferred_em">null</parameter>
     <parameter key="doctrine.migrations.preferred_connection">null</parameter>
@@ -217,7 +217,7 @@
       <parameter>form_div_layout.html.twig</parameter>
       <parameter>bootstrap_5_layout.html.twig</parameter>
     </parameter>
-    <parameter key="twig.default_path">E:\proyectos\mercedesBus/templates</parameter>
+    <parameter key="twig.default_path">C:\mercedesBus/templates</parameter>
     <parameter key="web_profiler.debug_toolbar.intercept_redirects">false</parameter>
     <parameter key="web_profiler.debug_toolbar.mode">2</parameter>
     <parameter key="env(VAR_DUMPER_SERVER)">127.0.0.1:9912</parameter>
@@ -517,6 +517,10 @@
     <service id="App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Repository\Administracion\ArticuloConceptoClienteRepository" class="App\Repository\Administracion\ArticuloConceptoClienteRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\Administracion\ArticuloConceptoRepository" class="App\Repository\Administracion\ArticuloConceptoRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
@@ -743,7 +747,7 @@
       </argument>
     </service>
     <service id="http_cache.store" class="Symfony\Component\HttpKernel\HttpCache\Store">
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/http_cache</argument>
+      <argument>C:\mercedesBus\var\cache\dev/http_cache</argument>
     </service>
     <service id="url_helper" class="Symfony\Component\HttpFoundation\UrlHelper">
       <argument type="service" id="request_stack"/>
@@ -753,7 +757,7 @@
       <tag name="container.no_preload"/>
       <argument type="tagged_iterator" tag="kernel.cache_warmer"/>
       <argument>true</argument>
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/App_KernelDevDebugContainerDeprecations.log</argument>
+      <argument>C:\mercedesBus\var\cache\dev/App_KernelDevDebugContainerDeprecations.log</argument>
     </service>
     <service id="cache_clearer" class="Symfony\Component\HttpKernel\CacheClearer\ChainCacheClearer">
       <argument type="tagged_iterator" tag="kernel.cache_clearer"/>
@@ -981,7 +985,7 @@
       </argument>
       <argument>UTF-8</argument>
       <argument type="service" id="debug.file_link_formatter" on-invalid="null"/>
-      <argument>E:\proyectos\mercedesBus</argument>
+      <argument>C:\mercedesBus</argument>
       <argument type="service">
         <service>
           <argument type="service" id="request_stack"/>
@@ -1017,7 +1021,7 @@
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument type="service" id="filesystem"/>
-      <argument>E:\proyectos\mercedesBus</argument>
+      <argument>C:\mercedesBus</argument>
       <call method="setName">
         <argument>assets:install</argument>
       </call>
@@ -1200,7 +1204,7 @@
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument>dev</argument>
-      <argument>E:\proyectos\mercedesBus</argument>
+      <argument>C:\mercedesBus</argument>
       <call method="setName">
         <argument>debug:dotenv</argument>
       </call>
@@ -1452,7 +1456,7 @@
       <argument></argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/pools/system</argument>
+      <argument>C:\mercedesBus\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
@@ -1471,7 +1475,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/pools/app</argument>
+      <argument>C:\mercedesBus\var\cache\dev/pools/app</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
         <argument type="service" id="logger" on-invalid="ignore"/>
@@ -1637,15 +1641,15 @@
     <service id="asset_mapper.cached_mapped_asset_factory" class="Symfony\Component\AssetMapper\Factory\CachedMappedAssetFactory">
       <tag name="container.decorator" id="asset_mapper.mapped_asset_factory" inner="asset_mapper.cached_mapped_asset_factory.inner"/>
       <argument type="service" id="asset_mapper.cached_mapped_asset_factory.inner"/>
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/asset_mapper</argument>
+      <argument>C:\mercedesBus\var\cache\dev/asset_mapper</argument>
       <argument>true</argument>
     </service>
     <service id="asset_mapper.repository" class="Symfony\Component\AssetMapper\AssetMapperRepository">
       <argument type="collection">
-        <argument key="E:\proyectos\mercedesBus\vendor\symfony\stimulus-bundle\src\DependencyInjection/../../assets/dist">@symfony/stimulus-bundle</argument>
+        <argument key="C:\mercedesBus\vendor\symfony\stimulus-bundle\src\DependencyInjection/../../assets/dist">@symfony/stimulus-bundle</argument>
         <argument key="assets/"></argument>
       </argument>
-      <argument>E:\proyectos\mercedesBus</argument>
+      <argument>C:\mercedesBus</argument>
       <argument type="collection">
         <argument>#^(?=[^\.]).*\.d\.ts$#</argument>
         <argument>#^(?=[^\.]).*.*/(?=[^\.])controllers\.json$#</argument>
@@ -1657,10 +1661,10 @@
       <argument>/assets/</argument>
     </service>
     <service id="asset_mapper.local_public_assets_filesystem" class="Symfony\Component\AssetMapper\Path\LocalPublicAssetsFilesystem">
-      <argument>E:\proyectos\mercedesBus/public</argument>
+      <argument>C:\mercedesBus/public</argument>
     </service>
     <service id="asset_mapper.compiled_asset_mapper_config_reader" class="Symfony\Component\AssetMapper\CompiledAssetMapperConfigReader">
-      <argument>E:\proyectos\mercedesBus/public/assets</argument>
+      <argument>C:\mercedesBus/public/assets</argument>
     </service>
     <service id="asset_mapper.asset_package" class="Symfony\Component\AssetMapper\MapperAwareAssetPackage">
       <tag name="container.decorator" id="assets._default_package" inner="asset_mapper.asset_package.inner"/>
@@ -1684,7 +1688,7 @@
       <argument type="service" id="asset_mapper"/>
       <argument type="service" id="asset_mapper.importmap.generator"/>
       <argument type="service" id="asset_mapper.local_public_assets_filesystem"/>
-      <argument>E:\proyectos\mercedesBus</argument>
+      <argument>C:\mercedesBus</argument>
       <argument>true</argument>
       <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
       <call method="setName">
@@ -1699,7 +1703,7 @@
       <tag name="container.no_preload"/>
       <argument type="service" id="asset_mapper"/>
       <argument type="service" id="asset_mapper.repository"/>
-      <argument>E:\proyectos\mercedesBus</argument>
+      <argument>C:\mercedesBus</argument>
       <call method="setName">
         <argument>debug:asset-map</argument>
       </call>
@@ -1728,7 +1732,7 @@
       <argument type="service" id="logger"/>
     </service>
     <service id="asset_mapper.importmap.config_reader" class="Symfony\Component\AssetMapper\ImportMap\ImportMapConfigReader">
-      <argument>E:\proyectos\mercedesBus/importmap.php</argument>
+      <argument>C:\mercedesBus/importmap.php</argument>
       <argument type="service" id="asset_mapper.importmap.remote_package_storage"/>
     </service>
     <service id="asset_mapper.importmap.manager" class="Symfony\Component\AssetMapper\ImportMap\ImportMapManager">
@@ -1743,7 +1747,7 @@
       <argument type="service" id="asset_mapper.importmap.config_reader"/>
     </service>
     <service id="asset_mapper.importmap.remote_package_storage" class="Symfony\Component\AssetMapper\ImportMap\RemotePackageStorage">
-      <argument>E:\proyectos\mercedesBus/assets/vendor</argument>
+      <argument>C:\mercedesBus/assets/vendor</argument>
     </service>
     <service id="asset_mapper.importmap.remote_package_downloader" class="Symfony\Component\AssetMapper\ImportMap\RemotePackageDownloader">
       <argument type="service" id="asset_mapper.importmap.remote_package_storage"/>
@@ -1812,7 +1816,7 @@
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument type="service" id="asset_mapper.importmap.remote_package_downloader"/>
-      <argument>E:\proyectos\mercedesBus</argument>
+      <argument>C:\mercedesBus</argument>
       <call method="setName">
         <argument>importmap:install</argument>
       </call>
@@ -1902,7 +1906,7 @@
     <service id="debug.file_link_formatter" class="Symfony\Component\ErrorHandler\ErrorRenderer\FileLinkFormatter">
       <argument>%env(default::SYMFONY_IDE)%</argument>
       <argument type="service" id="request_stack" on-invalid="ignore"/>
-      <argument>E:\proyectos\mercedesBus</argument>
+      <argument>C:\mercedesBus</argument>
       <argument type="service_closure" id="debug.file_link_formatter.url_format"/>
     </service>
     <service id="debug.stopwatch" class="Symfony\Component\Stopwatch\Stopwatch" public="true">
@@ -2444,7 +2448,7 @@
       <argument type="service" id=".service_locator.PvoQzFT.router.default"/>
       <argument>kernel::loadRoutes</argument>
       <argument type="collection">
-        <argument key="cache_dir">E:\proyectos\mercedesBus\var\cache\dev</argument>
+        <argument key="cache_dir">C:\mercedesBus\var\cache\dev</argument>
         <argument key="debug">true</argument>
         <argument key="generator_class">Symfony\Component\Routing\Generator\CompiledUrlGenerator</argument>
         <argument key="generator_dumper_class">Symfony\Component\Routing\Generator\Dumper\CompiledUrlGeneratorDumper</argument>
@@ -2482,7 +2486,7 @@
       <argument type="service" id="request_stack"/>
       <argument type="service" id="router.request_context" on-invalid="ignore"/>
       <argument type="service" id="logger" on-invalid="ignore"/>
-      <argument>E:\proyectos\mercedesBus</argument>
+      <argument>C:\mercedesBus</argument>
       <argument>true</argument>
     </service>
     <service id="Symfony\Bundle\FrameworkBundle\Controller\RedirectController" class="Symfony\Bundle\FrameworkBundle\Controller\RedirectController" public="true">
@@ -2510,7 +2514,7 @@
     </service>
     <service id="secrets.vault" class="Symfony\Bundle\FrameworkBundle\Secrets\SodiumVault">
       <tag name="container.env_var_loader"/>
-      <argument>E:\proyectos\mercedesBus/config/secrets/%env(default:kernel.environment:APP_RUNTIME_ENV)%</argument>
+      <argument>C:\mercedesBus/config/secrets/%env(default:kernel.environment:APP_RUNTIME_ENV)%</argument>
       <argument type="service" id="secrets.decryption_key" on-invalid="ignore"/>
     </service>
     <service id="secrets.decryption_key" class="Symfony\Component\String\LazyString" constructor="fromCallable">
@@ -2518,7 +2522,7 @@
       <argument>base64:default::SYMFONY_DECRYPTION_SECRET</argument>
     </service>
     <service id="secrets.local_vault" class="Symfony\Bundle\FrameworkBundle\Secrets\DotenvVault">
-      <argument>E:\proyectos\mercedesBus/.env.dev.local</argument>
+      <argument>C:\mercedesBus/.env.dev.local</argument>
     </service>
     <service id="property_info" class="Symfony\Component\PropertyInfo\PropertyInfoExtractor">
       <argument type="iterator">
@@ -2590,7 +2594,7 @@
       <argument>true</argument>
     </service>
     <service id="session.storage.factory.mock_file" class="Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorageFactory">
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/sessions</argument>
+      <argument>C:\mercedesBus\var\cache\dev/sessions</argument>
       <argument>MOCKSESSID</argument>
       <argument type="service">
         <service class="Symfony\Component\HttpFoundation\Session\Storage\MetadataBag">
@@ -2761,7 +2765,7 @@
       </call>
       <call method="addXmlMappings">
         <argument type="collection">
-          <argument>E:\proyectos\mercedesBus\vendor\symfony\form/Resources/config/validation.xml</argument>
+          <argument>C:\mercedesBus\vendor\symfony\form/Resources/config/validation.xml</argument>
         </argument>
       </call>
       <call method="enableAttributeMapping">
@@ -2786,10 +2790,10 @@
     <service id="validator.mapping.cache_warmer" class="Symfony\Bundle\FrameworkBundle\CacheWarmer\ValidatorCacheWarmer">
       <tag name="kernel.cache_warmer"/>
       <argument type="service" id="validator.builder"/>
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/validation.php</argument>
+      <argument>C:\mercedesBus\var\cache\dev/validation.php</argument>
     </service>
     <service id="validator.mapping.cache.adapter" class="Symfony\Component\Cache\Adapter\PhpArrayAdapter" constructor="create">
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/validation.php</argument>
+      <argument>C:\mercedesBus\var\cache\dev/validation.php</argument>
       <argument type="service" id="cache.validator"/>
     </service>
     <service id="validator.validator_factory" class="Symfony\Component\Validator\ContainerConstraintValidatorFactory">
@@ -3140,7 +3144,7 @@
       </call>
     </service>
     <service id="profiler.storage" class="Symfony\Component\HttpKernel\Profiler\FileProfilerStorage">
-      <argument>file:E:\proyectos\mercedesBus\var\cache\dev/profiler</argument>
+      <argument>file:C:\mercedesBus\var\cache\dev/profiler</argument>
     </service>
     <service id="profiler_listener" class="Symfony\Component\HttpKernel\EventListener\ProfilerListener">
       <tag name="kernel.event_subscriber"/>
@@ -3205,7 +3209,7 @@
       <tag name="monolog.logger" channel="profiler"/>
       <tag name="data_collector" template="@WebProfiler/Collector/logger.html.twig" id="logger" priority="300"/>
       <argument type="service" id="logger" on-invalid="ignore"/>
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/App_KernelDevDebugContainer</argument>
+      <argument>C:\mercedesBus\var\cache\dev/App_KernelDevDebugContainer</argument>
       <argument type="service" id=".virtual_request_stack" on-invalid="ignore"/>
     </service>
     <service id="data_collector.time" class="Symfony\Component\HttpKernel\DataCollector\TimeDataCollector">
@@ -4041,8 +4045,8 @@
       <argument type="service" id="filesystem"/>
       <argument type="service" id="maker.autoloader_util"/>
       <argument type="service" id="maker.file_link_formatter"/>
-      <argument>E:\proyectos\mercedesBus</argument>
-      <argument>E:\proyectos\mercedesBus/templates</argument>
+      <argument>C:\mercedesBus</argument>
+      <argument>C:\mercedesBus/templates</argument>
     </service>
     <service id="maker.autoloader_finder" class="Symfony\Bundle\MakerBundle\Util\ComposerAutoloaderFinder">
       <argument>App</argument>
@@ -4219,7 +4223,7 @@
     </service>
     <service id="maker.maker.make_migration" class="Symfony\Bundle\MakerBundle\Maker\MakeMigration">
       <tag name="maker.command"/>
-      <argument>E:\proyectos\mercedesBus</argument>
+      <argument>C:\mercedesBus</argument>
       <argument type="service" id="maker.file_link_formatter"/>
     </service>
     <service id="maker.maker.make_stimulus_controller" class="Symfony\Bundle\MakerBundle\Maker\MakeStimulusController">
@@ -4433,7 +4437,7 @@
       <argument type="service" id="doctrine.debug_data_holder"/>
       <argument type="service" id="debug.stopwatch" on-invalid="null"/>
     </service>
-    <service id=".1_ServiceLocator~2eUZa92" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".1_ServiceLocator~S6Z7b2_" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <argument type="collection"/>
     </service>
     <service id="doctrine.orm.proxy_cache_warmer" class="Symfony\Bridge\Doctrine\CacheWarmer\ProxyCacheWarmer">
@@ -4452,7 +4456,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator._D2d_r8"/>
+      <argument type="service" id=".service_locator.ZynzpwS"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -4641,7 +4645,7 @@
         <argument type="service" id=".doctrine.orm.default_metadata_driver"/>
       </call>
       <call method="setProxyDir">
-        <argument>E:\proyectos\mercedesBus\var\cache\dev/doctrine/orm/Proxies</argument>
+        <argument>C:\mercedesBus\var\cache\dev/doctrine/orm/Proxies</argument>
       </call>
       <call method="setProxyNamespace">
         <argument>Proxies</argument>
@@ -4682,7 +4686,7 @@
     </service>
     <service id="doctrine.orm.default_attribute_metadata_driver" class="Doctrine\ORM\Mapping\Driver\AttributeDriver">
       <argument type="collection">
-        <argument>E:\proyectos\mercedesBus\src\Entity</argument>
+        <argument>C:\mercedesBus\src\Entity</argument>
       </argument>
       <argument>true</argument>
     </service>
@@ -4746,7 +4750,7 @@
     <service id="doctrine.migrations.configuration" class="Doctrine\Migrations\Configuration\Configuration">
       <call method="addMigrationsDirectory">
         <argument>DoctrineMigrations</argument>
-        <argument>E:\proyectos\mercedesBus/migrations</argument>
+        <argument>C:\mercedesBus/migrations</argument>
       </call>
       <call method="setAllOrNothing">
         <argument>false</argument>
@@ -4943,7 +4947,7 @@
       <argument type="service" id="twig.loader.native_filesystem"/>
       <argument type="collection">
         <argument key="autoescape">name</argument>
-        <argument key="cache">E:\proyectos\mercedesBus\var\cache\dev/twig</argument>
+        <argument key="cache">C:\mercedesBus\var\cache\dev/twig</argument>
         <argument key="charset">UTF-8</argument>
         <argument key="debug">true</argument>
         <argument key="strict_variables">true</argument>
@@ -5052,9 +5056,9 @@
     <service id="twig.template_iterator" class="Symfony\Bundle\TwigBundle\TemplateIterator">
       <argument type="service" id="kernel"/>
       <argument type="collection">
-        <argument key="E:\proyectos\mercedesBus\vendor\symfony\twig-bridge/Resources/views/Form">null</argument>
+        <argument key="C:\mercedesBus\vendor\symfony\twig-bridge/Resources/views/Form">null</argument>
       </argument>
-      <argument>E:\proyectos\mercedesBus/templates</argument>
+      <argument>C:\mercedesBus/templates</argument>
       <argument type="collection"/>
     </service>
     <service id="twig.template_cache_warmer" class="Symfony\Bundle\TwigBundle\CacheWarmer\TemplateCacheWarmer">
@@ -5066,60 +5070,60 @@
     <service id="twig.loader.native_filesystem" class="Twig\Loader\FilesystemLoader">
       <tag name="twig.loader"/>
       <argument type="collection"/>
-      <argument>E:\proyectos\mercedesBus</argument>
+      <argument>C:\mercedesBus</argument>
       <call method="addPath">
-        <argument>E:\proyectos\mercedesBus\vendor\symfony\security-bundle/Resources/views</argument>
+        <argument>C:\mercedesBus\vendor\symfony\security-bundle/Resources/views</argument>
         <argument>Security</argument>
       </call>
       <call method="addPath">
-        <argument>E:\proyectos\mercedesBus\vendor\symfony\security-bundle/Resources/views</argument>
+        <argument>C:\mercedesBus\vendor\symfony\security-bundle/Resources/views</argument>
         <argument>!Security</argument>
       </call>
       <call method="addPath">
-        <argument>E:\proyectos\mercedesBus\vendor\symfony\maker-bundle/templates</argument>
+        <argument>C:\mercedesBus\vendor\symfony\maker-bundle/templates</argument>
         <argument>Maker</argument>
       </call>
       <call method="addPath">
-        <argument>E:\proyectos\mercedesBus\vendor\symfony\maker-bundle/templates</argument>
+        <argument>C:\mercedesBus\vendor\symfony\maker-bundle/templates</argument>
         <argument>!Maker</argument>
       </call>
       <call method="addPath">
-        <argument>E:\proyectos\mercedesBus\vendor\doctrine\doctrine-bundle/templates</argument>
+        <argument>C:\mercedesBus\vendor\doctrine\doctrine-bundle/templates</argument>
         <argument>Doctrine</argument>
       </call>
       <call method="addPath">
-        <argument>E:\proyectos\mercedesBus\vendor\doctrine\doctrine-bundle/templates</argument>
+        <argument>C:\mercedesBus\vendor\doctrine\doctrine-bundle/templates</argument>
         <argument>!Doctrine</argument>
       </call>
       <call method="addPath">
-        <argument>E:\proyectos\mercedesBus\vendor\doctrine\doctrine-migrations-bundle/templates</argument>
+        <argument>C:\mercedesBus\vendor\doctrine\doctrine-migrations-bundle/templates</argument>
         <argument>DoctrineMigrations</argument>
       </call>
       <call method="addPath">
-        <argument>E:\proyectos\mercedesBus\vendor\doctrine\doctrine-migrations-bundle/templates</argument>
+        <argument>C:\mercedesBus\vendor\doctrine\doctrine-migrations-bundle/templates</argument>
         <argument>!DoctrineMigrations</argument>
       </call>
       <call method="addPath">
-        <argument>E:\proyectos\mercedesBus\vendor\symfony\web-profiler-bundle/Resources/views</argument>
+        <argument>C:\mercedesBus\vendor\symfony\web-profiler-bundle/Resources/views</argument>
         <argument>WebProfiler</argument>
       </call>
       <call method="addPath">
-        <argument>E:\proyectos\mercedesBus\vendor\symfony\web-profiler-bundle/Resources/views</argument>
+        <argument>C:\mercedesBus\vendor\symfony\web-profiler-bundle/Resources/views</argument>
         <argument>!WebProfiler</argument>
       </call>
       <call method="addPath">
-        <argument>E:\proyectos\mercedesBus\vendor\symfony\debug-bundle/Resources/views</argument>
+        <argument>C:\mercedesBus\vendor\symfony\debug-bundle/Resources/views</argument>
         <argument>Debug</argument>
       </call>
       <call method="addPath">
-        <argument>E:\proyectos\mercedesBus\vendor\symfony\debug-bundle/Resources/views</argument>
+        <argument>C:\mercedesBus\vendor\symfony\debug-bundle/Resources/views</argument>
         <argument>!Debug</argument>
       </call>
       <call method="addPath">
-        <argument>E:\proyectos\mercedesBus/templates</argument>
+        <argument>C:\mercedesBus/templates</argument>
       </call>
       <call method="addPath">
-        <argument>E:\proyectos\mercedesBus\vendor\symfony\twig-bridge/Resources/views/Form</argument>
+        <argument>C:\mercedesBus\vendor\symfony\twig-bridge/Resources/views/Form</argument>
       </call>
     </service>
     <service id="twig.loader.chain" class="Twig\Loader\ChainLoader"/>
@@ -5145,7 +5149,7 @@
     <service id="twig.extension.code" class="Symfony\Bridge\Twig\Extension\CodeExtension">
       <tag name="twig.extension"/>
       <argument type="service" id="debug.file_link_formatter" on-invalid="ignore"/>
-      <argument>E:\proyectos\mercedesBus</argument>
+      <argument>C:\mercedesBus</argument>
       <argument>UTF-8</argument>
     </service>
     <service id="twig.extension.routing" class="Symfony\Bridge\Twig\Extension\RoutingExtension">
@@ -5227,9 +5231,9 @@
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument type="service" id="twig"/>
-      <argument>E:\proyectos\mercedesBus</argument>
+      <argument>C:\mercedesBus</argument>
       <argument>%kernel.bundles_metadata%</argument>
-      <argument>E:\proyectos\mercedesBus/templates</argument>
+      <argument>C:\mercedesBus/templates</argument>
       <argument type="service" id="debug.file_link_formatter" on-invalid="null"/>
       <call method="setName">
         <argument>debug:twig</argument>
@@ -5266,7 +5270,7 @@
       <argument type="service" id="twig"/>
       <argument>%data_collector.templates%</argument>
       <argument type="service" id="web_profiler.csp.handler"/>
-      <argument>E:\proyectos\mercedesBus</argument>
+      <argument>C:\mercedesBus</argument>
     </service>
     <service id="web_profiler.controller.router" class="Symfony\Bundle\WebProfilerBundle\Controller\RouterController" public="true">
       <argument type="service" id="profiler" on-invalid="null"/>
@@ -5325,7 +5329,7 @@
       <argument type="service" id="stimulus.helper"/>
     </service>
     <service id="stimulus.asset_mapper.ux_package_reader" class="Symfony\UX\StimulusBundle\Ux\UxPackageReader">
-      <argument>E:\proyectos\mercedesBus</argument>
+      <argument>C:\mercedesBus</argument>
     </service>
     <service id="stimulus.ux_controllers_twig_extension" class="Symfony\UX\StimulusBundle\Twig\UxControllersTwigExtension">
       <tag name="twig.extension"/>
@@ -5335,15 +5339,15 @@
       <argument type="service" id="stimulus.asset_mapper.controllers_map_generator"/>
       <argument type="service" id="asset_mapper"/>
       <argument type="service" id="stimulus.asset_mapper.ux_package_reader"/>
-      <argument>E:\proyectos\mercedesBus</argument>
+      <argument>C:\mercedesBus</argument>
     </service>
     <service id="stimulus.asset_mapper.controllers_map_generator" class="Symfony\UX\StimulusBundle\AssetMapper\ControllersMapGenerator">
       <argument type="service" id="asset_mapper"/>
       <argument type="service" id="stimulus.asset_mapper.ux_package_reader"/>
       <argument type="collection">
-        <argument>E:\proyectos\mercedesBus/assets/controllers</argument>
+        <argument>C:\mercedesBus/assets/controllers</argument>
       </argument>
-      <argument>E:\proyectos\mercedesBus/assets/controllers.json</argument>
+      <argument>C:\mercedesBus/assets/controllers.json</argument>
       <argument type="service" id="stimulus.asset_mapper.auto_import_locator" on-invalid="null"/>
     </service>
     <service id="stimulus.asset_mapper.auto_import_locator" class="Symfony\UX\StimulusBundle\AssetMapper\AutoImportLocator">
@@ -5398,7 +5402,7 @@
         <argument key="source" type="service">
           <service class="Symfony\Component\VarDumper\Dumper\ContextProvider\SourceContextProvider">
             <argument>UTF-8</argument>
-            <argument>E:\proyectos\mercedesBus</argument>
+            <argument>C:\mercedesBus</argument>
             <argument type="service" id="debug.file_link_formatter" on-invalid="null"/>
           </service>
         </argument>
@@ -5420,7 +5424,7 @@
         <argument key="source" type="service">
           <service class="Symfony\Component\VarDumper\Dumper\ContextProvider\SourceContextProvider">
             <argument>UTF-8</argument>
-            <argument>E:\proyectos\mercedesBus</argument>
+            <argument>C:\mercedesBus</argument>
             <argument type="service" id="debug.file_link_formatter" on-invalid="null"/>
           </service>
         </argument>
@@ -5582,6 +5586,8 @@
     <service id=".abstract.instanceof.App\Form\RRHH\PuestoTrabajoType" class="App\Form\RRHH\PuestoTrabajoType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Administracion\ArticuloConceptoClienteRepository" class="App\Repository\Administracion\ArticuloConceptoClienteRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\Administracion\ArticuloConceptoClienteRepository" class="App\Repository\Administracion\ArticuloConceptoClienteRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Administracion\ArticuloConceptoRepository" class="App\Repository\Administracion\ArticuloConceptoRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\Administracion\ArticuloConceptoRepository" class="App\Repository\Administracion\ArticuloConceptoRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Administracion\ClienteRepository" class="App\Repository\Administracion\ClienteRepository" autowire="true" abstract="true"/>
@@ -6794,9 +6800,10 @@
         <argument key="stof_doctrine_extensions.listener.softdeleteable" type="service_closure" id="stof_doctrine_extensions.listener.softdeleteable"/>
       </argument>
     </service>
-    <service id=".service_locator._D2d_r8" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.ZynzpwS" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Repository\Administracion\ArticuloConceptoClienteRepository" type="service_closure" id="App\Repository\Administracion\ArticuloConceptoClienteRepository"/>
         <argument key="App\Repository\Administracion\ArticuloConceptoRepository" type="service_closure" id="App\Repository\Administracion\ArticuloConceptoRepository"/>
         <argument key="App\Repository\Administracion\ClienteRepository" type="service_closure" id="App\Repository\Administracion\ClienteRepository"/>
         <argument key="App\Repository\Administracion\ComprobanteClienteRepository" type="service_closure" id="App\Repository\Administracion\ComprobanteClienteRepository"/>
@@ -7216,7 +7223,7 @@
     <service id="asset_mapper.cached_mapped_asset_factory.inner" class="Symfony\Component\AssetMapper\Factory\MappedAssetFactory">
       <argument type="service" id="asset_mapper.public_assets_path_resolver"/>
       <argument type="service" id="asset_mapper_compiler"/>
-      <argument>E:\proyectos\mercedesBus/assets/vendor</argument>
+      <argument>C:\mercedesBus/assets/vendor</argument>
     </service>
     <service id="asset_mapper.asset_package.inner" class="Symfony\Component\Asset\PathPackage">
       <argument></argument>
@@ -8201,83 +8208,83 @@
       </argument>
     </service>
     <service id="cache.app.recorder_inner" class="Symfony\Component\Cache\Adapter\FilesystemAdapter">
-      <argument>ZxmcW8e+aI</argument>
+      <argument>m3INn-1iN8</argument>
       <argument>0</argument>
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/pools/app</argument>
+      <argument>C:\mercedesBus\var\cache\dev/pools/app</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
         <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="cache.system.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>301vTdn7Un</argument>
+      <argument>FWVENovxVI</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/pools/system</argument>
+      <argument>C:\mercedesBus\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.validator.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>jPI3KlsXiO</argument>
+      <argument>yhfS9cQTlO</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/pools/system</argument>
+      <argument>C:\mercedesBus\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.serializer.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>WRPyaK2iJC</argument>
+      <argument>ADgH6tUxU3</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/pools/system</argument>
+      <argument>C:\mercedesBus\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.annotations.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>sOwltmUIuh</argument>
+      <argument>GzqtvGuN9W</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/pools/system</argument>
+      <argument>C:\mercedesBus\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.property_info.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>3ih7O+3Iey</argument>
+      <argument>MuaEKpzsYe</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/pools/system</argument>
+      <argument>C:\mercedesBus\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.asset_mapper.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>b7E7anYeFi</argument>
+      <argument>8QqWAPFY5x</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/pools/system</argument>
+      <argument>C:\mercedesBus\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.validator_expression_language.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>pTEYH0JVbc</argument>
+      <argument>BQaBiru4xy</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/pools/system</argument>
+      <argument>C:\mercedesBus\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.security_expression_language.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>RMiiiVCxI5</argument>
+      <argument>UmfQ7dPS1s</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/pools/system</argument>
+      <argument>C:\mercedesBus\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.security_is_granted_attribute_expression_language.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>9p1Xy6kBq3</argument>
+      <argument>ghGocVjyox</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>E:\proyectos\mercedesBus\var\cache\dev/pools/system</argument>
+      <argument>C:\mercedesBus\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>

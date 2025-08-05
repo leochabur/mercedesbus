@@ -1,0 +1,2 @@
+blair.ns.cloudflare.com
+kirk.ns.cloudflare.com
