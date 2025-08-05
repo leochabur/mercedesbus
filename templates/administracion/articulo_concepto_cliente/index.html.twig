@@ -1,0 +1,42 @@
+{% extends 'navBar.html.twig' %}
+
+{% block title %}Precios Venta{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <div class="container px-4">
+
+        <div class="py-4 h5">
+                Administrar Precios Venta
+        </div>
+
+        <table class="table table-striped table-hover table-bordered  py-4  data-table">
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Articulo/Concepto</th>
+                <th>Precio Venta Final</th>
+                <th>Ciclo Facturacion</th>
+                <th>Activo</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for articulo_concepto_cliente in articulo_concepto_clientes %}
+            <tr>
+                <td>{{ articulo_concepto_cliente.enteComercial }}</td>
+                <td>{{ articulo_concepto_cliente.articulo }}</td>
+                <td>{{ articulo_concepto_cliente.cicloFacturacion ? articulo_concepto_cliente.cicloFacturacion ~ ' Dias' : '' }}</td>
+                <td>$ {{ articulo_concepto_cliente.importe|number_format(2, ', ', '.') }}</td>
+                
+                <td>{{ articulo_concepto_cliente.activo ? 'Si' : 'No' }}</td>
+                <td>
+                    <a class="btn btn-sm btn-warning" href="{{ path('app_administracion_articulo_concepto_cliente_edit', {'id': articulo_concepto_cliente.id}) }}">Modificar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        <a class="btn btn-success" href="{{ path('app_administracion_articulo_concepto_cliente_new') }}">Nuevo Precio Articulo</a>
+{% endblock %}

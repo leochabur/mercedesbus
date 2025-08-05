@@ -74,7 +74,7 @@
                         {# Aquí va la renderización manual del SELECT para el prototipo #}
                         <select id='{{ form.items.vars.prototype.articulo.vars.id }}' 
                                 name='{{ form.items.vars.prototype.articulo.vars.full_name }}' 
-                                class='form-select form-control-sm form-control'> {# Usa form-select para Bootstrap #}
+                                class='form-select form-control-sm form-control form-select-producto'> {# Usa form-select para Bootstrap #}
                             <option value=''>Seleccione un producto</option>
                         </select>
                     </div>
@@ -90,7 +90,7 @@
                     </div>
                     <div class='col-md-2'>
                         <label for='{{ form.items.vars.prototype.precioUnitario.vars.id }}' class='form-label'>$ Unitario (IVA Inc.)</label>
-                        <input type='text' id='{{ form.items.vars.prototype.precioUnitario.vars.id }}' name='{{ form.items.vars.prototype.precioUnitario.vars.full_name }}' class='form-control form-control-sm'>
+                        <input type='text' id='{{ form.items.vars.prototype.precioUnitario.vars.id }}' name='{{ form.items.vars.prototype.precioUnitario.vars.full_name }}' class='form-control form-control-sm precio-ii'>
                     </div>
                     <div class='col-md-2'>
                         <button type='button' class='btn btn-danger remove-item-button btn-sm'>Eliminar Ítem</button>

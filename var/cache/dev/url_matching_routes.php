@@ -14,6 +14,8 @@ return [
         '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
+        '/administracion/articulo/concepto/cliente' => [[['_route' => 'app_administracion_articulo_concepto_cliente_index', '_controller' => 'App\\Controller\\Administracion\\ArticuloConceptoClienteController::index'], null, ['GET' => 0], null, false, false, null]],
+        '/administracion/articulo/concepto/cliente/new' => [[['_route' => 'app_administracion_articulo_concepto_cliente_new', '_controller' => 'App\\Controller\\Administracion\\ArticuloConceptoClienteController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/administracion/articulo/concepto' => [[['_route' => 'app_administracion_articulo_concepto_index', '_controller' => 'App\\Controller\\Administracion\\ArticuloConceptoController::index'], null, ['GET' => 0], null, false, false, null]],
         '/administracion/articulo/concepto/new' => [[['_route' => 'app_administracion_articulo_concepto_new', '_controller' => 'App\\Controller\\Administracion\\ArticuloConceptoController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/administracion/articulo/concepto/api/articulos' => [[['_route' => 'api_articulos', '_controller' => 'App\\Controller\\Administracion\\ArticuloConceptoController::getArticulos'], null, ['GET' => 0], null, false, false, null]],
@@ -68,131 +70,138 @@ return [
                     .')'
                 .')'
                 .'|/administracion/(?'
-                    .'|articulo/concepto/([^/]++)(?'
-                        .'|(*:250)'
-                        .'|/edit(*:263)'
-                        .'|(*:271)'
+                    .'|articulo/concepto/(?'
+                        .'|cliente/([^/]++)(?'
+                            .'|(*:261)'
+                            .'|/edit(*:274)'
+                            .'|(*:282)'
+                        .')'
+                        .'|([^/]++)(?'
+                            .'|(*:302)'
+                            .'|/edit(*:315)'
+                            .'|(*:323)'
+                        .')'
                     .')'
                     .'|e(?'
                         .'|ntidades/([^/]++)(?'
-                            .'|(*:304)'
+                            .'|(*:357)'
                             .'|/(?'
-                                .'|comerciales/new(*:331)'
-                                .'|edit(*:343)'
+                                .'|comerciales/new(*:384)'
+                                .'|edit(*:396)'
                             .')'
-                            .'|(*:352)'
+                            .'|(*:405)'
                         .')'
                         .'|mpresa/grupo/([^/]++)(?'
-                            .'|(*:385)'
-                            .'|/edit(*:398)'
-                            .'|(*:406)'
+                            .'|(*:438)'
+                            .'|/edit(*:451)'
+                            .'|(*:459)'
                         .')'
                     .')'
                     .'|comprobante/(?'
                         .'|([^/]++)(?'
                             .'|/(?'
-                                .'|new(?:/([^/]++))?(*:463)'
-                                .'|show(*:475)'
-                                .'|edit(*:487)'
+                                .'|new(?:/([^/]++))?(*:516)'
+                                .'|show(*:528)'
+                                .'|edit(*:540)'
                             .')'
-                            .'|(*:496)'
+                            .'|(*:549)'
                         .')'
                         .'|proveedor(?'
-                            .'|(*:517)'
+                            .'|(*:570)'
                             .'|/(?'
-                                .'|new(*:532)'
+                                .'|new(*:585)'
                                 .'|([^/]++)(?'
-                                    .'|(*:551)'
-                                    .'|/edit(*:564)'
-                                    .'|(*:572)'
+                                    .'|(*:604)'
+                                    .'|/edit(*:617)'
+                                    .'|(*:625)'
                                 .')'
                             .')'
                         .')'
                     .')'
                     .'|item/comprobante/([^/]++)(?'
-                        .'|(*:612)'
-                        .'|/edit(*:625)'
-                        .'|(*:633)'
+                        .'|(*:665)'
+                        .'|/edit(*:678)'
+                        .'|(*:686)'
                     .')'
                     .'|proveedor/([^/]++)(?'
-                        .'|(*:663)'
-                        .'|/edit(*:676)'
-                        .'|(*:684)'
+                        .'|(*:716)'
+                        .'|/edit(*:729)'
+                        .'|(*:737)'
                     .')'
                 .')'
                 .'|/finanzas/(?'
                     .'|banco/([^/]++)(?'
-                        .'|(*:724)'
-                        .'|/edit(*:737)'
-                        .'|(*:745)'
+                        .'|(*:777)'
+                        .'|/edit(*:790)'
+                        .'|(*:798)'
                     .')'
                     .'|cta(?'
                         .'|/cte/banco/([^/]++)(?'
-                            .'|(*:782)'
-                            .'|/edit(*:795)'
-                            .'|(*:803)'
+                            .'|(*:835)'
+                            .'|/edit(*:848)'
+                            .'|(*:856)'
                         .')'
                         .'|cte/(?'
-                            .'|delete/([^/]++)/movimiento(*:845)'
-                            .'|([^/]++)(*:861)'
-                            .'|new(*:872)'
+                            .'|delete/([^/]++)/movimiento(*:898)'
+                            .'|([^/]++)(*:914)'
+                            .'|new(*:925)'
                             .'|([^/]++)(?'
-                                .'|(*:891)'
-                                .'|/edit(*:904)'
-                                .'|(*:912)'
+                                .'|(*:944)'
+                                .'|/edit(*:957)'
+                                .'|(*:965)'
                             .')'
                         .')'
                     .')'
                     .'|metodo/(?'
                         .'|cheque/(?'
                             .'|cartera/([^/]++)(?'
-                                .'|(*:962)'
-                                .'|/edit(*:975)'
-                                .'|(*:983)'
+                                .'|(*:1015)'
+                                .'|/edit(*:1029)'
+                                .'|(*:1038)'
                             .')'
                             .'|([^/]++)(?'
-                                .'|(*:1003)'
-                                .'|/edit(*:1017)'
-                                .'|(*:1026)'
+                                .'|(*:1059)'
+                                .'|/edit(*:1073)'
+                                .'|(*:1082)'
                             .')'
                             .'|propio/([^/]++)(?'
-                                .'|(*:1054)'
-                                .'|/edit(*:1068)'
-                                .'|(*:1077)'
+                                .'|(*:1110)'
+                                .'|/edit(*:1124)'
+                                .'|(*:1133)'
                             .')'
                         .')'
                         .'|efectivo/([^/]++)(?'
-                            .'|(*:1108)'
-                            .'|/edit(*:1122)'
-                            .'|(*:1131)'
+                            .'|(*:1164)'
+                            .'|/edit(*:1178)'
+                            .'|(*:1187)'
                         .')'
                         .'|transferencia/([^/]++)(?'
                             .'|/(?'
-                                .'|tipo(*:1174)'
-                                .'|edit(*:1187)'
+                                .'|tipo(*:1230)'
+                                .'|edit(*:1243)'
                             .')'
-                            .'|(*:1197)'
+                            .'|(*:1253)'
                         .')'
                     .')'
                     .'|recibo/([^/]++)(?'
                         .'|/(?'
-                            .'|new(*:1233)'
-                            .'|tipo/([^/]++)(*:1255)'
-                            .'|edit(*:1268)'
+                            .'|new(*:1289)'
+                            .'|tipo/([^/]++)(*:1311)'
+                            .'|edit(*:1324)'
                         .')'
-                        .'|(*:1278)'
+                        .'|(*:1334)'
                     .')'
                 .')'
                 .'|/rrhh/(?'
                     .'|empleado/([^/]++)(?'
-                        .'|(*:1318)'
-                        .'|/edit(*:1332)'
-                        .'|(*:1341)'
+                        .'|(*:1374)'
+                        .'|/edit(*:1388)'
+                        .'|(*:1397)'
                     .')'
                     .'|puesto/trabajo/([^/]++)(?'
-                        .'|(*:1377)'
-                        .'|/edit(*:1391)'
-                        .'|(*:1400)'
+                        .'|(*:1433)'
+                        .'|/edit(*:1447)'
+                        .'|(*:1456)'
                     .')'
                 .')'
             .')/?$}sDu',
@@ -206,74 +215,77 @@ return [
         168 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         181 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         191 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        250 => [[['_route' => 'app_administracion_articulo_concepto_show', '_controller' => 'App\\Controller\\Administracion\\ArticuloConceptoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        263 => [[['_route' => 'app_administracion_articulo_concepto_edit', '_controller' => 'App\\Controller\\Administracion\\ArticuloConceptoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        271 => [[['_route' => 'app_administracion_articulo_concepto_delete', '_controller' => 'App\\Controller\\Administracion\\ArticuloConceptoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        304 => [[['_route' => 'app_administracion_cliente_index', '_controller' => 'App\\Controller\\Administracion\\ClienteController::index'], ['code'], ['GET' => 0], null, false, true, null]],
-        331 => [[['_route' => 'app_administracion_cliente_new', '_controller' => 'App\\Controller\\Administracion\\ClienteController::new'], ['code'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        343 => [[['_route' => 'app_administracion_cliente_edit', '_controller' => 'App\\Controller\\Administracion\\ClienteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        352 => [
+        261 => [[['_route' => 'app_administracion_articulo_concepto_cliente_show', '_controller' => 'App\\Controller\\Administracion\\ArticuloConceptoClienteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        274 => [[['_route' => 'app_administracion_articulo_concepto_cliente_edit', '_controller' => 'App\\Controller\\Administracion\\ArticuloConceptoClienteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        282 => [[['_route' => 'app_administracion_articulo_concepto_cliente_delete', '_controller' => 'App\\Controller\\Administracion\\ArticuloConceptoClienteController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        302 => [[['_route' => 'app_administracion_articulo_concepto_show', '_controller' => 'App\\Controller\\Administracion\\ArticuloConceptoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        315 => [[['_route' => 'app_administracion_articulo_concepto_edit', '_controller' => 'App\\Controller\\Administracion\\ArticuloConceptoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        323 => [[['_route' => 'app_administracion_articulo_concepto_delete', '_controller' => 'App\\Controller\\Administracion\\ArticuloConceptoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        357 => [[['_route' => 'app_administracion_cliente_index', '_controller' => 'App\\Controller\\Administracion\\ClienteController::index'], ['code'], ['GET' => 0], null, false, true, null]],
+        384 => [[['_route' => 'app_administracion_cliente_new', '_controller' => 'App\\Controller\\Administracion\\ClienteController::new'], ['code'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        396 => [[['_route' => 'app_administracion_cliente_edit', '_controller' => 'App\\Controller\\Administracion\\ClienteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        405 => [
             [['_route' => 'app_administracion_cliente_show', '_controller' => 'App\\Controller\\Administracion\\ClienteController::show'], ['id'], ['GET' => 0], null, false, true, null],
             [['_route' => 'app_administracion_cliente_delete', '_controller' => 'App\\Controller\\Administracion\\ClienteController::delete'], ['id'], ['POST' => 0], null, false, true, null],
         ],
-        385 => [[['_route' => 'app_administracion_empresa_grupo_show', '_controller' => 'App\\Controller\\Administracion\\EmpresaGrupoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        398 => [[['_route' => 'app_administracion_empresa_grupo_edit', '_controller' => 'App\\Controller\\Administracion\\EmpresaGrupoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        406 => [[['_route' => 'app_administracion_empresa_grupo_delete', '_controller' => 'App\\Controller\\Administracion\\EmpresaGrupoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        463 => [[['_route' => 'app_administracion_comprobante_cliente_new', 'id' => 0, '_controller' => 'App\\Controller\\Administracion\\ComprobanteClienteController::new'], ['code', 'id'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
-        475 => [[['_route' => 'app_administracion_comprobante_cliente_show', '_controller' => 'App\\Controller\\Administracion\\ComprobanteClienteController::show'], ['id'], ['GET' => 0], null, false, false, null]],
-        487 => [[['_route' => 'app_administracion_comprobante_cliente_edit', '_controller' => 'App\\Controller\\Administracion\\ComprobanteClienteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        496 => [[['_route' => 'app_administracion_comprobante_cliente_delete', '_controller' => 'App\\Controller\\Administracion\\ComprobanteClienteController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        517 => [[['_route' => 'app_administracion_comprobante_proveedor_index', '_controller' => 'App\\Controller\\Administracion\\ComprobanteProveedorController::index'], [], ['GET' => 0], null, false, false, null]],
-        532 => [[['_route' => 'app_administracion_comprobante_proveedor_new', '_controller' => 'App\\Controller\\Administracion\\ComprobanteProveedorController::new'], [], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        551 => [[['_route' => 'app_administracion_comprobante_proveedor_show', '_controller' => 'App\\Controller\\Administracion\\ComprobanteProveedorController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        564 => [[['_route' => 'app_administracion_comprobante_proveedor_edit', '_controller' => 'App\\Controller\\Administracion\\ComprobanteProveedorController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        572 => [[['_route' => 'app_administracion_comprobante_proveedor_delete', '_controller' => 'App\\Controller\\Administracion\\ComprobanteProveedorController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        612 => [[['_route' => 'app_administracion_item_comprobante_show', '_controller' => 'App\\Controller\\Administracion\\ItemComprobanteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        625 => [[['_route' => 'app_administracion_item_comprobante_edit', '_controller' => 'App\\Controller\\Administracion\\ItemComprobanteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        633 => [[['_route' => 'app_administracion_item_comprobante_delete', '_controller' => 'App\\Controller\\Administracion\\ItemComprobanteController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        663 => [[['_route' => 'app_administracion_proveedor_show', '_controller' => 'App\\Controller\\Administracion\\ProveedorController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        676 => [[['_route' => 'app_administracion_proveedor_edit', '_controller' => 'App\\Controller\\Administracion\\ProveedorController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        684 => [[['_route' => 'app_administracion_proveedor_delete', '_controller' => 'App\\Controller\\Administracion\\ProveedorController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        724 => [[['_route' => 'app_finanzas_banco_show', '_controller' => 'App\\Controller\\Finanzas\\BancoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        737 => [[['_route' => 'app_finanzas_banco_edit', '_controller' => 'App\\Controller\\Finanzas\\BancoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        745 => [[['_route' => 'app_finanzas_banco_delete', '_controller' => 'App\\Controller\\Finanzas\\BancoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        782 => [[['_route' => 'app_finanzas_cta_cte_banco_show', '_controller' => 'App\\Controller\\Finanzas\\CtaCteBancoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        795 => [[['_route' => 'app_finanzas_cta_cte_banco_edit', '_controller' => 'App\\Controller\\Finanzas\\CtaCteBancoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        803 => [[['_route' => 'app_finanzas_cta_cte_banco_delete', '_controller' => 'App\\Controller\\Finanzas\\CtaCteBancoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        845 => [[['_route' => 'app_finanzas_cta_cte_delete_movimiento', '_controller' => 'App\\Controller\\Finanzas\\CtaCteController::eliminarMovimientoCuenta'], ['id'], ['DELETE' => 0], null, false, false, null]],
-        861 => [[['_route' => 'app_finanzas_cta_cte_index', '_controller' => 'App\\Controller\\Finanzas\\CtaCteController::index'], ['t'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
-        872 => [[['_route' => 'app_finanzas_cta_cte_new', '_controller' => 'App\\Controller\\Finanzas\\CtaCteController::new'], [], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        891 => [[['_route' => 'app_finanzas_cta_cte_show', '_controller' => 'App\\Controller\\Finanzas\\CtaCteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        904 => [[['_route' => 'app_finanzas_cta_cte_edit', '_controller' => 'App\\Controller\\Finanzas\\CtaCteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        912 => [[['_route' => 'app_finanzas_cta_cte_delete', '_controller' => 'App\\Controller\\Finanzas\\CtaCteController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        962 => [[['_route' => 'app_finanzas_metodo_cheque_cartera_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeCarteraController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        975 => [[['_route' => 'app_finanzas_metodo_cheque_cartera_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeCarteraController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        983 => [[['_route' => 'app_finanzas_metodo_cheque_cartera_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeCarteraController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1003 => [[['_route' => 'app_finanzas_metodo_cheque_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1017 => [[['_route' => 'app_finanzas_metodo_cheque_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1026 => [[['_route' => 'app_finanzas_metodo_cheque_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1054 => [[['_route' => 'app_finanzas_metodo_cheque_propio_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequePropioController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1068 => [[['_route' => 'app_finanzas_metodo_cheque_propio_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequePropioController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1077 => [[['_route' => 'app_finanzas_metodo_cheque_propio_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequePropioController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1108 => [[['_route' => 'app_finanzas_metodo_efectivo_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoEfectivoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1122 => [[['_route' => 'app_finanzas_metodo_efectivo_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoEfectivoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1131 => [[['_route' => 'app_finanzas_metodo_efectivo_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoEfectivoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1174 => [[['_route' => 'app_finanzas_metodo_transferencia_index', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::index'], ['t'], ['GET' => 0], null, false, false, null]],
-        1187 => [[['_route' => 'app_finanzas_metodo_transferencia_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1197 => [
+        438 => [[['_route' => 'app_administracion_empresa_grupo_show', '_controller' => 'App\\Controller\\Administracion\\EmpresaGrupoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        451 => [[['_route' => 'app_administracion_empresa_grupo_edit', '_controller' => 'App\\Controller\\Administracion\\EmpresaGrupoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        459 => [[['_route' => 'app_administracion_empresa_grupo_delete', '_controller' => 'App\\Controller\\Administracion\\EmpresaGrupoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        516 => [[['_route' => 'app_administracion_comprobante_cliente_new', 'id' => 0, '_controller' => 'App\\Controller\\Administracion\\ComprobanteClienteController::new'], ['code', 'id'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
+        528 => [[['_route' => 'app_administracion_comprobante_cliente_show', '_controller' => 'App\\Controller\\Administracion\\ComprobanteClienteController::show'], ['id'], ['GET' => 0], null, false, false, null]],
+        540 => [[['_route' => 'app_administracion_comprobante_cliente_edit', '_controller' => 'App\\Controller\\Administracion\\ComprobanteClienteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        549 => [[['_route' => 'app_administracion_comprobante_cliente_delete', '_controller' => 'App\\Controller\\Administracion\\ComprobanteClienteController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        570 => [[['_route' => 'app_administracion_comprobante_proveedor_index', '_controller' => 'App\\Controller\\Administracion\\ComprobanteProveedorController::index'], [], ['GET' => 0], null, false, false, null]],
+        585 => [[['_route' => 'app_administracion_comprobante_proveedor_new', '_controller' => 'App\\Controller\\Administracion\\ComprobanteProveedorController::new'], [], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        604 => [[['_route' => 'app_administracion_comprobante_proveedor_show', '_controller' => 'App\\Controller\\Administracion\\ComprobanteProveedorController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        617 => [[['_route' => 'app_administracion_comprobante_proveedor_edit', '_controller' => 'App\\Controller\\Administracion\\ComprobanteProveedorController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        625 => [[['_route' => 'app_administracion_comprobante_proveedor_delete', '_controller' => 'App\\Controller\\Administracion\\ComprobanteProveedorController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        665 => [[['_route' => 'app_administracion_item_comprobante_show', '_controller' => 'App\\Controller\\Administracion\\ItemComprobanteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        678 => [[['_route' => 'app_administracion_item_comprobante_edit', '_controller' => 'App\\Controller\\Administracion\\ItemComprobanteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        686 => [[['_route' => 'app_administracion_item_comprobante_delete', '_controller' => 'App\\Controller\\Administracion\\ItemComprobanteController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        716 => [[['_route' => 'app_administracion_proveedor_show', '_controller' => 'App\\Controller\\Administracion\\ProveedorController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        729 => [[['_route' => 'app_administracion_proveedor_edit', '_controller' => 'App\\Controller\\Administracion\\ProveedorController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        737 => [[['_route' => 'app_administracion_proveedor_delete', '_controller' => 'App\\Controller\\Administracion\\ProveedorController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        777 => [[['_route' => 'app_finanzas_banco_show', '_controller' => 'App\\Controller\\Finanzas\\BancoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        790 => [[['_route' => 'app_finanzas_banco_edit', '_controller' => 'App\\Controller\\Finanzas\\BancoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        798 => [[['_route' => 'app_finanzas_banco_delete', '_controller' => 'App\\Controller\\Finanzas\\BancoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        835 => [[['_route' => 'app_finanzas_cta_cte_banco_show', '_controller' => 'App\\Controller\\Finanzas\\CtaCteBancoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        848 => [[['_route' => 'app_finanzas_cta_cte_banco_edit', '_controller' => 'App\\Controller\\Finanzas\\CtaCteBancoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        856 => [[['_route' => 'app_finanzas_cta_cte_banco_delete', '_controller' => 'App\\Controller\\Finanzas\\CtaCteBancoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        898 => [[['_route' => 'app_finanzas_cta_cte_delete_movimiento', '_controller' => 'App\\Controller\\Finanzas\\CtaCteController::eliminarMovimientoCuenta'], ['id'], ['DELETE' => 0], null, false, false, null]],
+        914 => [[['_route' => 'app_finanzas_cta_cte_index', '_controller' => 'App\\Controller\\Finanzas\\CtaCteController::index'], ['t'], ['GET' => 0, 'POST' => 1], null, false, true, null]],
+        925 => [[['_route' => 'app_finanzas_cta_cte_new', '_controller' => 'App\\Controller\\Finanzas\\CtaCteController::new'], [], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        944 => [[['_route' => 'app_finanzas_cta_cte_show', '_controller' => 'App\\Controller\\Finanzas\\CtaCteController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        957 => [[['_route' => 'app_finanzas_cta_cte_edit', '_controller' => 'App\\Controller\\Finanzas\\CtaCteController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        965 => [[['_route' => 'app_finanzas_cta_cte_delete', '_controller' => 'App\\Controller\\Finanzas\\CtaCteController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1015 => [[['_route' => 'app_finanzas_metodo_cheque_cartera_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeCarteraController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1029 => [[['_route' => 'app_finanzas_metodo_cheque_cartera_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeCarteraController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1038 => [[['_route' => 'app_finanzas_metodo_cheque_cartera_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeCarteraController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1059 => [[['_route' => 'app_finanzas_metodo_cheque_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1073 => [[['_route' => 'app_finanzas_metodo_cheque_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1082 => [[['_route' => 'app_finanzas_metodo_cheque_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequeController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1110 => [[['_route' => 'app_finanzas_metodo_cheque_propio_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequePropioController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1124 => [[['_route' => 'app_finanzas_metodo_cheque_propio_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequePropioController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1133 => [[['_route' => 'app_finanzas_metodo_cheque_propio_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoChequePropioController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1164 => [[['_route' => 'app_finanzas_metodo_efectivo_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoEfectivoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1178 => [[['_route' => 'app_finanzas_metodo_efectivo_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoEfectivoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1187 => [[['_route' => 'app_finanzas_metodo_efectivo_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoEfectivoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1230 => [[['_route' => 'app_finanzas_metodo_transferencia_index', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::index'], ['t'], ['GET' => 0], null, false, false, null]],
+        1243 => [[['_route' => 'app_finanzas_metodo_transferencia_edit', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1253 => [
             [['_route' => 'app_finanzas_metodo_transferencia_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::show'], ['id'], ['GET' => 0], null, false, true, null],
             [['_route' => 'app_finanzas_metodo_transferencia_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::delete'], ['id'], ['POST' => 0], null, false, true, null],
         ],
-        1233 => [[['_route' => 'app_finanzas_recibo_new', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::new'], ['type'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1255 => [[['_route' => 'app_finanzas_recibo_show', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::show'], ['id', 'tipo'], ['GET' => 0], null, false, true, null]],
-        1268 => [[['_route' => 'app_finanzas_recibo_edit', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1278 => [[['_route' => 'app_finanzas_recibo_delete', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1318 => [[['_route' => 'app_r_r_h_h_empleado_show', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1332 => [[['_route' => 'app_r_r_h_h_empleado_edit', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1341 => [[['_route' => 'app_r_r_h_h_empleado_delete', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1377 => [[['_route' => 'app_r_r_h_h_puesto_trabajo_show', '_controller' => 'App\\Controller\\RRHH\\PuestoTrabajoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1391 => [[['_route' => 'app_r_r_h_h_puesto_trabajo_edit', '_controller' => 'App\\Controller\\RRHH\\PuestoTrabajoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1400 => [
+        1289 => [[['_route' => 'app_finanzas_recibo_new', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::new'], ['type'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1311 => [[['_route' => 'app_finanzas_recibo_show', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::show'], ['id', 'tipo'], ['GET' => 0], null, false, true, null]],
+        1324 => [[['_route' => 'app_finanzas_recibo_edit', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1334 => [[['_route' => 'app_finanzas_recibo_delete', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1374 => [[['_route' => 'app_r_r_h_h_empleado_show', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1388 => [[['_route' => 'app_r_r_h_h_empleado_edit', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1397 => [[['_route' => 'app_r_r_h_h_empleado_delete', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1433 => [[['_route' => 'app_r_r_h_h_puesto_trabajo_show', '_controller' => 'App\\Controller\\RRHH\\PuestoTrabajoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1447 => [[['_route' => 'app_r_r_h_h_puesto_trabajo_edit', '_controller' => 'App\\Controller\\RRHH\\PuestoTrabajoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1456 => [
             [['_route' => 'app_r_r_h_h_puesto_trabajo_delete', '_controller' => 'App\\Controller\\RRHH\\PuestoTrabajoController::delete'], ['id'], ['POST' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

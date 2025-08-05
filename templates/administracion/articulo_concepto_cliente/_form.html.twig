@@ -1,0 +1,44 @@
+{{ form_start(form, { 'attr' : { 'novalidate': 'novalidate' }}) }}
+
+    <div class="row pt-3">
+        <div class="col-lg-3">
+            {{ form_label(form.enteComercial) }}
+            {{ form_widget(form.enteComercial, { 'attr' : { 'class' : 'form-control'} }) }}
+            {{ form_errors(form.enteComercial) }}
+        </div>
+        <div class="col-lg-3">
+            {{ form_label(form.articulo) }}
+            {{ form_widget(form.articulo, { 'attr' : { 'class' : 'form-control'} }) }}
+            {{ form_errors(form.articulo) }}
+        </div>
+        <div class="col-lg-2">
+            {{ form_label(form.importe) }}
+            {{ form_widget(form.importe, { 'attr' : { 'class' : 'form-control'} }) }}
+            {{ form_errors(form.importe) }}
+        </div>
+        <div class="col-lg-2">
+            {{ form_label(form.cicloFacturacion) }}
+            {{ form_widget(form.cicloFacturacion, { 'attr' : { 'class' : 'form-control'} }) }}
+            {{ form_errors(form.cicloFacturacion) }}
+        </div>
+        <div class="col-lg-2 pt-4 pl-4">
+
+            <div class="form-check form-switch pl-4">
+                {{ form_label(form.activo) }}
+                {{ form_widget(form.activo, { 'attr' : {'class' : 'form-check-input pl-4'}}) }}
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row pt-4">
+
+        <div class="col-lg-6">
+            <a href="{{ path('app_administracion_articulo_concepto_cliente_index') }}" class="btn btn-warning"><< Volver </a>
+            <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+        </div>
+
+
+    </div>
+    
+{{ form_end(form) }}

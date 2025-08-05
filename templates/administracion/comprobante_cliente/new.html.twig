@@ -34,7 +34,16 @@ $(document).ready(function() {
         // *** ESTO ES LO CLAVE: Identificar el nuevo select y poblarlo con AJAX ***
         const $articuloSelect = $newFormDiv.find('select[id$="_articulo"]'); // Busca el select cuyo ID termina en _articulo
 
-        if ($articuloSelect.length) {
+        if ($articuloSelect.length) 
+        {
+            $articuloSelect.change(function() {
+        
+                                                    const $li = $(this).closest('li');
+                                                    const $import = $li.find('.precio-ii');
+                                                 
+                                                    $import.val('kaaskaask');
+        
+            });
             $.ajax({
                 url: '{{ path('api_articulos') }}', // La ruta a tu endpoint AJAX
                 type: 'GET',
@@ -79,6 +88,13 @@ $(document).ready(function() {
     // Inicializar listeners para los ítems que ya existen al cargar la página
     $collectionHolder.find('.item-form').each(function() {
         addDeleteButtonListener($(this));
+    });
+
+    $('.form-select-producto').change(function() {
+        
+                                                    const $this = $(this);
+                                                    alert($this.val());
+        
     });
 
 });

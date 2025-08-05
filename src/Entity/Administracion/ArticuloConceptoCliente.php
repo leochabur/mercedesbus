@@ -5,9 +5,15 @@ namespace App\Entity\Administracion;
 use App\Repository\Administracion\ArticuloConceptoClienteRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ArticuloConceptoClienteRepository::class)]
 #[ORM\Table(name: 'admin_articulos_conceptos_clientes')]
+#[UniqueEntity(
+    fields: ['enteComercial', 'articulo'],
+    message: 'Existe ya un articulo configurado para este ente comercial',
+    errorPath: 'articulo',
+)]
 
 class ArticuloConceptoCliente
 {
@@ -21,6 +27,12 @@ class ArticuloConceptoCliente
 
     #[ORM\Column]
     private ?int $cicloFacturacion = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $circuito = null;
+
+    #[ORM\Column]
+    private ?bool $activo = true;
 
     #[ORM\ManyToOne(targetEntity: EnteComercial::class)]
     #[ORM\JoinColumn(name: 'id_ente_comercial', referencedColumnName: 'id')]
@@ -79,6 +91,30 @@ class ArticuloConceptoCliente
     public function setArticulo(?ArticuloConcepto $articulo): static
     {
         $this->articulo = $articulo;
+
+        return $this;
+    }
+
+    public function getCircuito(): ?int
+    {
+        return $this->circuito;
+    }
+
+    public function setCircuito(int $circuito): static
+    {
+        $this->circuito = $circuito;
+
+        return $this;
+    }
+
+    public function isActivo(): ?bool
+    {
+        return $this->activo;
+    }
+
+    public function setActivo(bool $activo): static
+    {
+        $this->activo = $activo;
 
         return $this;
     }
