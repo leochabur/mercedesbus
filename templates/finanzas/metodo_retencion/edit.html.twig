@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit MetodoRetencion{% endblock %}
+
+{% block body %}
+    <h1>Edit MetodoRetencion</h1>
+
+    {{ include('finanzas/metodo_retencion/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_finanzas_metodo_retencion_index') }}">back to list</a>
+
+    {{ include('finanzas/metodo_retencion/_delete_form.html.twig') }}
+{% endblock %}

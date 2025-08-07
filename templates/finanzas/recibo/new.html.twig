@@ -131,6 +131,21 @@
                                                                                         loadTable();
                                                 });
 
+                                                $('.ret-save').click(function(event){
+                                                                                        event.preventDefault();
+                                                                                        let cc = $('.ret-caja option:selected');
+                                                                                        let obj = {
+                                                                                                        type: { code: 'r', name: 'Retencion' },
+                                                                                                        caja: { code: cc.val(), name: cc.text()},
+                                                                                                        monto: $('.ret-monto').val()
+                                                                                                  };
+                                                                                        formas.push(obj);
+
+                                                                                        $('.R')[0].reset();
+                                                                                
+                                                                                        loadTable();
+                                                });
+
                                                 $('.ch-save').click(function(event){
                                                                                         event.preventDefault();
                                                                                         let bco = $('.ch-bco option:selected');

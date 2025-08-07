@@ -425,6 +425,13 @@
         <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\Finanzas\MetodoEfectivoController"/>
       </call>
     </service>
+    <service id="App\Controller\Finanzas\MetodoRetencionController" class="App\Controller\Finanzas\MetodoRetencionController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\Finanzas\MetodoRetencionController"/>
+      </call>
+    </service>
     <service id="App\Controller\Finanzas\MetodoTransferenciaController" class="App\Controller\Finanzas\MetodoTransferenciaController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -437,6 +444,13 @@
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\Finanzas\ReciboController"/>
+      </call>
+    </service>
+    <service id="App\Controller\Finanzas\TipoRetencionController" class="App\Controller\Finanzas\TipoRetencionController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\Finanzas\TipoRetencionController"/>
       </call>
     </service>
     <service id="App\Controller\RRHH\EmpleadoController" class="App\Controller\RRHH\EmpleadoController" public="true" autowire="true" autoconfigure="true">
@@ -512,10 +526,16 @@
     <service id="App\Form\Finanzas\MetodoEfectivoType" class="App\Form\Finanzas\MetodoEfectivoType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Form\Finanzas\MetodoRetencionType" class="App\Form\Finanzas\MetodoRetencionType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Form\Finanzas\MetodoTransferenciaType" class="App\Form\Finanzas\MetodoTransferenciaType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\Finanzas\ReciboType" class="App\Form\Finanzas\ReciboType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\Finanzas\TipoRetencionType" class="App\Form\Finanzas\TipoRetencionType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\RRHH\EmpleadoType" class="App\Form\RRHH\EmpleadoType" autowire="true" autoconfigure="true">
@@ -615,6 +635,10 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="App\Repository\Finanzas\MetodoRetencionRepository" class="App\Repository\Finanzas\MetodoRetencionRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\Finanzas\MetodoTransferenciaRepository" class="App\Repository\Finanzas\MetodoTransferenciaRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
@@ -632,6 +656,10 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\Finanzas\ReciboRepository" class="App\Repository\Finanzas\ReciboRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\Finanzas\TipoRetencionRepository" class="App\Repository\Finanzas\TipoRetencionRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -674,7 +702,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.TAcLkBl"/>
+      <argument type="service" id=".service_locator.zYTRXqT"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1306,8 +1334,10 @@
         <argument>App\Form\Finanzas\MetodoChequePropioType</argument>
         <argument>App\Form\Finanzas\MetodoChequeType</argument>
         <argument>App\Form\Finanzas\MetodoEfectivoType</argument>
+        <argument>App\Form\Finanzas\MetodoRetencionType</argument>
         <argument>App\Form\Finanzas\MetodoTransferenciaType</argument>
         <argument>App\Form\Finanzas\ReciboType</argument>
+        <argument>App\Form\Finanzas\TipoRetencionType</argument>
         <argument>App\Form\RRHH\EmpleadoType</argument>
         <argument>App\Form\RRHH\PuestoTrabajoType</argument>
         <argument>App\Form\RegistrationFormType</argument>
@@ -2364,7 +2394,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.TAcLkBl"/>
+      <argument type="service" id=".service_locator.zYTRXqT"/>
     </service>
     <service id="routing.resolver" class="Symfony\Component\Config\Loader\LoaderResolver">
       <call method="addLoader">
@@ -2673,7 +2703,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.Akp_R__"/>
+      <argument type="service" id=".service_locator.RVi6WSB"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -4467,7 +4497,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.ZynzpwS"/>
+      <argument type="service" id=".service_locator.IMwJTMY"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -5544,12 +5574,18 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Finanzas\MetodoEfectivoController" class="App\Controller\Finanzas\MetodoEfectivoController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Finanzas\MetodoEfectivoController" class="App\Controller\Finanzas\MetodoEfectivoController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Finanzas\MetodoEfectivoController" class="App\Controller\Finanzas\MetodoEfectivoController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Finanzas\MetodoRetencionController" class="App\Controller\Finanzas\MetodoRetencionController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Finanzas\MetodoRetencionController" class="App\Controller\Finanzas\MetodoRetencionController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\Finanzas\MetodoRetencionController" class="App\Controller\Finanzas\MetodoRetencionController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Finanzas\MetodoTransferenciaController" class="App\Controller\Finanzas\MetodoTransferenciaController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Finanzas\MetodoTransferenciaController" class="App\Controller\Finanzas\MetodoTransferenciaController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Finanzas\MetodoTransferenciaController" class="App\Controller\Finanzas\MetodoTransferenciaController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Finanzas\ReciboController" class="App\Controller\Finanzas\ReciboController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Finanzas\ReciboController" class="App\Controller\Finanzas\ReciboController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Finanzas\ReciboController" class="App\Controller\Finanzas\ReciboController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Finanzas\TipoRetencionController" class="App\Controller\Finanzas\TipoRetencionController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Finanzas\TipoRetencionController" class="App\Controller\Finanzas\TipoRetencionController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\Finanzas\TipoRetencionController" class="App\Controller\Finanzas\TipoRetencionController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RRHH\EmpleadoController" class="App\Controller\RRHH\EmpleadoController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RRHH\EmpleadoController" class="App\Controller\RRHH\EmpleadoController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\RRHH\EmpleadoController" class="App\Controller\RRHH\EmpleadoController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -5592,10 +5628,14 @@
     <service id=".abstract.instanceof.App\Form\Finanzas\MetodoChequeType" class="App\Form\Finanzas\MetodoChequeType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Finanzas\MetodoEfectivoType" class="App\Form\Finanzas\MetodoEfectivoType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\Finanzas\MetodoEfectivoType" class="App\Form\Finanzas\MetodoEfectivoType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Finanzas\MetodoRetencionType" class="App\Form\Finanzas\MetodoRetencionType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\Finanzas\MetodoRetencionType" class="App\Form\Finanzas\MetodoRetencionType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Finanzas\MetodoTransferenciaType" class="App\Form\Finanzas\MetodoTransferenciaType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\Finanzas\MetodoTransferenciaType" class="App\Form\Finanzas\MetodoTransferenciaType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Finanzas\ReciboType" class="App\Form\Finanzas\ReciboType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\Finanzas\ReciboType" class="App\Form\Finanzas\ReciboType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\Finanzas\TipoRetencionType" class="App\Form\Finanzas\TipoRetencionType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\Finanzas\TipoRetencionType" class="App\Form\Finanzas\TipoRetencionType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RRHH\EmpleadoType" class="App\Form\RRHH\EmpleadoType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\RRHH\EmpleadoType" class="App\Form\RRHH\EmpleadoType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RRHH\PuestoTrabajoType" class="App\Form\RRHH\PuestoTrabajoType" autowire="true" abstract="true"/>
@@ -5646,6 +5686,8 @@
     <service id=".abstract.instanceof.App\Repository\Finanzas\MetodoChequeRepository" class="App\Repository\Finanzas\MetodoChequeRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Finanzas\MetodoEfectivoRepository" class="App\Repository\Finanzas\MetodoEfectivoRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\Finanzas\MetodoEfectivoRepository" class="App\Repository\Finanzas\MetodoEfectivoRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Finanzas\MetodoRetencionRepository" class="App\Repository\Finanzas\MetodoRetencionRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\Finanzas\MetodoRetencionRepository" class="App\Repository\Finanzas\MetodoRetencionRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Finanzas\MetodoTransferenciaRepository" class="App\Repository\Finanzas\MetodoTransferenciaRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\Finanzas\MetodoTransferenciaRepository" class="App\Repository\Finanzas\MetodoTransferenciaRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Finanzas\MovimientoCuentaRepository" class="App\Repository\Finanzas\MovimientoCuentaRepository" autowire="true" abstract="true"/>
@@ -5656,6 +5698,8 @@
     <service id=".abstract.instanceof.App\Repository\Finanzas\MovimientoVentaRepository" class="App\Repository\Finanzas\MovimientoVentaRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Finanzas\ReciboRepository" class="App\Repository\Finanzas\ReciboRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\Finanzas\ReciboRepository" class="App\Repository\Finanzas\ReciboRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Finanzas\TipoRetencionRepository" class="App\Repository\Finanzas\TipoRetencionRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\Finanzas\TipoRetencionRepository" class="App\Repository\Finanzas\TipoRetencionRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Mantenimiento\ComprobanteTransaccionRepository" class="App\Repository\Mantenimiento\ComprobanteTransaccionRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\Mantenimiento\ComprobanteTransaccionRepository" class="App\Repository\Mantenimiento\ComprobanteTransaccionRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\RRHH\EmpleadoRepository" class="App\Repository\RRHH\EmpleadoRepository" autowire="true" abstract="true"/>
@@ -6112,6 +6156,13 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
+    <service id=".service_locator.FpqO99v" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="articuloConceptoClienteRepository" type="service_closure" id="App\Repository\Administracion\ArticuloConceptoClienteRepository"/>
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
     <service id=".service_locator..JfmMB8" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -6394,6 +6445,25 @@
         <argument key="metodoEfectivo" type="service_closure" id=".errored..service_locator.pG8igIo.App\Entity\Finanzas\MetodoEfectivo"/>
       </argument>
     </service>
+    <service id=".service_locator.sUQt3KT" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="metodoRetencionRepository" type="service_closure" id="App\Repository\Finanzas\MetodoRetencionRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.lgZkzN0" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="metodoRetencion" type="service_closure" id=".errored..service_locator.lgZkzN0.App\Entity\Finanzas\MetodoRetencion"/>
+      </argument>
+    </service>
+    <service id=".service_locator.Wnhgyp0" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="metodoRetencion" type="service_closure" id=".errored..service_locator.Wnhgyp0.App\Entity\Finanzas\MetodoRetencion"/>
+      </argument>
+    </service>
     <service id=".service_locator.4jXxt4K" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -6438,6 +6508,25 @@
       <argument type="collection">
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
         <argument key="recibo" type="service_closure" id=".errored..service_locator.9CEEjne.App\Entity\Finanzas\Recibo"/>
+      </argument>
+    </service>
+    <service id=".service_locator.MtN2Psc" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="tipoRetencionRepository" type="service_closure" id="App\Repository\Finanzas\TipoRetencionRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.tRXA7Tq" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="tipoRetencion" type="service_closure" id=".errored..service_locator.tRXA7Tq.App\Entity\Finanzas\TipoRetencion"/>
+      </argument>
+    </service>
+    <service id=".service_locator.GasbdM8" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="tipoRetencion" type="service_closure" id=".errored..service_locator.GasbdM8.App\Entity\Finanzas\TipoRetencion"/>
       </argument>
     </service>
     <service id=".service_locator.Y_acB7v" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -6491,11 +6580,12 @@
         <argument key="authenticationUtils" type="service_closure" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.TAcLkBl" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.zYTRXqT" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Administracion\ArticuloConceptoClienteController::delete" type="service_closure" id=".service_locator.gtznwKg"/>
         <argument key="App\Controller\Administracion\ArticuloConceptoClienteController::edit" type="service_closure" id=".service_locator.gtznwKg"/>
+        <argument key="App\Controller\Administracion\ArticuloConceptoClienteController::getImporte" type="service_closure" id=".service_locator.FpqO99v"/>
         <argument key="App\Controller\Administracion\ArticuloConceptoClienteController::index" type="service_closure" id=".service_locator.ESQaIWn"/>
         <argument key="App\Controller\Administracion\ArticuloConceptoClienteController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Administracion\ArticuloConceptoClienteController::show" type="service_closure" id=".service_locator.Rw06bmy"/>
@@ -6571,6 +6661,11 @@
         <argument key="App\Controller\Finanzas\MetodoEfectivoController::index" type="service_closure" id=".service_locator.PO3GDZ5"/>
         <argument key="App\Controller\Finanzas\MetodoEfectivoController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Finanzas\MetodoEfectivoController::show" type="service_closure" id=".service_locator.y6fI.48"/>
+        <argument key="App\Controller\Finanzas\MetodoRetencionController::delete" type="service_closure" id=".service_locator.Wnhgyp0"/>
+        <argument key="App\Controller\Finanzas\MetodoRetencionController::edit" type="service_closure" id=".service_locator.Wnhgyp0"/>
+        <argument key="App\Controller\Finanzas\MetodoRetencionController::index" type="service_closure" id=".service_locator.sUQt3KT"/>
+        <argument key="App\Controller\Finanzas\MetodoRetencionController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Finanzas\MetodoRetencionController::show" type="service_closure" id=".service_locator.lgZkzN0"/>
         <argument key="App\Controller\Finanzas\MetodoTransferenciaController::delete" type="service_closure" id=".service_locator.eSj3Cq0"/>
         <argument key="App\Controller\Finanzas\MetodoTransferenciaController::edit" type="service_closure" id=".service_locator.eSj3Cq0"/>
         <argument key="App\Controller\Finanzas\MetodoTransferenciaController::index" type="service_closure" id=".service_locator.4jXxt4K"/>
@@ -6581,6 +6676,11 @@
         <argument key="App\Controller\Finanzas\ReciboController::index" type="service_closure" id=".service_locator.2yB6Zlv"/>
         <argument key="App\Controller\Finanzas\ReciboController::new" type="service_closure" id=".service_locator.KyOCQvX"/>
         <argument key="App\Controller\Finanzas\ReciboController::show" type="service_closure" id=".service_locator.skItg3z"/>
+        <argument key="App\Controller\Finanzas\TipoRetencionController::delete" type="service_closure" id=".service_locator.GasbdM8"/>
+        <argument key="App\Controller\Finanzas\TipoRetencionController::edit" type="service_closure" id=".service_locator.GasbdM8"/>
+        <argument key="App\Controller\Finanzas\TipoRetencionController::index" type="service_closure" id=".service_locator.MtN2Psc"/>
+        <argument key="App\Controller\Finanzas\TipoRetencionController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Finanzas\TipoRetencionController::show" type="service_closure" id=".service_locator.tRXA7Tq"/>
         <argument key="App\Controller\RRHH\EmpleadoController::delete" type="service_closure" id=".service_locator.v0yFMj1"/>
         <argument key="App\Controller\RRHH\EmpleadoController::edit" type="service_closure" id=".service_locator.v0yFMj1"/>
         <argument key="App\Controller\RRHH\EmpleadoController::index" type="service_closure" id=".service_locator.Y_acB7v"/>
@@ -6600,6 +6700,7 @@
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="App\Controller\Administracion\ArticuloConceptoClienteController:delete" type="service_closure" id=".service_locator.gtznwKg"/>
         <argument key="App\Controller\Administracion\ArticuloConceptoClienteController:edit" type="service_closure" id=".service_locator.gtznwKg"/>
+        <argument key="App\Controller\Administracion\ArticuloConceptoClienteController:getImporte" type="service_closure" id=".service_locator.FpqO99v"/>
         <argument key="App\Controller\Administracion\ArticuloConceptoClienteController:index" type="service_closure" id=".service_locator.ESQaIWn"/>
         <argument key="App\Controller\Administracion\ArticuloConceptoClienteController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Administracion\ArticuloConceptoClienteController:show" type="service_closure" id=".service_locator.Rw06bmy"/>
@@ -6675,6 +6776,11 @@
         <argument key="App\Controller\Finanzas\MetodoEfectivoController:index" type="service_closure" id=".service_locator.PO3GDZ5"/>
         <argument key="App\Controller\Finanzas\MetodoEfectivoController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Finanzas\MetodoEfectivoController:show" type="service_closure" id=".service_locator.y6fI.48"/>
+        <argument key="App\Controller\Finanzas\MetodoRetencionController:delete" type="service_closure" id=".service_locator.Wnhgyp0"/>
+        <argument key="App\Controller\Finanzas\MetodoRetencionController:edit" type="service_closure" id=".service_locator.Wnhgyp0"/>
+        <argument key="App\Controller\Finanzas\MetodoRetencionController:index" type="service_closure" id=".service_locator.sUQt3KT"/>
+        <argument key="App\Controller\Finanzas\MetodoRetencionController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Finanzas\MetodoRetencionController:show" type="service_closure" id=".service_locator.lgZkzN0"/>
         <argument key="App\Controller\Finanzas\MetodoTransferenciaController:delete" type="service_closure" id=".service_locator.eSj3Cq0"/>
         <argument key="App\Controller\Finanzas\MetodoTransferenciaController:edit" type="service_closure" id=".service_locator.eSj3Cq0"/>
         <argument key="App\Controller\Finanzas\MetodoTransferenciaController:index" type="service_closure" id=".service_locator.4jXxt4K"/>
@@ -6685,6 +6791,11 @@
         <argument key="App\Controller\Finanzas\ReciboController:index" type="service_closure" id=".service_locator.2yB6Zlv"/>
         <argument key="App\Controller\Finanzas\ReciboController:new" type="service_closure" id=".service_locator.KyOCQvX"/>
         <argument key="App\Controller\Finanzas\ReciboController:show" type="service_closure" id=".service_locator.skItg3z"/>
+        <argument key="App\Controller\Finanzas\TipoRetencionController:delete" type="service_closure" id=".service_locator.GasbdM8"/>
+        <argument key="App\Controller\Finanzas\TipoRetencionController:edit" type="service_closure" id=".service_locator.GasbdM8"/>
+        <argument key="App\Controller\Finanzas\TipoRetencionController:index" type="service_closure" id=".service_locator.MtN2Psc"/>
+        <argument key="App\Controller\Finanzas\TipoRetencionController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\Finanzas\TipoRetencionController:show" type="service_closure" id=".service_locator.tRXA7Tq"/>
         <argument key="App\Controller\RRHH\EmpleadoController:delete" type="service_closure" id=".service_locator.v0yFMj1"/>
         <argument key="App\Controller\RRHH\EmpleadoController:edit" type="service_closure" id=".service_locator.v0yFMj1"/>
         <argument key="App\Controller\RRHH\EmpleadoController:index" type="service_closure" id=".service_locator.Y_acB7v"/>
@@ -6779,7 +6890,7 @@
       <argument type="service" id="argument_resolver.query_parameter_value_resolver"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.Akp_R__" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.RVi6WSB" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\Administracion\ArticuloConceptoClienteType" type="service_closure" id="App\Form\Administracion\ArticuloConceptoClienteType"/>
@@ -6797,8 +6908,10 @@
         <argument key="App\Form\Finanzas\MetodoChequePropioType" type="service_closure" id="App\Form\Finanzas\MetodoChequePropioType"/>
         <argument key="App\Form\Finanzas\MetodoChequeType" type="service_closure" id="App\Form\Finanzas\MetodoChequeType"/>
         <argument key="App\Form\Finanzas\MetodoEfectivoType" type="service_closure" id="App\Form\Finanzas\MetodoEfectivoType"/>
+        <argument key="App\Form\Finanzas\MetodoRetencionType" type="service_closure" id="App\Form\Finanzas\MetodoRetencionType"/>
         <argument key="App\Form\Finanzas\MetodoTransferenciaType" type="service_closure" id="App\Form\Finanzas\MetodoTransferenciaType"/>
         <argument key="App\Form\Finanzas\ReciboType" type="service_closure" id="App\Form\Finanzas\ReciboType"/>
+        <argument key="App\Form\Finanzas\TipoRetencionType" type="service_closure" id="App\Form\Finanzas\TipoRetencionType"/>
         <argument key="App\Form\RRHH\EmpleadoType" type="service_closure" id="App\Form\RRHH\EmpleadoType"/>
         <argument key="App\Form\RRHH\PuestoTrabajoType" type="service_closure" id="App\Form\RRHH\PuestoTrabajoType"/>
         <argument key="App\Form\RegistrationFormType" type="service_closure" id="App\Form\RegistrationFormType"/>
@@ -6846,7 +6959,7 @@
         <argument key="stof_doctrine_extensions.listener.softdeleteable" type="service_closure" id="stof_doctrine_extensions.listener.softdeleteable"/>
       </argument>
     </service>
-    <service id=".service_locator.ZynzpwS" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.IMwJTMY" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\Administracion\ArticuloConceptoClienteRepository" type="service_closure" id="App\Repository\Administracion\ArticuloConceptoClienteRepository"/>
@@ -6871,11 +6984,13 @@
         <argument key="App\Repository\Finanzas\MetodoChequePropioRepository" type="service_closure" id="App\Repository\Finanzas\MetodoChequePropioRepository"/>
         <argument key="App\Repository\Finanzas\MetodoChequeRepository" type="service_closure" id="App\Repository\Finanzas\MetodoChequeRepository"/>
         <argument key="App\Repository\Finanzas\MetodoEfectivoRepository" type="service_closure" id="App\Repository\Finanzas\MetodoEfectivoRepository"/>
+        <argument key="App\Repository\Finanzas\MetodoRetencionRepository" type="service_closure" id="App\Repository\Finanzas\MetodoRetencionRepository"/>
         <argument key="App\Repository\Finanzas\MetodoTransferenciaRepository" type="service_closure" id="App\Repository\Finanzas\MetodoTransferenciaRepository"/>
         <argument key="App\Repository\Finanzas\MovimientoCuentaRepository" type="service_closure" id="App\Repository\Finanzas\MovimientoCuentaRepository"/>
         <argument key="App\Repository\Finanzas\MovimientoPagoRepository" type="service_closure" id="App\Repository\Finanzas\MovimientoPagoRepository"/>
         <argument key="App\Repository\Finanzas\MovimientoVentaRepository" type="service_closure" id="App\Repository\Finanzas\MovimientoVentaRepository"/>
         <argument key="App\Repository\Finanzas\ReciboRepository" type="service_closure" id="App\Repository\Finanzas\ReciboRepository"/>
+        <argument key="App\Repository\Finanzas\TipoRetencionRepository" type="service_closure" id="App\Repository\Finanzas\TipoRetencionRepository"/>
         <argument key="App\Repository\Mantenimiento\ComprobanteTransaccionRepository" type="service_closure" id="App\Repository\Mantenimiento\ComprobanteTransaccionRepository"/>
         <argument key="App\Repository\RRHH\EmpleadoRepository" type="service_closure" id="App\Repository\RRHH\EmpleadoRepository"/>
         <argument key="App\Repository\RRHH\PuestoTrabajoRepository" type="service_closure" id="App\Repository\RRHH\PuestoTrabajoRepository"/>
@@ -7114,6 +7229,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.O2p6Lk7" method="withContext"/>
     </service>
+    <service id=".service_locator.O2p6Lk7.App\Controller\Finanzas\MetodoRetencionController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Finanzas\MetodoRetencionController"/>
+      <argument>App\Controller\Finanzas\MetodoRetencionController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.O2p6Lk7" method="withContext"/>
+    </service>
     <service id=".service_locator.O2p6Lk7.App\Controller\Finanzas\MetodoTransferenciaController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\Finanzas\MetodoTransferenciaController"/>
       <argument>App\Controller\Finanzas\MetodoTransferenciaController</argument>
@@ -7123,6 +7244,12 @@
     <service id=".service_locator.O2p6Lk7.App\Controller\Finanzas\ReciboController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\Finanzas\ReciboController"/>
       <argument>App\Controller\Finanzas\ReciboController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.O2p6Lk7" method="withContext"/>
+    </service>
+    <service id=".service_locator.O2p6Lk7.App\Controller\Finanzas\TipoRetencionController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\Finanzas\TipoRetencionController"/>
+      <argument>App\Controller\Finanzas\TipoRetencionController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.O2p6Lk7" method="withContext"/>
     </service>
@@ -7310,8 +7437,10 @@
           <argument>App\Controller\Finanzas\MetodoChequeController</argument>
           <argument>App\Controller\Finanzas\MetodoChequePropioController</argument>
           <argument>App\Controller\Finanzas\MetodoEfectivoController</argument>
+          <argument>App\Controller\Finanzas\MetodoRetencionController</argument>
           <argument>App\Controller\Finanzas\MetodoTransferenciaController</argument>
           <argument>App\Controller\Finanzas\ReciboController</argument>
+          <argument>App\Controller\Finanzas\TipoRetencionController</argument>
           <argument>App\Controller\RRHH\EmpleadoController</argument>
           <argument>App\Controller\RRHH\PuestoTrabajoController</argument>
           <argument>App\Controller\RegistrationController</argument>
@@ -7471,6 +7600,12 @@
     <service id=".errored..service_locator.pG8igIo.App\Entity\Finanzas\MetodoEfectivo" class="App\Entity\Finanzas\MetodoEfectivo">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.pG8igIo&quot;: it needs an instance of &quot;App\Entity\Finanzas\MetodoEfectivo&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
+    <service id=".errored..service_locator.lgZkzN0.App\Entity\Finanzas\MetodoRetencion" class="App\Entity\Finanzas\MetodoRetencion">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.lgZkzN0&quot;: it needs an instance of &quot;App\Entity\Finanzas\MetodoRetencion&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.Wnhgyp0.App\Entity\Finanzas\MetodoRetencion" class="App\Entity\Finanzas\MetodoRetencion">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.Wnhgyp0&quot;: it needs an instance of &quot;App\Entity\Finanzas\MetodoRetencion&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
     <service id=".errored..service_locator.y7XvAe7.App\Entity\Finanzas\MetodoTransferencia" class="App\Entity\Finanzas\MetodoTransferencia">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.y7XvAe7&quot;: it needs an instance of &quot;App\Entity\Finanzas\MetodoTransferencia&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
@@ -7482,6 +7617,12 @@
     </service>
     <service id=".errored..service_locator.9CEEjne.App\Entity\Finanzas\Recibo" class="App\Entity\Finanzas\Recibo">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.9CEEjne&quot;: it needs an instance of &quot;App\Entity\Finanzas\Recibo&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.tRXA7Tq.App\Entity\Finanzas\TipoRetencion" class="App\Entity\Finanzas\TipoRetencion">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.tRXA7Tq&quot;: it needs an instance of &quot;App\Entity\Finanzas\TipoRetencion&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.GasbdM8.App\Entity\Finanzas\TipoRetencion" class="App\Entity\Finanzas\TipoRetencion">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.GasbdM8&quot;: it needs an instance of &quot;App\Entity\Finanzas\TipoRetencion&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
     <service id=".errored..service_locator.RySf2Tt.App\Entity\RRHH\Empleado" class="App\Entity\RRHH\Empleado">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.RySf2Tt&quot;: it needs an instance of &quot;App\Entity\RRHH\Empleado&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
@@ -8482,11 +8623,12 @@
     <service id="Twig\Environment" alias="twig"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.w7.f4fT" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.TAcLkBl"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.zYTRXqT"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>
     <service id=".service_locator.bJ.4HC5" alias=".service_locator.w7.f4fT"/>
+    <service id=".service_locator.Y_P86nk" alias=".service_locator.FpqO99v"/>
     <service id=".service_locator.oR6wE36" alias=".service_locator.kWRcZDu"/>
     <service id=".service_locator.TXNohy5" alias=".service_locator.OyvJ4y2"/>
     <service id=".service_locator.qN2QJEl" alias=".service_locator.j07wVqy"/>
@@ -8494,14 +8636,16 @@
     <service id=".service_locator.M.AoQcR" alias=".service_locator.V.VXs0s"/>
     <service id=".service_locator.DjyPyfs" alias=".service_locator.G_4ByaT"/>
     <service id=".service_locator.36_TMiD" alias=".service_locator.pG8igIo"/>
+    <service id=".service_locator.F71Qr52" alias=".service_locator.Wnhgyp0"/>
     <service id=".service_locator._1Y7byx" alias=".service_locator.eSj3Cq0"/>
     <service id=".service_locator.e9k4Hdy" alias=".service_locator.KyOCQvX"/>
     <service id=".service_locator.Y6L0VdR" alias=".service_locator.9CEEjne"/>
+    <service id=".service_locator.LEHh3v4" alias=".service_locator.GasbdM8"/>
     <service id=".service_locator.xLizhxf" alias=".service_locator.Sf2naB0"/>
     <service id=".service_locator.V6D1oJY" alias=".service_locator.e_4zbH4"/>
-    <service id=".service_locator.3EcP1C2" alias=".service_locator.TAcLkBl"/>
+    <service id=".service_locator.g_d93MW" alias=".service_locator.zYTRXqT"/>
     <service id=".service_locator.BFrsqsn" alias=".service_locator.fGvEh3."/>
-    <service id=".service_locator.ib.xEma" alias=".service_locator.Akp_R__"/>
+    <service id=".service_locator.xupBQZK" alias=".service_locator.RVi6WSB"/>
     <service id=".service_locator.tx8M._3" alias=".service_locator.wOg9MQf"/>
     <service id=".service_locator.jUv.zyj" alias=".service_locator.O2p6Lk7"/>
     <service id="validator" alias="debug.validator"/>
@@ -8524,6 +8668,7 @@
     <service id=".service_locator.9e2t_lq" alias=".service_locator.CsMkqUa"/>
     <service id=".service_locator.kYVTMwC" alias=".service_locator.Rw06bmy"/>
     <service id=".service_locator.Wte15WS" alias=".service_locator.gtznwKg"/>
+    <service id=".service_locator.WK5iU2s" alias=".service_locator.FpqO99v"/>
     <service id=".service_locator.H0juWEv" alias=".service_locator..JfmMB8"/>
     <service id=".service_locator.AunowUR" alias=".service_locator.6Cq6LAs"/>
     <service id=".service_locator.yCt9v98" alias=".service_locator.60g6H9Q"/>
@@ -8568,6 +8713,9 @@
     <service id=".service_locator.uwCzI5x" alias=".service_locator.PO3GDZ5"/>
     <service id=".service_locator.q8SzqA4" alias=".service_locator.y6fI.48"/>
     <service id=".service_locator.rUUM8lE" alias=".service_locator.pG8igIo"/>
+    <service id=".service_locator.wRKIW.k" alias=".service_locator.sUQt3KT"/>
+    <service id=".service_locator.eFbBsH5" alias=".service_locator.lgZkzN0"/>
+    <service id=".service_locator.xA0pxJr" alias=".service_locator.Wnhgyp0"/>
     <service id=".service_locator.o0RzgZ6" alias=".service_locator.4jXxt4K"/>
     <service id=".service_locator.GTsu8YY" alias=".service_locator.y7XvAe7"/>
     <service id=".service_locator.fVn1bm6" alias=".service_locator.eSj3Cq0"/>
@@ -8575,6 +8723,9 @@
     <service id=".service_locator.m5k.wxD" alias=".service_locator.KyOCQvX"/>
     <service id=".service_locator.mWXOzeU" alias=".service_locator.skItg3z"/>
     <service id=".service_locator.BdnuzsE" alias=".service_locator.9CEEjne"/>
+    <service id=".service_locator.3.ovcGB" alias=".service_locator.MtN2Psc"/>
+    <service id=".service_locator.dZOwuxT" alias=".service_locator.tRXA7Tq"/>
+    <service id=".service_locator.Ik1tjgq" alias=".service_locator.GasbdM8"/>
     <service id=".service_locator.MPDaoyr" alias=".service_locator.Y_acB7v"/>
     <service id=".service_locator.JYGRxlo" alias=".service_locator.RySf2Tt"/>
     <service id=".service_locator.3pYj_FV" alias=".service_locator.v0yFMj1"/>

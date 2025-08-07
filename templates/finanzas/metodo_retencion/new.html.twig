@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New MetodoRetencion{% endblock %}
+
+{% block body %}
+    <h1>Create new MetodoRetencion</h1>
+
+    {{ include('finanzas/metodo_retencion/_form.html.twig') }}
+
+    <a href="{{ path('app_finanzas_metodo_retencion_index') }}">back to list</a>
+{% endblock %}

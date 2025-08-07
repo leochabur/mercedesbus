@@ -31,13 +31,18 @@ class ArticuloConceptoClienteRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?ArticuloConceptoCliente
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+       public function getArticuloConceptoClienteActivo($ente, $articulo): ?ArticuloConceptoCliente
+       {
+           return $this->createQueryBuilder('a')
+                        ->where('a.enteComercial = :ente')
+                        ->setParameter('ente', $ente)
+                        ->andWhere('a.articulo = :articulo')
+                        ->setParameter('articulo', $articulo)
+                        ->andWhere('a.activo = :activo')
+                        ->setParameter('activo', true)
+                        ->getQuery()
+                        ->getOneOrNullResult()
+           ;
+
+       }
 }

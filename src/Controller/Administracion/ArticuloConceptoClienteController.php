@@ -2,11 +2,14 @@
 
 namespace App\Controller\Administracion;
 
+use App\Entity\Administracion\ArticuloConcepto;
 use App\Entity\Administracion\ArticuloConceptoCliente;
+use App\Entity\Administracion\EnteComercial;
 use App\Form\Administracion\ArticuloConceptoClienteType;
 use App\Repository\Administracion\ArticuloConceptoClienteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -66,6 +69,37 @@ final class ArticuloConceptoClienteController extends AbstractController
             'articulo_concepto_cliente' => $articuloConceptoCliente,
             'form' => $form,
         ]);
+    }
+
+
+    #[Route('get/{ente}/{art}/importe', name: 'app_administracion_articulo_concepto_cliente_importe', methods: ['POST'])]
+    public function getImporte($ente, $art,  EntityManagerInterface $entityManager, ArticuloConceptoClienteRepository $articuloConceptoClienteRepository): Response
+    {
+        
+        if (!($art && $ente))
+        {
+            return new JsonResponse(['monto' => '', 'vigencia' => '.']);
+        }
+        
+        $ente = $entityManager->getRepository(EnteComercial::class)->find($ente);
+        if (!$ente)
+        {
+            return new JsonResponse(['monto' => '', 'vigencia' => '.']);
+        }
+        $articulo = $entityManager->getRepository(ArticuloConcepto::class)->find($art);
+        if (!$articulo)
+        {
+            return new JsonResponse(['monto' => '', 'vigencia' => '.']);
+        }
+
+        $articuloConceptoCliente = $articuloConceptoClienteRepository->getArticuloConceptoClienteActivo($ente, $articulo);
+        if (!$articuloConceptoCliente)
+        {
+            return new JsonResponse(['monto' => '', 'vigencia' => '.']);
+        }
+
+        return new JsonResponse(['monto' => $articuloConceptoCliente->getImporte(), 
+                                 'vigencia' => $articuloConceptoCliente->getFechaActualizacion() ? 'Vigencia: ' . $articuloConceptoCliente->getFechaActualizacion()->format('d/m/y') : '' ]);
     }
 
     #[Route('/{id}', name: 'app_administracion_articulo_concepto_cliente_delete', methods: ['POST'])]

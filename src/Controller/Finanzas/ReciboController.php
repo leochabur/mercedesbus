@@ -23,9 +23,12 @@ use App\Entity\Finanzas\CtaCteBanco;
 use App\Entity\Finanzas\MetodoCheque;
 use App\Entity\Finanzas\MetodoChequeCartera;
 use App\Entity\Finanzas\MetodoChequePropio;
+use App\Entity\Finanzas\MetodoRetencion;
+use App\Entity\Finanzas\TipoRetencion;
 use App\Form\Finanzas\MetodoChequeCarteraType;
 use App\Form\Finanzas\MetodoChequePropioType;
 use App\Form\Finanzas\MetodoChequeType;
+use App\Form\Finanzas\MetodoRetencionType;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/finanzas/recibo')]
@@ -59,6 +62,8 @@ final class ReciboController extends AbstractController
         $formCheque = $this->createForm(MetodoChequeType::class, null);
         $formChequePropio = $this->createForm(MetodoChequePropioType::class, null);
         $formChequeCartera = $this->createForm(MetodoChequeCarteraType::class, null);
+        $formRetenciones = $this->createForm(MetodoRetencionType::class, null);
+
 
         
 
@@ -131,6 +136,23 @@ final class ReciboController extends AbstractController
                         if (count($errors) > 0) 
                         {
                             $errorString = "Forma Pago Transferencia:\n";
+                            foreach ($errors as $error) {
+                                $errorString .= '#  ' . $error->getMessage() . "\n";
+                            }
+                            return new JsonResponse(['ok' => false, 'message' => $errorString]);
+                        }
+                    }
+                    elseif ($f['type']['code'] == 'r')
+                    {
+                        $cc = $entityManager->find(TipoRetencion::class , $f['caja']['code']);
+                        $metodo = new MetodoRetencion();
+                        $metodo->setTipoRetencion($cc)
+                                ->setImporte($f['monto'])
+                                ->setRecibo($recibo);
+                        $errors = $validator->validate($metodo);
+                        if (count($errors) > 0) 
+                        {
+                            $errorString = "Forma Pago Retencion:\n";
                             foreach ($errors as $error) {
                                 $errorString .= '#  ' . $error->getMessage() . "\n";
                             }
@@ -268,6 +290,7 @@ final class ReciboController extends AbstractController
             'formCheque' => $formCheque,
             'formChequePropio' => $formChequePropio,
             'formChequeCartera' => $formChequeCartera,
+            'formRetenciones' => $formRetenciones,
             'type' => $type
         ]);
     }

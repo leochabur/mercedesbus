@@ -105,6 +105,7 @@ final class ComprobanteClienteController extends AbstractController
         return $this->render('administracion/comprobante_cliente/new.html.twig', [
             'comprobante_cliente' => $comprobanteCliente,
             'form' => $form,
+            'code' => $code,
             'label' => ($code == 'c' ? 'Venta' : 'Compra')
         ]);
     }

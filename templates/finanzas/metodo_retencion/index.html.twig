@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MetodoRetencion index{% endblock %}
+
+{% block body %}
+    <h1>MetodoRetencion index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Importe</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for metodo_retencion in metodo_retencions %}
+            <tr>
+                <td>{{ metodo_retencion.id }}</td>
+                <td>{{ metodo_retencion.importe }}</td>
+                <td>
+                    <a href="{{ path('app_finanzas_metodo_retencion_show', {'id': metodo_retencion.id}) }}">show</a>
+                    <a href="{{ path('app_finanzas_metodo_retencion_edit', {'id': metodo_retencion.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_finanzas_metodo_retencion_new') }}">Create new</a>
+{% endblock %}

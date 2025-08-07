@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TipoRetencion{% endblock %}
+
+{% block body %}
+    <h1>TipoRetencion</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tipo_retencion.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ tipo_retencion.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_finanzas_tipo_retencion_index') }}">back to list</a>
+
+    <a href="{{ path('app_finanzas_tipo_retencion_edit', {'id': tipo_retencion.id}) }}">edit</a>
+
+    {{ include('finanzas/tipo_retencion/_delete_form.html.twig') }}
+{% endblock %}

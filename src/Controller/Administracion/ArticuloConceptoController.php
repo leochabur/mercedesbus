@@ -80,10 +80,10 @@ final class ArticuloConceptoController extends AbstractController
         return $this->redirectToRoute('app_administracion_articulo_concepto_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/api/articulos', name: 'api_articulos', methods: ['GET'])]
-    public function getArticulos(ArticuloConceptoRepository $articuloRepository): JsonResponse
+    #[Route('/api/{code}/articulos', name: 'api_articulos', methods: ['GET'])]
+    public function getArticulos($code, ArticuloConceptoRepository $articuloRepository): JsonResponse
     {
-        $articulos = $articuloRepository->findAll(); // O puedes filtrar/paginar si la lista es enorme
+        $articulos = $articuloRepository->getAllProductosCircuito($code == 'c' ? 1 : 2); // O puedes filtrar/paginar si la lista es enorme
 
         $data = [];
         foreach ($articulos as $articulo) {

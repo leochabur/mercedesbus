@@ -20,6 +20,7 @@
 <script>
 
 $(document).ready(function() {
+    const  $url = "{{ path('app_administracion_articulo_concepto_cliente_importe', { ente : 'ID_ENTE', art : 'ID_ART'  }) }}";
     const $collectionHolder = $('#items-collection');
     let index = $collectionHolder.find('.item-form').length; // Asumiendo que cada item tiene una clase 'item-form'
 
@@ -37,15 +38,25 @@ $(document).ready(function() {
         if ($articuloSelect.length) 
         {
             $articuloSelect.change(function() {
-        
+                                                    const $this = $(this);
+                                             
+
                                                     const $li = $(this).closest('li');
                                                     const $import = $li.find('.precio-ii');
+                                                    const $vigencia = $li.find('.text-vigencia');
+                                                    $import.val('');
+                                                    $vigencia.text('.');
+                                                    $.post($url.replace('ID_ENTE', $('.input-ente').val()).replace('ID_ART', $this.val()),
+                                                            function(data) {
+                                                                $import.val(data.monto);
+                                                                $vigencia.text(data.vigencia);
+                                                            });
                                                  
-                                                    $import.val('kaaskaask');
+                                             
         
             });
             $.ajax({
-                url: '{{ path('api_articulos') }}', // La ruta a tu endpoint AJAX
+                url: "{{ path('api_articulos', { code : code}) }}", // La ruta a tu endpoint AJAX
                 type: 'GET',
                 dataType: 'json',
                 success: function(articulos) {
@@ -88,13 +99,6 @@ $(document).ready(function() {
     // Inicializar listeners para los ítems que ya existen al cargar la página
     $collectionHolder.find('.item-form').each(function() {
         addDeleteButtonListener($(this));
-    });
-
-    $('.form-select-producto').change(function() {
-        
-                                                    const $this = $(this);
-                                                    alert($this.val());
-        
     });
 
 });

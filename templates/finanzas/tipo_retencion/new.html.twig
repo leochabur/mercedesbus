@@ -1,17 +1,17 @@
 {% extends 'navBar.html.twig' %}
 
-{% block title %}Banco{% endblock %}
+{% block title %}Tipo Retencion{% endblock %}
 
 {% block body %}
     {{ parent() }}
     <div class="container pt-4 pl-2">
     <div class="h5">
-        Nuevo Banco
+        Nuevo Tipo Retencion
         <hr>
     </div>
 
+    {{ include('finanzas/tipo_retencion/_form.html.twig') }}
 
-    {{ include('finanzas/banco/_form.html.twig') }}
 
     </div>
 {% endblock %}

@@ -147,6 +147,25 @@
                         </div>
                     </div>
                 {{ form_end(formChequeCartera) }}
+
+                {{ form_start(formRetenciones, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'px-4 all-formas R reset-form' }}) }}
+                    <div class="row pt-3">
+                        <div class="col col-lg-6">
+                            {{ form_label(formRetenciones.tipoRetencion) }}
+                            {{ form_widget(formRetenciones.tipoRetencion, { 'attr' : { 'class' : 'form-control form-select ret-caja '} }) }}
+                            {{ form_errors(formRetenciones.tipoRetencion) }}
+                        </div>
+                        <div class="col col-lg-3">
+                            {{ form_label(formRetenciones.importe) }}
+                            {{ form_widget(formRetenciones.importe, { 'attr' : { 'class' : 'form-control ret-monto'} }) }}
+                            {{ form_errors(formRetenciones.importe) }}
+                        </div>
+                        <div class="col col-lg-3 pt-4 mt-2">
+                            <input type="button" value="Guardar" class="btn btn-warning ret-save" name="">
+                        </div>
+                    </div>
+                {{ form_end(formRetenciones) }}
+
                 <hr>
                 <br>
                 <div class="card-header text-muted">Formas pago asignadas</div>

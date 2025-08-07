@@ -25,6 +25,7 @@ class ReciboType extends AbstractType
                             'Efectivo' => 'E',
                             'Transferencia' => 'T',
                             'Cheque' => 'C',
+                            'Retenciones' => 'R'
             );
         }
         else
@@ -61,7 +62,7 @@ class ReciboType extends AbstractType
             ])
             ->add('forma', ChoiceType::class, [
                                                     'mapped' => false,
-                                                    'placeholder' => 'Elejite una',
+                                                    'placeholder' => 'Seleecione una opcion',
                                                     'choices'  => $formas,
                                                 ])
             ->add('enteComercial', EntityType::class, [

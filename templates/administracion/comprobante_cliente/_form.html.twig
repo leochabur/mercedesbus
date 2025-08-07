@@ -14,7 +14,7 @@
     <div class="row pt-3">
         <div class="col col-lg-6">
             {{ form_label(form.enteComercial) }}
-            {{ form_widget(form.enteComercial, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+            {{ form_widget(form.enteComercial, { 'attr' : { 'class' : 'form-control form-select input-ente'} }) }}
             {{ form_errors(form.enteComercial) }}
         </div>
         <div class="col col-lg-3">
@@ -69,7 +69,7 @@
                 
 
                 <div class='row g-3 align-items-end'> {# Usamos g-3 para espaciado de columnas y align-items-end para alinear bien los campos #}
-                    <div class='col-md-3'>
+                    <div class='col-md-3 pb-4'>
                         <label for='{{ form.items.vars.prototype.articulo.vars.id }}' class='form-label'>Producto</label>
                         {# Aquí va la renderización manual del SELECT para el prototipo #}
                         <select id='{{ form.items.vars.prototype.articulo.vars.id }}' 
@@ -78,21 +78,22 @@
                             <option value=''>Seleccione un producto</option>
                         </select>
                     </div>
-                    <div class='col-md-3'>
+                    <div class='col-md-3 pb-4'>
                         <label for='{{ form.items.vars.prototype.descripcion.vars.id }}' class='form-label'>Descripcion</label>
                         <input type='text' id='{{ form.items.vars.prototype.descripcion.vars.id }}' name='{{ form.items.vars.prototype.descripcion.vars.full_name }}' class='form-control form-control-sm'>
                         {# Aquí podrías añadir un span para errores si los manejas con JS, o dejar que Symfony los ponga si envías el formulario #}
                     </div>
-                    <div class='col-md-2'>
+                    <div class='col-md-2 pb-4'>
                         <label for='{{ form.items.vars.prototype.cantidad.vars.id }}' class='form-label'>Cantidad</label>
-                        <input type='number' id='{{ form.items.vars.prototype.cantidad.vars.id }}' name='{{ form.items.vars.prototype.cantidad.vars.full_name }}' class='form-control form-control-sm'>
+                        <input  value='1' type='number' id='{{ form.items.vars.prototype.cantidad.vars.id }}' name='{{ form.items.vars.prototype.cantidad.vars.full_name }}' class='form-control form-control-sm'>
                         {# Aquí podrías añadir un span para errores si los manejas con JS, o dejar que Symfony los ponga si envías el formulario #}
                     </div>
                     <div class='col-md-2'>
                         <label for='{{ form.items.vars.prototype.precioUnitario.vars.id }}' class='form-label'>$ Unitario (IVA Inc.)</label>
                         <input type='text' id='{{ form.items.vars.prototype.precioUnitario.vars.id }}' name='{{ form.items.vars.prototype.precioUnitario.vars.full_name }}' class='form-control form-control-sm precio-ii'>
+                        <small id='emailHelp' class='form-text text-muted text-vigencia'>.</small>
                     </div>
-                    <div class='col-md-2'>
+                    <div class='col-md-2 pb-4'>
                         <button type='button' class='btn btn-danger remove-item-button btn-sm'>Eliminar Ítem</button>
                     </div>
                     

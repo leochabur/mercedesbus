@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: MetodoCancelacionReciboRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
 #[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
-#[ORM\DiscriminatorMap(['MCR' => MetodoCancelacionRecibo::class, 'MEE' => MetodoEfectivo::class, 'MET' => MetodoTransferencia::class, 'MEC' => MetodoCheque::class, 'MECP' => MetodoChequePropio::class, 'MECC' => MetodoChequeCartera::class])]
+#[ORM\DiscriminatorMap(['MCR' => MetodoCancelacionRecibo::class, 'MR' => MetodoRetencion::class, 'MEE' => MetodoEfectivo::class, 'MET' => MetodoTransferencia::class, 'MEC' => MetodoCheque::class, 'MECP' => MetodoChequePropio::class, 'MECC' => MetodoChequeCartera::class])]
 #[ORM\Table(name: 'finanzas_metodo_pago_recibo')]
 
 abstract class MetodoCancelacionRecibo

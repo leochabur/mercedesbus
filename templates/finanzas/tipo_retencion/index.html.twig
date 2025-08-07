@@ -1,0 +1,35 @@
+{% extends 'navBar.html.twig' %}
+
+{% block title %}Bancos{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <div class="container pt-4">
+
+        <div class="h5 pb-4">Administrar Tipos Retenciones</div>
+
+        <table class="table table-striped table-hover table-bordered data-table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tipo_retencion in tipo_retencions %}
+            <tr>
+                <td>{{ tipo_retencion.id }}</td>
+                <td>{{ tipo_retencion.nombre }}</td>
+                <td>
+                     <a class="btn btn-success" href="{{ path('app_finanzas_tipo_retencion_edit', {'id': tipo_retencion.id}) }}">Modificar</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="{{ path('app_finanzas_tipo_retencion_new') }}">Nuevo Tipo Retencion</a>
+
+    </div>
+{% endblock %}

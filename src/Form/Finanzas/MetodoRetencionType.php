@@ -2,16 +2,16 @@
 
 namespace App\Form\Finanzas;
 
-use App\Entity\Finanzas\Caja;
-use App\Entity\Finanzas\MetodoEfectivo;
+use App\Entity\Finanzas\MetodoRetencion;
 use App\Entity\Finanzas\Recibo;
+use App\Entity\Finanzas\TipoRetencion;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\NumberType; 
 
-class MetodoEfectivoType extends AbstractType
+class MetodoRetencionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -27,10 +27,10 @@ class MetodoEfectivoType extends AbstractType
                                     'min' => '0',
                                 ],
                         'rounding_mode' => \NumberFormatter::ROUND_HALFUP, 
-                    ] 
+                    ]
             )
-            ->add('caja', EntityType::class, [
-                'class' => Caja::class
+            ->add('tipoRetencion', EntityType::class, [
+                'class' => TipoRetencion::class
             ])
         ;
     }
@@ -38,7 +38,7 @@ class MetodoEfectivoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => MetodoEfectivo::class,
+            'data_class' => MetodoRetencion::class,
         ]);
     }
 }

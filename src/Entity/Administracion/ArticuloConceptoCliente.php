@@ -6,6 +6,7 @@ use App\Repository\Administracion\ArticuloConceptoClienteRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity(repositoryClass: ArticuloConceptoClienteRepository::class)]
 #[ORM\Table(name: 'admin_articulos_conceptos_clientes')]
@@ -14,6 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     message: 'Existe ya un articulo configurado para este ente comercial',
     errorPath: 'articulo',
 )]
+#[ORM\HasLifecycleCallbacks]
 
 class ArticuloConceptoCliente
 {
@@ -34,6 +36,9 @@ class ArticuloConceptoCliente
     #[ORM\Column]
     private ?bool $activo = true;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $fechaActualizacion = null;
+
     #[ORM\ManyToOne(targetEntity: EnteComercial::class)]
     #[ORM\JoinColumn(name: 'id_ente_comercial', referencedColumnName: 'id')]
     #[Assert\NotBlank(message: 'Campo requerido')]
@@ -42,6 +47,14 @@ class ArticuloConceptoCliente
     #[ORM\ManyToOne(targetEntity: ArticuloConcepto::class)]
     #[ORM\JoinColumn(name: 'id_articulo', referencedColumnName: 'id', nullable: true)]
     private ArticuloConcepto|null $articulo = null;
+
+    
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function updateTimestamps(): void
+    {
+        $this->fechaActualizacion = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -115,6 +128,18 @@ class ArticuloConceptoCliente
     public function setActivo(bool $activo): static
     {
         $this->activo = $activo;
+
+        return $this;
+    }
+
+    public function getFechaActualizacion(): ?\DateTime
+    {
+        return $this->fechaActualizacion;
+    }
+
+    public function setFechaActualizacion(\DateTime $fechaActualizacion): static
+    {
+        $this->fechaActualizacion = $fechaActualizacion;
 
         return $this;
     }
