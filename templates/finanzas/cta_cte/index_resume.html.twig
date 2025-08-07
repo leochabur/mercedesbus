@@ -68,10 +68,11 @@
                         {% for mov in movimientos %}
                             <tr>
                                 {% set creditos, debitos = 0, 0%}
+                                {% set class = tipo == 'c' ? ( (mov.totalFacturas - mov.totalRecibos) > 0 ? 'text-danger' :'text-success') : '' %}
                                 <td>{{ mov.titular|upper }}</td>
                                 <td>$ {{ mov.totalFacturas|number_format(2, ',' ,'.') }}</td>
                                 <td>$ {{ mov.totalRecibos|number_format(2, ',' ,'.') }}</td>
-                                <td>$ {{ (mov.totalFacturas - mov.totalRecibos)|number_format(2, ',' ,'.') }}</td>
+                                <td class="{{ class }} fw-bold">$ {{ (mov.totalFacturas - mov.totalRecibos)|number_format(2, ',' ,'.') }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>

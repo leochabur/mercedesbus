@@ -1,10 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'navBar.html.twig' %}
 
-{% block title %}Editar Tipo Retencion{% endblock %}
+{% block title %}Modificar Tipo Retencion{% endblock %}
 
 {% block body %}
-    <h1>Editar Tipo Retencion</h1>
+    {{ parent() }}
+    <div class="container pt-4 pl-2">
+        <div class="h5">
+            Modificar Tipo Retencion
+            <hr>
+        </div>
 
-    {{ include('finanzas/tipo_retencion/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('finanzas/tipo_retencion/_form.html.twig', {'button_label': 'Update'}) }}
+
+        </div>
     
 {% endblock %}

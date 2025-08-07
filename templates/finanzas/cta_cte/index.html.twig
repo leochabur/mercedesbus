@@ -85,8 +85,22 @@
                             </tr>
                         {% endfor %}
                         </tbody>
+        <tfoot>
+            {% set class = tipo == 'c' ? ( saldo > 0 ? 'text-danger' :'text-success') : '' %}
+            <tr>
+                <td colspan="5" class="text-end pe-4 fw-bold">
+
+                        Saldo Cuenta Corriente
+                </td>
+                
+                <td class="{{ class }} fw-bold">
+                    
+                    $ {{ saldo|number_format(2, ',' ,'.') }}
+                </td>
+            </tr>
+        </tfoot>
                     </table>
-                </div>
+
 
     {% endif %}
     </div>

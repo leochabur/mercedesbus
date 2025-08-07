@@ -16,9 +16,9 @@
             <tr>
                 <th>Cliente</th>
                 <th>Articulo/Concepto</th>
-                <th>Precio Venta Final</th>
                 <th>Ciclo Facturacion</th>
-                <th>Activo</th>
+                <th>Precio Venta Final</th>
+                <th>Ultima Actualizacion</th>
                 <th></th>
             </tr>
         </thead>
@@ -30,7 +30,7 @@
                 <td>{{ articulo_concepto_cliente.cicloFacturacion ? articulo_concepto_cliente.cicloFacturacion ~ ' Dias' : '' }}</td>
                 <td>$ {{ articulo_concepto_cliente.importe|number_format(2, ', ', '.') }}</td>
                 
-                <td>{{ articulo_concepto_cliente.activo ? 'Si' : 'No' }}</td>
+                <td>{{ articulo_concepto_cliente.fechaActualizacion|date("d/m/Y")}}</td>
                 <td>
                     <a class="btn btn-sm btn-warning" href="{{ path('app_administracion_articulo_concepto_cliente_edit', {'id': articulo_concepto_cliente.id}) }}">Modificar</a>
                 </td>
