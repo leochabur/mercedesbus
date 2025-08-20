@@ -4,10 +4,16 @@ namespace App\Entity\Administracion;
 
 use App\Repository\Administracion\ArticuloConceptoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ArticuloConceptoRepository::class)]
 #[ORM\Table(name: 'admin_articulos_conceptos')]
-
+#[UniqueEntity(
+    fields: ['nombre'],
+    message: 'Existe ya un articulo con ese nombre',
+    errorPath: 'nombre',
+)]
 class ArticuloConcepto
 {
     #[ORM\Id]
@@ -16,12 +22,14 @@ class ArticuloConcepto
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Campo requerido')]
     private ?string $nombre = null;
 
     #[ORM\Column]
     private ?bool $activo = true;
 
     #[ORM\Column(type: 'float', nullable: true)]
+    #[Assert\NotNull(message: 'Campo requerido')]
     private ?float $alicuotaIva = null;
 
     #[ORM\Column]

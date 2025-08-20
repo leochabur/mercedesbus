@@ -26,6 +26,11 @@ class Recibo extends ComprobanteTransaccion
     #[ORM\Column(nullable: true)]
     private ?float $montoAplicado = 0;
 
+    public function __toString()
+    {
+        return 'Recibo';//$this->getNumero();
+    }
+
     public function __construct()
     {
         $this->metodos = new ArrayCollection();

@@ -14,6 +14,11 @@ class MovimientoPago extends MovimientoCuenta
     #[ORM\JoinColumn(name:'id_recibo', referencedColumnName: 'id', nullable: true)]
     private Recibo|null $recibo = null;
 
+    public function getDetalleComprobante()
+    {
+        return $this->recibo . '';
+    }
+
     public function borrarComprobanteAsociado($user)
     {
         $this->recibo->setDeletedAt(new \DateTimeImmutable());

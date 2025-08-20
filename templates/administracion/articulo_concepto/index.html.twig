@@ -16,6 +16,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Nombre</th>
+                    <th>Alicuota IVA</th>
                     <th>Circuito</th>
                     <th>Activo</th>
                     <th>actions</th>
@@ -26,6 +27,7 @@
                 <tr>
                     <td>{{ articulo_concepto.id }}</td>
                     <td>{{ articulo_concepto.nombre }}</td>
+                    <td>{{ articulo_concepto.alicuotaIva|number_format(2, '.', '') }} %</td>
                     <td>{{ articulo_concepto.circuitoText }}</td>
                     <td>{{ articulo_concepto.activo ? 'Si' : 'No' }}</td>
                     <td>

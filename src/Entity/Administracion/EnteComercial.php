@@ -3,7 +3,7 @@
 namespace App\Entity\Administracion;
 
 
-use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM; 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\DBAL\Types\Types;
 
@@ -29,7 +29,7 @@ class EnteComercial
 
     #[ORM\Column]
     private ?bool $activo = true;
-
+ 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $direccion = null;
 

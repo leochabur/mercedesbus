@@ -59,6 +59,7 @@ abstract class ComprobanteTransaccion
     // Campo para el borrado suave
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeImmutable $deletedAt = null;
+    
 
     public function getId(): ?int
     {

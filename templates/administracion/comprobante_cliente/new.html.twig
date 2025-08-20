@@ -7,6 +7,7 @@
     {{ parent() }}
     <div class="container">
     
+    {{ include('message.html.twig') }}
 
     {{ include('administracion/comprobante_cliente/_form.html.twig') }}
     </div>
@@ -51,6 +52,36 @@ $(document).ready(function() {
 
             $('#totalfin').val(totalfinal.toFixed(2));
         }
+
+                $('.input-cant').on('input', function() {
+
+                                const $this = $(this);
+
+                                const $li = $(this).closest('li');
+                                const $import = $li.find('.precio-ii');
+
+                                const $selectedOption = $li.find('select[id$="_articulo"]').find('option:selected');
+                                const $ivaValue = $selectedOption.data('iva');
+                                const $importFinal = $li.find('.precio-ii-final');
+
+                                if ($ivaValue) 
+                                {
+                                        const precioConIva = parseFloat($import.val()) * (1 + parseFloat($ivaValue) / 100);
+                                        if ($import.val() === '' || isNaN(precioConIva)) 
+                                        {
+                                            $importFinal.val('');
+                                        }
+                                        else
+                                        {
+                                            $importFinal.val(precioConIva.toFixed(2));
+                                        }
+                                } 
+                                else 
+                                {
+                                    $importFinal.val($import.val());
+                                }
+                                totalizarImportes();
+            });
     $('#add-item-button').on('click', function() {
         let prototype = $collectionHolder.data('prototype');
         let newForm = prototype.replace(/__name__/g, index);
@@ -66,6 +97,36 @@ $(document).ready(function() {
 
         if ($articuloSelect.length) 
         {
+
+                $('.input-cant').on('input', function() {
+
+                                const $this = $(this);
+
+                                const $li = $(this).closest('li');
+                                const $import = $li.find('.precio-ii');
+
+                                const $selectedOption = $li.find('select[id$="_articulo"]').find('option:selected');
+                                const $ivaValue = $selectedOption.data('iva');
+                                const $importFinal = $li.find('.precio-ii-final');
+
+                                if ($ivaValue) 
+                                {
+                                        const precioConIva = parseFloat($import.val()) * (1 + parseFloat($ivaValue) / 100);
+                                        if ($import.val() === '' || isNaN(precioConIva)) 
+                                        {
+                                            $importFinal.val('');
+                                        }
+                                        else
+                                        {
+                                            $importFinal.val(precioConIva.toFixed(2));
+                                        }
+                                } 
+                                else 
+                                {
+                                    $importFinal.val($import.val());
+                                }
+                                totalizarImportes();
+            });
             $articuloSelect.change(function() {                                                   
 
                                                     const $this = $(this);

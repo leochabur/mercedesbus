@@ -78,7 +78,7 @@
 
                                 </td>
                                 <td data-sort="{{ mov.fechaAlta|date('Y-m-d') }}">{{ mov.fechaAlta|date('d/m/Y') }}</td>
-                                <td>{{ mov.detalle }}</td>
+                                <td>{{ mov.detalleComprobante }}</td>
                                 <td>$ {{ mov.importeFactura|number_format(2, ',' ,'.') }}</td>
                                 <td>$ {{ mov.importePago|number_format(2, ',' ,'.') }}</td>
                                 <td>$ {{ saldo|number_format(2, ',' ,'.') }}</td>

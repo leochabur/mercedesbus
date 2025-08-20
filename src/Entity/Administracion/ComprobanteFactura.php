@@ -50,7 +50,7 @@ abstract class ComprobanteFactura extends ComprobanteTransaccion
 
     public function __toString()
     {
-        return $this->tipoComprobante . '  ' .$this->identificacionComprobante . ' ' . $this->puntoVenta . ' ' . $this->getNumero();
+        return $this->tipoComprobante . '  ' .$this->identificacionComprobante . ' ' .str_pad($this->puntoVenta , 4, "0", STR_PAD_LEFT). ' ' . str_pad($this->getNumero() , 6, "0", STR_PAD_LEFT);
     }
 
     #[Assert\IsTrue(message: 'Debe cargar al menos un item')]
@@ -67,13 +67,21 @@ abstract class ComprobanteFactura extends ComprobanteTransaccion
         {
             $art = $it->getArticulo();
             $iva = $art->getAlicuotaIva();
-            $precioUnitario = $it->getPrecioUnitario();
-            $precioUnitarioSinIva = $precioUnitario / (1+($iva/100));
+
+           // $precioUnitario = $it->getPrecioUnitario();
+
+            $precioUnitarioSinIva = $it->getPrecioUnitarioSinIva();
+            
+            $precioUnitario = $precioUnitarioSinIva * (1+($iva/100));
+
             $precioTotal = $precioUnitario * $it->getCantidad();
+
             $precioTotalSinIva = $precioUnitarioSinIva * $it->getCantidad();
 
 
-            $it->setPrecioUnitarioSinIva($precioUnitarioSinIva);
+
+            //$it->setPrecioUnitarioSinIva($precioUnitarioSinIva);
+            $it->setPrecioUnitario($precioUnitario);
             $it->setPrecioTotal($precioTotal);
             $it->setPrecioTotalSinIva($precioTotalSinIva);
 

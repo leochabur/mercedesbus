@@ -15,6 +15,12 @@ class MovimientoVenta extends MovimientoCuenta
     #[ORM\JoinColumn(name:'id_comprobante', referencedColumnName: 'id')]
     private ComprobanteTransaccion|null $comprobante = null;
     
+
+    public function getDetalleComprobante()
+    {
+        return $this->comprobante . '';
+    }
+
     public function borrarComprobanteAsociado($user)
     {
         $this->comprobante->setDeletedAt(new \DateTimeImmutable());

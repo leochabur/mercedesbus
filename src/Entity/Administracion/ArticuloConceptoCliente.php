@@ -18,7 +18,7 @@ use Doctrine\DBAL\Types\Types;
 #[ORM\HasLifecycleCallbacks]
 
 class ArticuloConceptoCliente
-{
+{ 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

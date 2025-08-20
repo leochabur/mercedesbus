@@ -48,6 +48,9 @@ abstract class MovimientoCuenta
 
     abstract public function getIdComprobante(); 
 
+    abstract public function getDetalleComprobante();
+
+
     public function getImporteFactura()
     {}
     public function getImportePago()
