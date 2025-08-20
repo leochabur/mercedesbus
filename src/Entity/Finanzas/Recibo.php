@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Administracion\ComprobanteTransaccion;
 
+
 #[ORM\Entity(repositoryClass: ReciboRepository::class)]
 
 class Recibo extends ComprobanteTransaccion
@@ -16,12 +17,19 @@ class Recibo extends ComprobanteTransaccion
     #[ORM\OneToMany(targetEntity: MetodoCancelacionRecibo::class, mappedBy: 'recibo', cascade: ['persist', 'remove'])]
     private $metodos;
 
+    #[ORM\OneToMany(targetEntity: MovimientoFacturaRecibo::class, mappedBy: 'recibo', cascade: ['persist', 'remove'])]   
+    private $movimientosFacturas;   
+
     #[ORM\OneToOne(targetEntity: MovimientoPago::class, mappedBy: 'recibo')]
     private MovimientoPago|null $movimiento = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $montoAplicado = 0;
 
     public function __construct()
     {
         $this->metodos = new ArrayCollection();
+        $this->movimientosFacturas = new ArrayCollection();
     }
 
     public function getMovimiento(): ?MovimientoPago
@@ -72,6 +80,48 @@ class Recibo extends ComprobanteTransaccion
                 $metodo->setRecibo(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MovimientoFacturaRecibo>
+     */
+    public function getMovimientosFacturas(): Collection
+    {
+        return $this->movimientosFacturas;
+    }
+
+    public function addMovimientosFactura(MovimientoFacturaRecibo $movimientosFactura): static
+    {
+        if (!$this->movimientosFacturas->contains($movimientosFactura)) {
+            $this->movimientosFacturas->add($movimientosFactura);
+            $movimientosFactura->setRecibo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMovimientosFactura(MovimientoFacturaRecibo $movimientosFactura): static
+    {
+        if ($this->movimientosFacturas->removeElement($movimientosFactura)) {
+            // set the owning side to null (unless already changed)
+            if ($movimientosFactura->getRecibo() === $this) {
+                $movimientosFactura->setRecibo(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getMontoAplicado(): ?float
+    {
+        return $this->montoAplicado;
+    }
+
+    public function setMontoAplicado(?float $montoAplicado): static
+    {
+        $this->montoAplicado = $montoAplicado;
 
         return $this;
     }

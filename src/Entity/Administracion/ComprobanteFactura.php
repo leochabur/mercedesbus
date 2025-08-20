@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ComprobanteFacturaRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 
 abstract class ComprobanteFactura extends ComprobanteTransaccion
 {
@@ -19,6 +20,9 @@ abstract class ComprobanteFactura extends ComprobanteTransaccion
 
     #[ORM\Column(nullable: true)]
     private ?float $precioTotalSinIva = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $saldoACancelar = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $precioIva = null;
@@ -37,6 +41,12 @@ abstract class ComprobanteFactura extends ComprobanteTransaccion
     #[ORM\JoinColumn(name: 'id_letra', referencedColumnName: 'id', nullable: true)]
     #[Assert\NotBlank(message: 'Campo requerido')]
     private LetraComprobante|null $identificacionComprobante = null;
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->saldoACancelar = $this->getPrecioTotalConIva();
+    }
 
     public function __toString()
     {
@@ -178,6 +188,18 @@ abstract class ComprobanteFactura extends ComprobanteTransaccion
     public function setIdentificacionComprobante(?LetraComprobante $identificacionComprobante): static
     {
         $this->identificacionComprobante = $identificacionComprobante;
+
+        return $this;
+    }
+
+    public function getSaldoACancelar(): ?float
+    {
+        return $this->saldoACancelar;
+    }
+
+    public function setSaldoACancelar(?float $saldoACancelar): static
+    {
+        $this->saldoACancelar = $saldoACancelar;
 
         return $this;
     }

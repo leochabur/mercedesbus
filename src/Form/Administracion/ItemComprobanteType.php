@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class ItemComprobanteType extends AbstractType
 {
@@ -17,12 +18,18 @@ class ItemComprobanteType extends AbstractType
         $code = $options['code'];
         $builder
             ->add('cantidad')
-            ->add('precioUnitario')
+            ->add('precioUnitarioSinIva', NumberType::class, [
+                'scale' => 2,
+            ])
             ->add('descripcion')
             ->add('articulo', 
                   EntityType::class, [
                                         'class' => ArticuloConcepto::class,
-
+                                        'choice_attr' => function(ArticuloConcepto $articulo, $key, $value) {
+                                            // Devuelve un array con el atributo 'data-iva'
+                                            // El valor del atributo se obtiene de la entidad
+                                            return ['data-iva' => $articulo->getAlicuotaIva()];
+                                        },
                                         ])
         ;
     }

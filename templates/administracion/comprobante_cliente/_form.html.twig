@@ -83,59 +83,93 @@
                         <input type='text' id='{{ form.items.vars.prototype.descripcion.vars.id }}' name='{{ form.items.vars.prototype.descripcion.vars.full_name }}' class='form-control form-control-sm'>
                         {# Aquí podrías añadir un span para errores si los manejas con JS, o dejar que Symfony los ponga si envías el formulario #}
                     </div>
-                    <div class='col-md-2 pb-4'>
+                    <div class='col-md-1 pb-4'>
                         <label for='{{ form.items.vars.prototype.cantidad.vars.id }}' class='form-label'>Cantidad</label>
-                        <input  value='1' type='number' id='{{ form.items.vars.prototype.cantidad.vars.id }}' name='{{ form.items.vars.prototype.cantidad.vars.full_name }}' class='form-control form-control-sm'>
+                        <input  value='1' type='number' id='{{ form.items.vars.prototype.cantidad.vars.id }}' name='{{ form.items.vars.prototype.cantidad.vars.full_name }}' class='form-control form-control-sm input-cant'>
                         {# Aquí podrías añadir un span para errores si los manejas con JS, o dejar que Symfony los ponga si envías el formulario #}
                     </div>
                     <div class='col-md-2'>
-                        <label for='{{ form.items.vars.prototype.precioUnitario.vars.id }}' class='form-label'>$ Unitario (IVA Inc.)</label>
-                        <input type='text' id='{{ form.items.vars.prototype.precioUnitario.vars.id }}' name='{{ form.items.vars.prototype.precioUnitario.vars.full_name }}' class='form-control form-control-sm precio-ii'>
+                        <label for='{{ form.items.vars.prototype.precioUnitarioSinIva.vars.id }}' class='form-label'>$ Unitario (Sin IVA)</label>
+                        <input type='number' step='0.01' id='{{ form.items.vars.prototype.precioUnitarioSinIva.vars.id }}' name='{{ form.items.vars.prototype.precioUnitarioSinIva.vars.full_name }}' class='form-control form-control-sm precio-ii'>
                         <small id='emailHelp' class='form-text text-muted text-vigencia'>.</small>
                     </div>
-                    <div class='col-md-2 pb-4'>
-                        <button type='button' class='btn btn-danger remove-item-button btn-sm'>Eliminar Ítem</button>
+                    <div class='col-md-2'>
+                        <label class='form-label'>$ Final</label>
+                        <input type='text' class='form-control form-control-sm precio-ii-final' disabled>
+                        <small id='emailHelp' class='form-text text-muted'>.</small>
+                    </div>
+                    <div class='col-md-1 pb-4'>
+                        <button type='button' class='btn btn-danger remove-item-button btn-sm'>-</button>
                     </div>
                     
                 </div>
             </div>
             </li>"
         data-index="{{ form.items|length }}">
+
+        {% set totSi, totFi = 0, 0 %}
         {% for itemForm in form.items %}
+
+            {% set cantidad = itemForm.vars.data.cantidad %}
+            {% set articulo = itemForm.vars.data.articulo %}
+            {% set unitario = itemForm.vars.data.precioUnitarioSinIva %}
+            {% set final = unitario * (1 + (articulo.alicuotaIva /100)) %}
+
+            {% set totSi = totSi + (unitario * cantidad) %}
+            {% set totFi = totFi + (final * cantidad) %}
   
-            <li class="item-entry item-form"> {# Añadimos una clase para facilitar la selección #}
+            <li class="item-entry item-form item-entry border p-3 mb-3 rounded item-form"> {# Añadimos una clase para facilitar la selección #}
 
                 
                 <div class='row g-3 align-items-end'> {# Usamos g-3 para espaciado de columnas y align-items-end para alinear bien los campos #}
-                    <div class='col-md-4'>
+                    <div class='col-md-3'>
                             {{ form_label(itemForm.articulo) }}
-                            {{ form_widget(itemForm.articulo, { 'attr' : { 'class' : 'form-control form-select form-control-sm' } }) }}
+                            {{ form_widget(itemForm.articulo, { 'attr' : { 'class' : 'form-control form-select form-control-sm form-select-producto' } }) }}
                             {{ form_errors(itemForm.articulo) }}
                     </div>
-                    <div class='col-md-4'>
+                    <div class='col-md-3'>
                             {{ form_label(itemForm.descripcion) }}
                             {{ form_widget(itemForm.descripcion, { 'attr' : { 'class' : 'form-control form-control-sm' } }) }}
                             {{ form_errors(itemForm.descripcion) }}
                     </div>
-                    <div class='col-md-2'>
+                    <div class='col-md-1'>
                             {{ form_label(itemForm.cantidad) }}
-                            {{ form_widget(itemForm.cantidad, { 'attr' : { 'class' : 'form-control form-control-sm' } }) }}
+                            {{ form_widget(itemForm.cantidad, { 'attr' : { 'class' : 'form-control form-control-sm input-cant' } }) }}
                             {{ form_errors(itemForm.cantidad) }}
+
                     </div>
                     <div class='col-md-2'>
-                            {{ form_label(itemForm.precioUnitario) }}
-                            {{ form_widget(itemForm.precioUnitario, { 'attr' : { 'class' : 'form-control form-control-sm' } }) }}
-                            {{ form_errors(itemForm.precioUnitario) }}
+                            {{ form_label(itemForm.precioUnitarioSinIva) }}
+                            {{ form_widget(itemForm.precioUnitarioSinIva, { 'attr' : {'step' :'0.01', 'class' : 'form-control form-control-sm precio-ii' } }) }}
+                            {{ form_errors(itemForm.precioUnitarioSinIva) }}
                     </div>
                     <div class='col-md-2'>
-                        <button type='button' class='btn btn-danger remove-item-button-exists btn-sm'>Eliminar Ítem</button>
+                        {{ cantidad }}
+                        <label class='form-label'>$ Final</label>
+                        <input type='text' class='form-control form-control-sm precio-ii-final' value="{{ final|number_format(2, '.', '') }}"  disabled>
+                    </div>
+                    <div class='col-md-1'>
+                        <button type='button' class='btn btn-danger remove-item-button-exists btn-sm'>-</button>
                     </div>
                 </div>       
                    
             </li>
 
         {% endfor %}
+       
     </ul>
+    <div class="row">
+        <div class="col-md-8">
+        </div>
+        <div class="col-md-2">
+            <label for="totalsiv" class="form-label">Total Sin IVA</label>
+            <input type="text" class="form-control form-control-sm mb-2" id="totalsiv" name="total" value="{{ totSi|number_format(2, '.', '') }}" disabled> 
+        </div>
+        <div class="col-md-2">
+            <label for="totalfin" class="form-label">Total Final</label>
+            <input type="text" class="form-control form-control-sm mb-2" id="totalfin" name="total" value="{{ totFi|number_format(2, '.', '') }}" disabled> 
+        </div>
+    </div>
     
 </div>
 </div>

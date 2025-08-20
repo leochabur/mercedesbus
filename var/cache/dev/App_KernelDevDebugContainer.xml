@@ -647,6 +647,10 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
+    <service id="App\Repository\Finanzas\MovimientoFacturaReciboRepository" class="App\Repository\Finanzas\MovimientoFacturaReciboRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\Finanzas\MovimientoPagoRepository" class="App\Repository\Finanzas\MovimientoPagoRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
@@ -4497,7 +4501,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.IMwJTMY"/>
+      <argument type="service" id=".service_locator.rlM_tRf"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -5692,6 +5696,8 @@
     <service id=".abstract.instanceof.App\Repository\Finanzas\MetodoTransferenciaRepository" class="App\Repository\Finanzas\MetodoTransferenciaRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Finanzas\MovimientoCuentaRepository" class="App\Repository\Finanzas\MovimientoCuentaRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\Finanzas\MovimientoCuentaRepository" class="App\Repository\Finanzas\MovimientoCuentaRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Finanzas\MovimientoFacturaReciboRepository" class="App\Repository\Finanzas\MovimientoFacturaReciboRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\Finanzas\MovimientoFacturaReciboRepository" class="App\Repository\Finanzas\MovimientoFacturaReciboRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Finanzas\MovimientoPagoRepository" class="App\Repository\Finanzas\MovimientoPagoRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\Finanzas\MovimientoPagoRepository" class="App\Repository\Finanzas\MovimientoPagoRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\Finanzas\MovimientoVentaRepository" class="App\Repository\Finanzas\MovimientoVentaRepository" autowire="true" abstract="true"/>
@@ -6959,7 +6965,7 @@
         <argument key="stof_doctrine_extensions.listener.softdeleteable" type="service_closure" id="stof_doctrine_extensions.listener.softdeleteable"/>
       </argument>
     </service>
-    <service id=".service_locator.IMwJTMY" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.rlM_tRf" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\Administracion\ArticuloConceptoClienteRepository" type="service_closure" id="App\Repository\Administracion\ArticuloConceptoClienteRepository"/>
@@ -6987,6 +6993,7 @@
         <argument key="App\Repository\Finanzas\MetodoRetencionRepository" type="service_closure" id="App\Repository\Finanzas\MetodoRetencionRepository"/>
         <argument key="App\Repository\Finanzas\MetodoTransferenciaRepository" type="service_closure" id="App\Repository\Finanzas\MetodoTransferenciaRepository"/>
         <argument key="App\Repository\Finanzas\MovimientoCuentaRepository" type="service_closure" id="App\Repository\Finanzas\MovimientoCuentaRepository"/>
+        <argument key="App\Repository\Finanzas\MovimientoFacturaReciboRepository" type="service_closure" id="App\Repository\Finanzas\MovimientoFacturaReciboRepository"/>
         <argument key="App\Repository\Finanzas\MovimientoPagoRepository" type="service_closure" id="App\Repository\Finanzas\MovimientoPagoRepository"/>
         <argument key="App\Repository\Finanzas\MovimientoVentaRepository" type="service_closure" id="App\Repository\Finanzas\MovimientoVentaRepository"/>
         <argument key="App\Repository\Finanzas\ReciboRepository" type="service_closure" id="App\Repository\Finanzas\ReciboRepository"/>

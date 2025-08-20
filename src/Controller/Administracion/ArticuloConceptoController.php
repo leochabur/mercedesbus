@@ -90,6 +90,7 @@ final class ArticuloConceptoController extends AbstractController
             $data[] = [
                 'id' => $articulo->getId(),
                 'nombre' => $articulo->getNombre(),
+                'iva' => $articulo->getAlicuotaIva(),
                 // Añade otros campos si los necesitas en el frontend
             ];
         }

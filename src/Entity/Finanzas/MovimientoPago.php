@@ -10,10 +10,18 @@ use Doctrine\ORM\Mapping as ORM;
 class MovimientoPago extends MovimientoCuenta
 {
 
+    #[ORM\OneToOne(targetEntity: Recibo::class, inversedBy: 'movimiento')]
+    #[ORM\JoinColumn(name:'id_recibo', referencedColumnName: 'id', nullable: true)]
+    private Recibo|null $recibo = null;
 
     public function borrarComprobanteAsociado($user)
     {
         $this->recibo->setDeletedAt(new \DateTimeImmutable());
+        foreach ($this->recibo->getMetodos() as $metodo)
+        {
+            $metodo->setEliminado(true);
+        }
+
     }
     
     public function getIdComprobante()
@@ -36,10 +44,6 @@ class MovimientoPago extends MovimientoCuenta
     {
         return $this->getImporte();
     }
-
-    #[ORM\OneToOne(targetEntity: Recibo::class, inversedBy: 'movimiento')]
-    #[ORM\JoinColumn(name:'id_recibo', referencedColumnName: 'id', nullable: true)]
-    private Recibo|null $recibo = null;
 
     public function getRecibo(): ?Recibo
     {

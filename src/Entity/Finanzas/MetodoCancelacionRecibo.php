@@ -20,6 +20,9 @@ abstract class MetodoCancelacionRecibo
     private ?int $id = null;
 
     #[ORM\Column]
+    private ?bool $eliminado = false;
+
+    #[ORM\Column]
     #[Assert\NotNull(message: 'El importe es requerido')]
     private ?float $importe = null;
 
@@ -55,6 +58,18 @@ abstract class MetodoCancelacionRecibo
     public function setRecibo(?Recibo $recibo): static
     {
         $this->recibo = $recibo;
+
+        return $this;
+    }
+
+    public function isEliminado(): ?bool
+    {
+        return $this->eliminado;
+    }
+
+    public function setEliminado(bool $eliminado): static
+    {
+        $this->eliminado = $eliminado;
 
         return $this;
     }

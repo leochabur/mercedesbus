@@ -20,10 +20,37 @@
 <script>
 
 $(document).ready(function() {
+
+
     const  $url = "{{ path('app_administracion_articulo_concepto_cliente_importe', { ente : 'ID_ENTE', art : 'ID_ART'  }) }}";
     const $collectionHolder = $('#items-collection');
     let index = $collectionHolder.find('.item-form').length; // Asumiendo que cada item tiene una clase 'item-form'
+        function totalizarImportes()
+        {
+            let total = 0;
+            let totalfinal = 0;
+            $('.precio-ii').each(function() 
+            {
+                const $this = $(this);
+                const $li = $(this).closest('li');
+                const $importFinal = $li.find('.precio-ii-final');
+                const value = parseFloat($this.val());
+                const valuef = parseFloat($importFinal.val());
+                const cant = parseFloat($li.find('.input-cant').val());
 
+                if (!isNaN(valuef)) 
+                {
+                    totalfinal += ( valuef * ( isNaN(cant) ? 0 : cant ) );
+                }
+
+                if (!isNaN(value)) {
+                    total += (value * ( isNaN(cant) ? 0 : cant ) ); // Aseguramos que cant no sea NaN
+                }
+            });
+            $('#totalsiv').val(total.toFixed(2));
+
+            $('#totalfin').val(totalfinal.toFixed(2));
+        }
     $('#add-item-button').on('click', function() {
         let prototype = $collectionHolder.data('prototype');
         let newForm = prototype.replace(/__name__/g, index);
@@ -35,26 +62,44 @@ $(document).ready(function() {
         // *** ESTO ES LO CLAVE: Identificar el nuevo select y poblarlo con AJAX ***
         const $articuloSelect = $newFormDiv.find('select[id$="_articulo"]'); // Busca el select cuyo ID termina en _articulo
 
+
+
         if ($articuloSelect.length) 
         {
-            $articuloSelect.change(function() {
+            $articuloSelect.change(function() {                                                   
+
                                                     const $this = $(this);
-                                             
+
+                                                    const $selectedOption = $this.find('option:selected');
+                                                    const $ivaValue = $selectedOption.data('iva'); 
 
                                                     const $li = $(this).closest('li');
                                                     const $import = $li.find('.precio-ii');
                                                     const $vigencia = $li.find('.text-vigencia');
+                                                    const $importFinal = $li.find('.precio-ii-final');
                                                     $import.val('');
                                                     $vigencia.text('.');
                                                     $.post($url.replace('ID_ENTE', $('.input-ente').val()).replace('ID_ART', $this.val()),
-                                                            function(data) {
+                                                            function(data) 
+                                                            {
+                                                                if ($ivaValue) 
+                                                                {
+                                                                    const precioConIva = parseFloat(data.monto) * (1 + parseFloat($ivaValue) / 100);
+                                                                    $importFinal.val(precioConIva.toFixed(2));
+                                                                } 
+                                                                else 
+                                                                {
+                                                                    $importFinal.val(data.monto);
+                                                                }
                                                                 $import.val(data.monto);
                                                                 $vigencia.text(data.vigencia);
+                                                                totalizarImportes();
                                                             });
                                                  
                                              
         
             });
+            
             $.ajax({
                 url: "{{ path('api_articulos', { code : code}) }}", // La ruta a tu endpoint AJAX
                 type: 'GET',
@@ -68,7 +113,8 @@ $(document).ready(function() {
                     $.each(articulos, function(key, articulo) {
                         $articuloSelect.append($('<option>', {
                             value: articulo.id,
-                            text: articulo.nombre
+                            text: articulo.nombre,
+                            'data-iva': articulo.iva
                         }));
                     });
                 },
@@ -76,15 +122,47 @@ $(document).ready(function() {
                     console.error("Error al cargar artículos: " + textStatus, errorThrown);
                 }
             });
+
+            $('.precio-ii').on('input', function() {
+
+                                const $this = $(this);
+
+                                const $li = $(this).closest('li');
+                                const $import = $li.find('.precio-ii');
+
+                                const $selectedOption = $li.find('select[id$="_articulo"]').find('option:selected');
+                                const $ivaValue = $selectedOption.data('iva');
+                                const $importFinal = $li.find('.precio-ii-final');
+
+                                if ($ivaValue) 
+                                {
+                                        const precioConIva = parseFloat($import.val()) * (1 + parseFloat($ivaValue) / 100);
+                                        if ($import.val() === '' || isNaN(precioConIva)) 
+                                        {
+                                            $importFinal.val('');
+                                        }
+                                        else
+                                        {
+                                            $importFinal.val(precioConIva.toFixed(2));
+                                        }
+                                } 
+                                else 
+                                {
+                                    $importFinal.val($import.val());
+                                }
+                                totalizarImportes();
+            });
         }
         addDeleteButtonListener($newFormDiv);
     });
+
+    
 
     function addDeleteButtonListener($itemForm) {
         $itemForm.find('.remove-item-button').on('click', function() {
             // Eliminar el div padre del botón (que es el div del ítem del formulario)
             $(this).closest('.item-form').remove();
-
+            totalizarImportes();
             // Opcional: Si necesitas manejar la eliminación en el backend (ver siguiente sección)
             // Aquí podrías marcar un campo oculto o hacer una llamada AJAX
         });
@@ -92,14 +170,78 @@ $(document).ready(function() {
 
     $('.remove-item-button-exists').on('click', function() {
 
-            console.log("KAKAKAKAAKAK");
             $(this).closest('.item-form').remove();
+            totalizarImportes();
         });
 
     // Inicializar listeners para los ítems que ya existen al cargar la página
     $collectionHolder.find('.item-form').each(function() {
         addDeleteButtonListener($(this));
     });
+
+                $('.precio-ii').on('input', function() {
+
+                                const $this = $(this);
+
+                                const $li = $(this).closest('li');
+                                const $import = $li.find('.precio-ii');
+
+                                const $selectedOption = $li.find('select[id$="_articulo"]').find('option:selected');
+                                const $ivaValue = $selectedOption.data('iva');
+                                const $importFinal = $li.find('.precio-ii-final');
+
+                                if ($ivaValue) 
+                                {
+                                        const precioConIva = parseFloat($import.val()) * (1 + parseFloat($ivaValue) / 100);
+                                        if ($import.val() === '' || isNaN(precioConIva)) 
+                                        {
+                                            $importFinal.val('');
+                                        }
+                                        else
+                                        {
+                                            $importFinal.val(precioConIva.toFixed(2));
+                                        }
+                                } 
+                                else 
+                                {
+                                    $importFinal.val($import.val());
+                                }
+                                totalizarImportes();
+            });
+
+            $('.form-select-producto').change(function() {                                                   
+
+                                                    const $this = $(this);
+
+                                                    const $selectedOption = $this.find('option:selected');
+                                                    const $ivaValue = $selectedOption.data('iva'); 
+
+                                                    const $li = $(this).closest('li');
+                                                    const $import = $li.find('.precio-ii');
+                                                    const $vigencia = $li.find('.text-vigencia');
+                                                    const $importFinal = $li.find('.precio-ii-final');
+                                                    $import.val('');
+                                                    $vigencia.text('.');
+                                                    $.post($url.replace('ID_ENTE', $('.input-ente').val()).replace('ID_ART', $this.val()),
+                                                            function(data) 
+                                                            {
+                                                                if ($ivaValue) 
+                                                                {
+                                                                    const precioConIva = parseFloat(data.monto) * (1 + parseFloat($ivaValue) / 100);
+                                                                    $importFinal.val(precioConIva.toFixed(2));
+                                                                } 
+                                                                else 
+                                                                {
+                                                                    $importFinal.val(data.monto);
+                                                                }
+                                                                $import.val(data.monto);
+                                                                $vigencia.text(data.vigencia);
+                                                                totalizarImportes();
+                                                            });
+                                                 
+                                             
+        
+            });
 
 });
 
