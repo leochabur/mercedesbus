@@ -11,7 +11,7 @@ use App\Entity\Administracion\ComprobanteTransaccion;
 class MovimientoVenta extends MovimientoCuenta
 {
 
-    #[ORM\ManyToOne(targetEntity: ComprobanteTransaccion::class)]
+    #[ORM\OneToOne(targetEntity: ComprobanteTransaccion::class, inversedBy: 'movimientoVenta')]
     #[ORM\JoinColumn(name:'id_comprobante', referencedColumnName: 'id')]
     private ComprobanteTransaccion|null $comprobante = null;
     

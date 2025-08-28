@@ -1,6 +1,6 @@
 {% extends 'navBar.html.twig' %}
 
-{% block title %}Resumen Cuentas Corrientes{% endblock %}
+{% block title %}Composicion de Saldo{% endblock %}
 
 {% block stylesheets %}
 {{ parent() }}
@@ -17,7 +17,7 @@
 
     <div class="container">
         <div class="ps-4 pt-3 h5">
-            Resumen Cuenta Corriente {{ tipo == 'c' ? 'Cliente' : 'Proveedor' }}
+            Cuenta Corriente {{ tipo == 'c' ? 'Cliente' : 'Proveedor' }}
             <hr>
         </div>
 
@@ -34,15 +34,11 @@
                     {{ form_widget(form.ente, { 'attr' : { 'class' : 'form-control form-select'} }) }}
                     {{ form_errors(form.ente) }}
                 </div>
-
-                {% if form.mostrar is defined %}
-                    <div class="col col-lg-2">
-                        {{ form_label(form.mostrar, 'Mostrar') }}
-                        {{ form_widget(form.mostrar, { 'attr' : { 'class' : 'form-control form-select'} }) }}
-                        {{ form_errors(form.mostrar) }}
-                    </div>
-                    {% endif %}
-            
+                <div class="col col-lg-2">
+                    {{ form_label(form.mostrar, 'Mostrar') }}
+                    {{ form_widget(form.mostrar, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+                    {{ form_errors(form.mostrar) }}
+                </div>
                 <div class="col col-lg-2 pt-4 mt-2">
 
                     <input type="submit" value="Cargar" class="btn btn-success">
@@ -60,33 +56,42 @@
                     <table class="table table-striped table-hover table-bordered  py-4  data-table">
                         <thead>
                             <tr>
-        
-                                <th>Descripcion</th>
-                                <th>
-                                    
-                                    {{ tipo == 'p' ? 'Compras' : 'Ventas' }}
-
-                                </th>
-                                <th>
-                                    {{ tipo == 'p' ? 'Pagos' : 'Cobranzas' }}
-                                </th>
-                                <th>Saldo</th>
+                                <th></th>
+                                <th>Fecha</th>
+                                <th>Comprobante</th>
+                                <th>Importe Final</th>
+                                <th>Saldo A Cancelar</th>
+                                <th>Dias de Mora</th>
                             </tr>
                         </thead>
                         <tbody>
                         {% for mov in movimientos %}
                             <tr>
-                                {% set creditos, debitos = 0, 0%}
-                                {% set class = tipo == 'c' ? ( (mov.totalFacturas - mov.totalRecibos) > 0 ? 'text-danger' :'text-success') : '' %}
-                                <td>{{ mov.titular|upper }}</td>
-                                <td>$ {{ mov.totalFacturas|number_format(2, ',' ,'.') }}</td>
-                                <td>$ {{ mov.totalRecibos|number_format(2, ',' ,'.') }}</td>
-                                <td class="{{ class }} fw-bold">$ {{ (mov.totalFacturas - mov.totalRecibos)|number_format(2, ',' ,'.') }}</td>
+                                <td class="text-start">
+                                    
+                                        <div class="action-buttons text-start">
+                                        <a href="{{ (tipo == 'V' ? path('app_administracion_comprobante_cliente_show', { id : mov.id }) : path('app_finanzas_recibo_show',{ id : mov.id, 'tipo': tipo }) ) }}" class="btn btn-warning btn-sm  btn-open" title="Ver Detalles">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                            {% if mov.aplicable %}
+                                                <a href="{{ path('app_recibo_aplicar_facturas', { id : mov.id}) }}" class="btn btn-info btn-sm" title="Aplicar Comprobantes">
+                                                    <i class="bi bi-list-task"></i>
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    
+
+                                </td>
+                                <td data-sort="{{ mov.fecha|date('Y-m-d') }}">{{ mov.fecha|date('d/m/Y') }}</td>
+                                <td>{{ mov }}</td>
+                                <td class="text-end" >$ {{ mov.precioTotalConIva|number_format(2, ',' ,'.') }}</td>
+                                <td class="text-end">$ {{ mov.montoPendiente|number_format(2, ',' ,'.') }}</td>
+                                <td class="text-end">{{ mov.diasDeMora }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
-                </div>
+
 
     {% endif %}
     </div>

@@ -197,28 +197,30 @@ return [
                     .')'
                     .'|recibo/([^/]++)(?'
                         .'|/(?'
-                            .'|new(*:1417)'
-                            .'|tipo/([^/]++)(*:1439)'
-                            .'|edit(*:1452)'
+                            .'|procesar/aplicacion(*:1433)'
+                            .'|aplicar(*:1449)'
+                            .'|new(*:1461)'
+                            .'|tipo/([^/]++)(*:1483)'
+                            .'|edit(*:1496)'
                         .')'
-                        .'|(*:1462)'
+                        .'|(*:1506)'
                     .')'
                     .'|tipo/retencion/([^/]++)(?'
-                        .'|(*:1498)'
-                        .'|/edit(*:1512)'
-                        .'|(*:1521)'
+                        .'|(*:1542)'
+                        .'|/edit(*:1556)'
+                        .'|(*:1565)'
                     .')'
                 .')'
                 .'|/rrhh/(?'
                     .'|empleado/([^/]++)(?'
-                        .'|(*:1561)'
-                        .'|/edit(*:1575)'
-                        .'|(*:1584)'
+                        .'|(*:1605)'
+                        .'|/edit(*:1619)'
+                        .'|(*:1628)'
                     .')'
                     .'|puesto/trabajo/([^/]++)(?'
-                        .'|(*:1620)'
-                        .'|/edit(*:1634)'
-                        .'|(*:1643)'
+                        .'|(*:1664)'
+                        .'|/edit(*:1678)'
+                        .'|(*:1687)'
                     .')'
                 .')'
             .')/?$}sDu',
@@ -298,19 +300,21 @@ return [
             [['_route' => 'app_finanzas_metodo_transferencia_show', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::show'], ['id'], ['GET' => 0], null, false, true, null],
             [['_route' => 'app_finanzas_metodo_transferencia_delete', '_controller' => 'App\\Controller\\Finanzas\\MetodoTransferenciaController::delete'], ['id'], ['POST' => 0], null, false, true, null],
         ],
-        1417 => [[['_route' => 'app_finanzas_recibo_new', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::new'], ['type'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1439 => [[['_route' => 'app_finanzas_recibo_show', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::show'], ['id', 'tipo'], ['GET' => 0], null, false, true, null]],
-        1452 => [[['_route' => 'app_finanzas_recibo_edit', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1462 => [[['_route' => 'app_finanzas_recibo_delete', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1498 => [[['_route' => 'app_finanzas_tipo_retencion_show', '_controller' => 'App\\Controller\\Finanzas\\TipoRetencionController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1512 => [[['_route' => 'app_finanzas_tipo_retencion_edit', '_controller' => 'App\\Controller\\Finanzas\\TipoRetencionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1521 => [[['_route' => 'app_finanzas_tipo_retencion_delete', '_controller' => 'App\\Controller\\Finanzas\\TipoRetencionController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1561 => [[['_route' => 'app_r_r_h_h_empleado_show', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1575 => [[['_route' => 'app_r_r_h_h_empleado_edit', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1584 => [[['_route' => 'app_r_r_h_h_empleado_delete', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        1620 => [[['_route' => 'app_r_r_h_h_puesto_trabajo_show', '_controller' => 'App\\Controller\\RRHH\\PuestoTrabajoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        1634 => [[['_route' => 'app_r_r_h_h_puesto_trabajo_edit', '_controller' => 'App\\Controller\\RRHH\\PuestoTrabajoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1643 => [
+        1433 => [[['_route' => 'app_recibo_procesar_aplicar_facturas', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::procesarAplicacionRecibosAFactura'], ['id'], ['POST' => 0], null, false, false, null]],
+        1449 => [[['_route' => 'app_recibo_aplicar_facturas', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::aplicarRecibosAFactura'], ['id'], ['GET' => 0], null, false, false, null]],
+        1461 => [[['_route' => 'app_finanzas_recibo_new', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::new'], ['type'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1483 => [[['_route' => 'app_finanzas_recibo_show', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::show'], ['id', 'tipo'], ['GET' => 0], null, false, true, null]],
+        1496 => [[['_route' => 'app_finanzas_recibo_edit', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1506 => [[['_route' => 'app_finanzas_recibo_delete', '_controller' => 'App\\Controller\\Finanzas\\ReciboController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1542 => [[['_route' => 'app_finanzas_tipo_retencion_show', '_controller' => 'App\\Controller\\Finanzas\\TipoRetencionController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1556 => [[['_route' => 'app_finanzas_tipo_retencion_edit', '_controller' => 'App\\Controller\\Finanzas\\TipoRetencionController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1565 => [[['_route' => 'app_finanzas_tipo_retencion_delete', '_controller' => 'App\\Controller\\Finanzas\\TipoRetencionController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1605 => [[['_route' => 'app_r_r_h_h_empleado_show', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1619 => [[['_route' => 'app_r_r_h_h_empleado_edit', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1628 => [[['_route' => 'app_r_r_h_h_empleado_delete', '_controller' => 'App\\Controller\\RRHH\\EmpleadoController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        1664 => [[['_route' => 'app_r_r_h_h_puesto_trabajo_show', '_controller' => 'App\\Controller\\RRHH\\PuestoTrabajoController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        1678 => [[['_route' => 'app_r_r_h_h_puesto_trabajo_edit', '_controller' => 'App\\Controller\\RRHH\\PuestoTrabajoController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        1687 => [
             [['_route' => 'app_r_r_h_h_puesto_trabajo_delete', '_controller' => 'App\\Controller\\RRHH\\PuestoTrabajoController::delete'], ['id'], ['POST' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

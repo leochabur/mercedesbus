@@ -481,6 +481,9 @@
         <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\SecurityController"/>
       </call>
     </service>
+    <service id="App\DQL\Round" class="App\DQL\Round" autowire="true" autoconfigure="true">
+      <tag name="container.error" message="Cannot autowire service &quot;App\DQL\Round&quot;: argument &quot;$name&quot; of method &quot;Doctrine\ORM\Query\AST\Functions\FunctionNode::__construct()&quot; is type-hinted &quot;string&quot;, you should configure its value explicitly."/>
+    </service>
     <service id="App\Form\Administracion\ArticuloConceptoClienteType" class="App\Form\Administracion\ArticuloConceptoClienteType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -706,7 +709,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.zYTRXqT"/>
+      <argument type="service" id=".service_locator.AygNY6y"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -2398,7 +2401,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.zYTRXqT"/>
+      <argument type="service" id=".service_locator.AygNY6y"/>
     </service>
     <service id="routing.resolver" class="Symfony\Component\Config\Loader\LoaderResolver">
       <call method="addLoader">
@@ -4728,6 +4731,10 @@
       <call method="setRepositoryFactory">
         <argument type="service" id="doctrine.orm.container_repository_factory"/>
       </call>
+      <call method="addCustomNumericFunction">
+        <argument>ROUND</argument>
+        <argument>App\DQL\Round</argument>
+      </call>
     </service>
     <service id="doctrine.orm.default_attribute_metadata_driver" class="Doctrine\ORM\Mapping\Driver\AttributeDriver">
       <argument type="collection">
@@ -6361,11 +6368,13 @@
         <argument key="movimiento" type="service_closure" id=".errored..service_locator.j07wVqy.App\Entity\Finanzas\MovimientoCuenta"/>
       </argument>
     </service>
-    <service id=".service_locator.oHeKsFQ" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.lyW7UAh" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="comprobanteFacturaRepository" type="service_closure" id="App\Repository\Administracion\ComprobanteFacturaRepository"/>
         <argument key="ctaCteRepository" type="service_closure" id="App\Repository\Finanzas\CtaCteRepository"/>
         <argument key="movimientoCuentaRepository" type="service_closure" id="App\Repository\Finanzas\MovimientoCuentaRepository"/>
+        <argument key="reciboRepository" type="service_closure" id="App\Repository\Finanzas\ReciboRepository"/>
       </argument>
     </service>
     <service id=".service_locator.PFvszmw" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -6495,6 +6504,21 @@
         <argument key="reciboRepository" type="service_closure" id="App\Repository\Finanzas\ReciboRepository"/>
       </argument>
     </service>
+    <service id=".service_locator.2Y4C7Uz" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="comprobanteFacturaRepository" type="service_closure" id="App\Repository\Administracion\ComprobanteFacturaRepository"/>
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="recibo" type="service_closure" id=".errored..service_locator.2Y4C7Uz.App\Entity\Finanzas\Recibo"/>
+      </argument>
+    </service>
+    <service id=".service_locator.9.rvA8S" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="comprobanteFacturaRepository" type="service_closure" id="App\Repository\Administracion\ComprobanteFacturaRepository"/>
+        <argument key="recibo" type="service_closure" id=".errored..service_locator.9.rvA8S.App\Entity\Finanzas\Recibo"/>
+      </argument>
+    </service>
     <service id=".service_locator.KyOCQvX" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -6586,7 +6610,7 @@
         <argument key="authenticationUtils" type="service_closure" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.zYTRXqT" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.AygNY6y" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Administracion\ArticuloConceptoClienteController::delete" type="service_closure" id=".service_locator.gtznwKg"/>
@@ -6644,7 +6668,7 @@
         <argument key="App\Controller\Finanzas\CtaCteController::delete" type="service_closure" id=".service_locator.E6u5EBv"/>
         <argument key="App\Controller\Finanzas\CtaCteController::edit" type="service_closure" id=".service_locator.E6u5EBv"/>
         <argument key="App\Controller\Finanzas\CtaCteController::eliminarMovimientoCuenta" type="service_closure" id=".service_locator.j07wVqy"/>
-        <argument key="App\Controller\Finanzas\CtaCteController::index" type="service_closure" id=".service_locator.oHeKsFQ"/>
+        <argument key="App\Controller\Finanzas\CtaCteController::index" type="service_closure" id=".service_locator.lyW7UAh"/>
         <argument key="App\Controller\Finanzas\CtaCteController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Finanzas\CtaCteController::show" type="service_closure" id=".service_locator.PFvszmw"/>
         <argument key="App\Controller\Finanzas\MetodoChequeCarteraController::delete" type="service_closure" id=".service_locator.u1rAN2."/>
@@ -6677,10 +6701,12 @@
         <argument key="App\Controller\Finanzas\MetodoTransferenciaController::index" type="service_closure" id=".service_locator.4jXxt4K"/>
         <argument key="App\Controller\Finanzas\MetodoTransferenciaController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Finanzas\MetodoTransferenciaController::show" type="service_closure" id=".service_locator.y7XvAe7"/>
+        <argument key="App\Controller\Finanzas\ReciboController::aplicarRecibosAFactura" type="service_closure" id=".service_locator.9.rvA8S"/>
         <argument key="App\Controller\Finanzas\ReciboController::delete" type="service_closure" id=".service_locator.9CEEjne"/>
         <argument key="App\Controller\Finanzas\ReciboController::edit" type="service_closure" id=".service_locator.9CEEjne"/>
         <argument key="App\Controller\Finanzas\ReciboController::index" type="service_closure" id=".service_locator.2yB6Zlv"/>
         <argument key="App\Controller\Finanzas\ReciboController::new" type="service_closure" id=".service_locator.KyOCQvX"/>
+        <argument key="App\Controller\Finanzas\ReciboController::procesarAplicacionRecibosAFactura" type="service_closure" id=".service_locator.2Y4C7Uz"/>
         <argument key="App\Controller\Finanzas\ReciboController::show" type="service_closure" id=".service_locator.skItg3z"/>
         <argument key="App\Controller\Finanzas\TipoRetencionController::delete" type="service_closure" id=".service_locator.GasbdM8"/>
         <argument key="App\Controller\Finanzas\TipoRetencionController::edit" type="service_closure" id=".service_locator.GasbdM8"/>
@@ -6759,7 +6785,7 @@
         <argument key="App\Controller\Finanzas\CtaCteController:delete" type="service_closure" id=".service_locator.E6u5EBv"/>
         <argument key="App\Controller\Finanzas\CtaCteController:edit" type="service_closure" id=".service_locator.E6u5EBv"/>
         <argument key="App\Controller\Finanzas\CtaCteController:eliminarMovimientoCuenta" type="service_closure" id=".service_locator.j07wVqy"/>
-        <argument key="App\Controller\Finanzas\CtaCteController:index" type="service_closure" id=".service_locator.oHeKsFQ"/>
+        <argument key="App\Controller\Finanzas\CtaCteController:index" type="service_closure" id=".service_locator.lyW7UAh"/>
         <argument key="App\Controller\Finanzas\CtaCteController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Finanzas\CtaCteController:show" type="service_closure" id=".service_locator.PFvszmw"/>
         <argument key="App\Controller\Finanzas\MetodoChequeCarteraController:delete" type="service_closure" id=".service_locator.u1rAN2."/>
@@ -6792,10 +6818,12 @@
         <argument key="App\Controller\Finanzas\MetodoTransferenciaController:index" type="service_closure" id=".service_locator.4jXxt4K"/>
         <argument key="App\Controller\Finanzas\MetodoTransferenciaController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\Finanzas\MetodoTransferenciaController:show" type="service_closure" id=".service_locator.y7XvAe7"/>
+        <argument key="App\Controller\Finanzas\ReciboController:aplicarRecibosAFactura" type="service_closure" id=".service_locator.9.rvA8S"/>
         <argument key="App\Controller\Finanzas\ReciboController:delete" type="service_closure" id=".service_locator.9CEEjne"/>
         <argument key="App\Controller\Finanzas\ReciboController:edit" type="service_closure" id=".service_locator.9CEEjne"/>
         <argument key="App\Controller\Finanzas\ReciboController:index" type="service_closure" id=".service_locator.2yB6Zlv"/>
         <argument key="App\Controller\Finanzas\ReciboController:new" type="service_closure" id=".service_locator.KyOCQvX"/>
+        <argument key="App\Controller\Finanzas\ReciboController:procesarAplicacionRecibosAFactura" type="service_closure" id=".service_locator.2Y4C7Uz"/>
         <argument key="App\Controller\Finanzas\ReciboController:show" type="service_closure" id=".service_locator.skItg3z"/>
         <argument key="App\Controller\Finanzas\TipoRetencionController:delete" type="service_closure" id=".service_locator.GasbdM8"/>
         <argument key="App\Controller\Finanzas\TipoRetencionController:edit" type="service_closure" id=".service_locator.GasbdM8"/>
@@ -7618,6 +7646,12 @@
     </service>
     <service id=".errored..service_locator.eSj3Cq0.App\Entity\Finanzas\MetodoTransferencia" class="App\Entity\Finanzas\MetodoTransferencia">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.eSj3Cq0&quot;: it needs an instance of &quot;App\Entity\Finanzas\MetodoTransferencia&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.2Y4C7Uz.App\Entity\Finanzas\Recibo" class="App\Entity\Finanzas\Recibo">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.2Y4C7Uz&quot;: it needs an instance of &quot;App\Entity\Finanzas\Recibo&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.9.rvA8S.App\Entity\Finanzas\Recibo" class="App\Entity\Finanzas\Recibo">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.9.rvA8S&quot;: it needs an instance of &quot;App\Entity\Finanzas\Recibo&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
     <service id=".errored..service_locator.skItg3z.App\Entity\Finanzas\Recibo" class="App\Entity\Finanzas\Recibo">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.skItg3z&quot;: it needs an instance of &quot;App\Entity\Finanzas\Recibo&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
@@ -8630,7 +8664,7 @@
     <service id="Twig\Environment" alias="twig"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.w7.f4fT" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.zYTRXqT"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.AygNY6y"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface" alias="logger"/>
@@ -8639,18 +8673,21 @@
     <service id=".service_locator.oR6wE36" alias=".service_locator.kWRcZDu"/>
     <service id=".service_locator.TXNohy5" alias=".service_locator.OyvJ4y2"/>
     <service id=".service_locator.qN2QJEl" alias=".service_locator.j07wVqy"/>
+    <service id=".service_locator.px8myIX" alias=".service_locator.lyW7UAh"/>
     <service id=".service_locator._z.Jr5R" alias=".service_locator.u1rAN2."/>
     <service id=".service_locator.M.AoQcR" alias=".service_locator.V.VXs0s"/>
     <service id=".service_locator.DjyPyfs" alias=".service_locator.G_4ByaT"/>
     <service id=".service_locator.36_TMiD" alias=".service_locator.pG8igIo"/>
     <service id=".service_locator.F71Qr52" alias=".service_locator.Wnhgyp0"/>
     <service id=".service_locator._1Y7byx" alias=".service_locator.eSj3Cq0"/>
+    <service id=".service_locator.ngVnyYi" alias=".service_locator.2Y4C7Uz"/>
+    <service id=".service_locator.kCe5Hir" alias=".service_locator.9.rvA8S"/>
     <service id=".service_locator.e9k4Hdy" alias=".service_locator.KyOCQvX"/>
     <service id=".service_locator.Y6L0VdR" alias=".service_locator.9CEEjne"/>
     <service id=".service_locator.LEHh3v4" alias=".service_locator.GasbdM8"/>
     <service id=".service_locator.xLizhxf" alias=".service_locator.Sf2naB0"/>
     <service id=".service_locator.V6D1oJY" alias=".service_locator.e_4zbH4"/>
-    <service id=".service_locator.g_d93MW" alias=".service_locator.zYTRXqT"/>
+    <service id=".service_locator.nBlGaPi" alias=".service_locator.AygNY6y"/>
     <service id=".service_locator.BFrsqsn" alias=".service_locator.fGvEh3."/>
     <service id=".service_locator.xupBQZK" alias=".service_locator.RVi6WSB"/>
     <service id=".service_locator.tx8M._3" alias=".service_locator.wOg9MQf"/>
@@ -8706,7 +8743,7 @@
     <service id=".service_locator.6cm2KDT" alias=".service_locator.ML6mKA6"/>
     <service id=".service_locator.i8iRBQn" alias=".service_locator.a21cC4L"/>
     <service id=".service_locator.Z8xomMQ" alias=".service_locator.j07wVqy"/>
-    <service id=".service_locator.PXQ72HT" alias=".service_locator.oHeKsFQ"/>
+    <service id=".service_locator.6QhY8J1" alias=".service_locator.lyW7UAh"/>
     <service id=".service_locator.9IQ8_U6" alias=".service_locator.PFvszmw"/>
     <service id=".service_locator.CnRLbdT" alias=".service_locator.E6u5EBv"/>
     <service id=".service_locator.0objzww" alias=".service_locator.RRju27Z"/>
@@ -8727,6 +8764,8 @@
     <service id=".service_locator.GTsu8YY" alias=".service_locator.y7XvAe7"/>
     <service id=".service_locator.fVn1bm6" alias=".service_locator.eSj3Cq0"/>
     <service id=".service_locator.F0neINQ" alias=".service_locator.2yB6Zlv"/>
+    <service id=".service_locator.bQ2WUrp" alias=".service_locator.2Y4C7Uz"/>
+    <service id=".service_locator.METUxfH" alias=".service_locator.9.rvA8S"/>
     <service id=".service_locator.m5k.wxD" alias=".service_locator.KyOCQvX"/>
     <service id=".service_locator.mWXOzeU" alias=".service_locator.skItg3z"/>
     <service id=".service_locator.BdnuzsE" alias=".service_locator.9CEEjne"/>

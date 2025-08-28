@@ -88,7 +88,7 @@
                                                                                                 function(result){
                                                                                                                    if (result.ok)
                                                                                                                    {
-                                                                                                                        window.location.href = "{{ path('app_finanzas_recibo_new', { type : type }) }}";
+                                                                                                                        window.location.href = result.url;
                                                                                                                    }
                                                                                                                    else
                                                                                                                    {

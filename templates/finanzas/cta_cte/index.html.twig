@@ -24,16 +24,24 @@
         {{ form_start(form, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'p-4' }}) }}
 
             <div class="row pt-3">
-                <div class="col col-lg-5">
+                <div class="col col-lg-4">
                     {{ form_label(form.empresa_grupo, 'Empresa') }}
                     {{ form_widget(form.empresa_grupo, { 'attr' : { 'class' : 'form-control form-select'} }) }}
                     {{ form_errors(form.empresa_grupo) }}
                 </div>
-                <div class="col col-lg-5">
+                <div class="col col-lg-4">
                     {{ form_label(form.ente, 'Titular') }}
                     {{ form_widget(form.ente, { 'attr' : { 'class' : 'form-control form-select'} }) }}
                     {{ form_errors(form.ente) }}
                 </div>
+                {% if form.mostrar is defined %}
+                    <div class="col col-lg-2">
+                        {{ form_label(form.mostrar, 'Mostrar') }}
+                        {{ form_widget(form.mostrar, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+                        {{ form_errors(form.mostrar) }}
+                    </div>
+                {% endif %}
+}
                 <div class="col col-lg-2 pt-4 mt-2">
 
                     <input type="submit" value="Cargar" class="btn btn-success">

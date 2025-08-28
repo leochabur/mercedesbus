@@ -4,7 +4,7 @@ namespace App\Entity\Finanzas;
 
 use App\Repository\Finanzas\MovimientoFacturaReciboRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Administracion\ComprobanteFactura;
+use App\Entity\Administracion\ComprobanteFactura; 
 
 #[ORM\Entity(repositoryClass: MovimientoFacturaReciboRepository::class)]
 #[ORM\Table(name: 'finanzas_movimiento_factura_recibo')]

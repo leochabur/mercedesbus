@@ -1,0 +1,131 @@
+{% extends 'navBar.html.twig' %}
+
+{% block title %}Aplicar Recibo{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="container pt-4">
+
+        <div class="h5 py-2">Aplicar Recibo</div>
+        <hr>
+
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item flex-fill">
+                <strong>Responsable:</strong> {{ recibo.enteComercial }}
+            </li>
+            <li class="list-group-item flex-fill">
+                <strong>Fecha:</strong> {{ recibo.fecha ? recibo.fecha|date('d/m/Y') : '' }}
+            </li>
+            <li class="list-group-item flex-fill">
+                <strong>Importe Total:</strong> {{ recibo.precioTotalConIva ? recibo.precioTotalConIva|number_format(2, ',', '.') : '' }}
+            </li>
+            <li class="list-group-item flex-fill">
+                <strong>Aplicado:</strong> {{ recibo.montoAplicado ? recibo.montoAplicado|number_format(2, ',', '.') : '' }}
+            </li>
+            <li class="list-group-item flex-fill">
+                <strong>Actual:</strong>  <span class="text-danger" id="total"> </span>
+            </li>
+        </ul>
+        <hr>
+        <div class="h5 pt-4">Comprobantes Pendientes</div>
+        <form id="apply-comp" action="{{ path('app_recibo_procesar_aplicar_facturas', { id : recibo.id }) }}">
+        <table class="table table-bordered table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Fecha</th>
+                    <th>Comprobante</th>
+                    <th>Importe Total</th>
+                    <th>Saldo a Cancelar</th>
+                    <th>Todo</th>
+                    <th>Importe a Aplicar</th>
+                </tr>
+            </thead>
+            <tbody>
+        {% for p in pendientes %}
+
+
+                    <tr>
+                        <td>{{ p.fecha ? p.fecha|date('d/m/Y') : '' }}</td>
+                        <td>{{ p }}</td>
+                        <td class="text-end">{{ p.precioTotalConIva ? p.precioTotalConIva|number_format(2, ',', '.') : '' }}</td>
+                        <td class="text-end">{{ p.saldoACancelar ? p.saldoACancelar|number_format(2, ',', '.') : '' }}</td>
+                        <td>                                
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input traslate" data-sac="{{ p.id }}"  data-moonto="{{ p.saldoACancelar ? p.saldoACancelar|number_format(2, '.', '') : '' }}" type="checkbox" role="switch" >
+                                    <label class="form-check-label" for="miSwitch"></label>
+                                </div>
+                        </td>
+                        <td>
+                                    <input step="0.01" name="monto-{{ p.id }}" type="number" id="sac-{{ p.id }}" class="form-control input-importe" placeholder="Importe a Aplicar">
+                            
+                        </td>
+                    </tr>
+        {% endfor %}
+            </tbody>
+        </table>
+        <input type="submit" value="Guardar Aplicacion" class="btn btn-primary mt-3"/>
+       </form>
+
+    </div>
+{% endblock %}
+
+{% block javascripts_footer %}
+        {{ parent()  }}
+
+        <script>
+
+                function totalizar()
+                {
+                    let total = parseFloat(0);
+                    $('.input-importe').each(function() {
+                                                            let val = parseFloat($(this).val());
+                                                            if (!isNaN(val)) {
+                                                                total += val;
+                                                            }
+                    });
+                    console.log(total);
+                    $('#total').text(total);
+                }
+
+                $('#apply-comp').submit(function(e) {
+                                                    e.preventDefault();
+                                                    const form = $(this);
+                                                    $.post(
+                                                            form.attr('action'), 
+                                                            form.serialize(),
+                                                            function(data) {
+
+                                                                            if (data.ok) 
+                                                                            {
+                                                                                window.location.href = "{{ path('app_finanzas_cta_cte_index', { t : code }) }}";
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                bootbox.alert(data.message);
+                                                                            }
+                                                                            
+                                                                
+                                                    });                                                   
+                })
+
+                $('.input-importe').on('input', function() {
+                                                        totalizar();
+                });
+
+                $('.traslate').on('change', function() {
+                                                       const btn = $(this);
+                                                       const input = $('#sac-' + btn.data('sac'));
+                                                       if (btn.is(':checked')) 
+                                                       {
+                                                            input.val(btn.data('moonto'));
+                                                       }
+                                                       else
+                                                       {
+                                                            input.val('');
+                                                       }
+                                                       totalizar();
+ 
+                    
+                });
+        </script>
+{% endblock %}

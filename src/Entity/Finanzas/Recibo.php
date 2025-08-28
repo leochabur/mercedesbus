@@ -26,6 +26,36 @@ class Recibo extends ComprobanteTransaccion
     #[ORM\Column(nullable: true)]
     private ?float $montoAplicado = 0;
 
+    public function isAplicable()
+    {
+        if (round($this->montoAplicado,2) < round($this->getPrecioTotalConIva(),2))
+        {
+            return $this->getId();
+        }
+
+        return false;
+
+    }
+
+     public function getDiasDeMora()
+     {
+        return ;
+     }
+
+    public function getMontoPendiente()
+    {
+        return ($this->getPrecioTotalConIva() - $this->montoAplicado);
+    }
+
+
+    public function getSaldoPendienteDeAplicar()
+    {
+
+        return ($this->getPrecioTotalConIva() - ($this->montoAplicado ? $this->montoAplicado : 0));
+    }
+
+
+    
     public function __toString()
     {
         return 'Recibo';//$this->getNumero();

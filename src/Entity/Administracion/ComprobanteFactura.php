@@ -42,6 +42,25 @@ abstract class ComprobanteFactura extends ComprobanteTransaccion
     #[Assert\NotBlank(message: 'Campo requerido')]
     private LetraComprobante|null $identificacionComprobante = null;
 
+
+    public function isAplicable()
+    {
+        return false;
+    }
+
+     public function getDiasDeMora()
+     {
+        $hoy = new \DateTime();
+        $diferencia = $hoy->diff($this->getFecha());
+        $dias = $diferencia->days;
+        return $dias;
+     }
+
+    public function getMontoPendiente()
+    {
+        return $this->getSaldoACancelar();
+    }
+
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void
     {

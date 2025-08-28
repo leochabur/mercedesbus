@@ -15,7 +15,10 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Administracion\Cliente;
 use App\Entity\Administracion\Proveedor;
 use App\Entity\Finanzas\MovimientoCuenta;
+use App\Repository\Administracion\ComprobanteFacturaRepository;
 use App\Repository\Finanzas\MovimientoCuentaRepository;
+use App\Repository\Finanzas\ReciboRepository;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/finanzas/ctacte')]
@@ -25,7 +28,7 @@ final class CtaCteController extends AbstractController
 
     private function getFormSelect($type = 'c')
     {
-        return $this->createFormBuilder()
+        $form = $this->createFormBuilder()
                     ->add('ente', 
                            EntityType::class, 
                            [
@@ -43,10 +46,16 @@ final class CtaCteController extends AbstractController
                            EntityType::class, 
                            [
                                 'class' => \App\Entity\Administracion\EmpresaGrupo::class,
-                            ])
-                    ->getForm();
+                           ]);
+    if ($type == 'c')
+    {       $form->add('mostrar', ChoiceType::class, [
+                                                            'choices' => ['Detalle Cta. Cte.' => 'CC', 'Composicion de Saldo' => 'FP']
+                                            ]);
     }
-
+    
+    return $form->getForm();
+    
+    }
     #[Route('/delete/{id}/movimiento', name: 'app_finanzas_cta_cte_delete_movimiento', methods: ['DELETE'])]
     public function eliminarMovimientoCuenta(MovimientoCuenta $movimiento, EntityManagerInterface $entityManager): Response
     {
@@ -58,9 +67,9 @@ final class CtaCteController extends AbstractController
     }
 
     #[Route('/{t}', name:'app_finanzas_cta_cte_index', methods: ['GET', 'POST'])]
-    public function index($t, Request $request, CtaCteRepository $ctaCteRepository, MovimientoCuentaRepository $movimientoCuentaRepository): Response
+    public function index($t, Request $request, CtaCteRepository $ctaCteRepository, MovimientoCuentaRepository $movimientoCuentaRepository, ComprobanteFacturaRepository $comprobanteFacturaRepository, ReciboRepository $reciboRepository): Response
     {
-
+        
         $form = $this->getFormSelect($t);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) 
@@ -80,14 +89,32 @@ final class CtaCteController extends AbstractController
                                     ]);
             }
 
-            $ctacte = $movimientoCuentaRepository->resumenCtresumenMovimientosaCte($data['ente'], $data['empresa_grupo']);
-            return $this->render('finanzas/cta_cte/index.html.twig', 
-                                [
+            if (!isset($data['mostrar']) || $data['mostrar'] == 'CC')
+            {
+                    $ctacte = $movimientoCuentaRepository->resumenCtresumenMovimientosaCte($data['ente'], $data['empresa_grupo']);
+                    return $this->render('finanzas/cta_cte/index.html.twig', 
+                                        [
+                        
+                                            'form' => $form->createView(),
+                                            'movimientos' => $ctacte,
+                                            'tipo' => $t
+                                        ]);
+            }
+            else
+            {
+                $pendientes = $comprobanteFacturaRepository->getComprobantesPendientes($data['ente']);
+                $recibos = $reciboRepository->getRecibosPendientes($data['ente']);
+                $resultado = array_merge($pendientes, $recibos);
+
+                return $this->render('finanzas/cta_cte/composicion.html.twig', 
+                                    [
+                    
+                                        'form' => $form->createView(),
+                                        'movimientos' => $resultado,
+                                        'tipo' => $t
+                                    ]);
                 
-                                    'form' => $form->createView(),
-                                    'movimientos' => $ctacte,
-                                    'tipo' => $t
-                                ]);
+            }
         }
 
 

@@ -24,12 +24,14 @@ use App\Entity\Finanzas\MetodoCheque;
 use App\Entity\Finanzas\MetodoChequeCartera;
 use App\Entity\Finanzas\MetodoChequePropio;
 use App\Entity\Finanzas\MetodoRetencion;
+use App\Entity\Finanzas\MovimientoFacturaRecibo;
 use App\Entity\Finanzas\TipoRetencion;
 use App\Form\Finanzas\MetodoChequeCarteraType;
 use App\Form\Finanzas\MetodoChequePropioType;
 use App\Form\Finanzas\MetodoChequeType;
 use App\Form\Finanzas\MetodoRetencionType;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use  App\Repository\Administracion\ComprobanteFacturaRepository;
 
 #[Route('/finanzas/recibo')]
 
@@ -40,6 +42,80 @@ final class ReciboController extends AbstractController
     {
         return $this->render('finanzas/recibo/index.html.twig', [
             'recibos' => $reciboRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/{id}/procesar/aplicacion', name: 'app_recibo_procesar_aplicar_facturas', methods: ['POST'])]
+    public function procesarAplicacionRecibosAFactura(Recibo $recibo, Request $request, EntityManagerInterface $entityManager, ComprobanteFacturaRepository $comprobanteFacturaRepository): Response
+    {
+        //$comprobangtesPendientes = $comprobanteFacturaRepository->getComprobantesPendientes($recibo->getEnteComercial());
+        $all = $request->request->all();
+        $total = 0;
+        foreach ($all as $f)
+        {
+            if ($f && is_numeric($f))
+            {
+                $total += $f;
+            }                   
+        }
+        if (!$total)
+        {
+            return new JsonResponse(['ok' => false, 'message' => 'No se ha cargado ningun comprobante para aplicar']);
+        }
+        $pendiente = $recibo->getSaldoPendienteDeAplicar();
+        if ($total > $pendiente)
+        {
+            return new JsonResponse(['ok' => false, 'message' => 'El importe de los comprobantes excede el monto pendiente de aplicar']);   
+        }
+
+        foreach ($all as $k => $f)
+        {
+            if ($f && is_numeric($f))
+            {
+                if (preg_match('/-([0-9]+)$/', $k, $coincidencias)) 
+                {
+                    $numero = $coincidencias[1];
+
+                    $comprobante = $comprobanteFacturaRepository->find($numero);
+                    if ($comprobante)
+                    {
+                        $saldoACancelar = $comprobante->getSaldoACancelar();
+                        $saldoACancelar = $saldoACancelar ? $saldoACancelar : $comprobante->getPrecioTotalConIva();
+                        
+                        if (round($f,2) > round($saldoACancelar,2))
+                        {
+                            return new JsonResponse(['ok' => false, 'message' => $f.' El importe aplicado del comprobante ' .$comprobante.' es mayor que el saldo a cancelar del mismo ' . $saldoACancelar]);
+                        }
+                        else
+                        {
+                            $movRecibo = new MovimientoFacturaRecibo();
+                            $movRecibo->setRecibo($recibo)
+                                        ->setComprobanteFactura($comprobante)
+                                        ->setImporte($f);
+                            $entityManager->persist($movRecibo);
+                            $comprobante->setSaldoACancelar($saldoACancelar - $f);
+                            $recibo->setMontoAplicado($recibo->getMontoAplicado() + $f);
+                        }
+                    }
+                }
+            }                   
+        }
+        $entityManager->flush();
+        return new JsonResponse(['ok' => true, 'total' => $total]);
+    }
+
+    #[Route('/{id}/aplicar', name: 'app_recibo_aplicar_facturas', methods: ['GET'])]
+    public function aplicarRecibosAFactura(Recibo $recibo, ComprobanteFacturaRepository $comprobanteFacturaRepository): Response
+    {
+
+        $ente = $recibo->getEnteComercial();
+    
+
+        $comprobangtesPendientes = $comprobanteFacturaRepository->getComprobantesPendientes($recibo->getEnteComercial());
+
+
+        return $this->render('finanzas/recibo/aplicar.html.twig', [
+            'recibo' => $recibo, 'pendientes' => $comprobangtesPendientes, 'code' => $ente->getCode()
         ]);
     }
 
@@ -269,7 +345,9 @@ final class ReciboController extends AbstractController
                 $entityManager->flush();
 
                 $this->addFlash('success', 'Recibo creado correctamente');
-                return new JsonResponse(['ok' => true, 'message' => 'El importe del recibo es requerido']);
+                return new JsonResponse([
+                                            'ok' => true, 
+                                            'url' => $this->generateUrl('app_recibo_aplicar_facturas', [ 'id' => $recibo->getId() ])]);
             }
             else
             {

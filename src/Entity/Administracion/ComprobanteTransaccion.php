@@ -2,6 +2,7 @@
 
 namespace App\Entity\Administracion;
 
+use App\Entity\Finanzas\MovimientoVenta;
 use App\Repository\Administracion\ComprobanteTransaccionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -40,6 +41,9 @@ abstract class ComprobanteTransaccion
     #[ORM\Column]
     private ?bool $visible = true; //Esto es para el caso de los recibos primero los guarda y los deja pendientes para cargar las formas de pago
 
+    #[ORM\Column(options: ['default' => false])]
+    private ?bool $eliminado = false;
+
     #[ORM\Column]
     private ?float $precioTotalConIva = null;
 
@@ -60,9 +64,20 @@ abstract class ComprobanteTransaccion
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     private ?\DateTimeImmutable $deletedAt = null;
     
+    #[ORM\OneToOne(targetEntity: MovimientoVenta::class, mappedBy: 'comprobante')]
+    private MovimientoVenta|null $movimientoVenta = null;
+
+
+    public abstract function getMontoPendiente();
+
+    public abstract function getDiasDeMora();
+
+    public abstract function isAplicable(); //Para el caso de las facturas devuelve false...para los Recibos devuelve si queda saldo para aplicar
+
 
     public function getId(): ?int
     {
+        
         return $this->id;
     }
 
@@ -157,6 +172,40 @@ abstract class ComprobanteTransaccion
     public function setDeletedAt(?\DateTimeImmutable $deletedAt): static
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getMovimientoVenta(): ?MovimientoVenta
+    {
+        return $this->movimientoVenta;
+    }
+
+    public function setMovimientoVenta(?MovimientoVenta $movimientoVenta): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($movimientoVenta === null && $this->movimientoVenta !== null) {
+            $this->movimientoVenta->setComprobante(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($movimientoVenta !== null && $movimientoVenta->getComprobante() !== $this) {
+            $movimientoVenta->setComprobante($this);
+        }
+
+        $this->movimientoVenta = $movimientoVenta;
+
+        return $this;
+    }
+
+    public function isEliminado(): ?bool
+    {
+        return $this->eliminado;
+    }
+
+    public function setEliminado(bool $eliminado): static
+    {
+        $this->eliminado = $eliminado;
 
         return $this;
     }

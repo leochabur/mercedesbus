@@ -18,26 +18,23 @@ class ComprobanteFacturaRepository extends ServiceEntityRepository
     }
 
 
-
-
-
-
-
-
-    //    /**
-    //     * @return ComprobanteCliente[] Returns an array of ComprobanteCliente objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+       /**
+        * @return ComprobanteCliente[] Returns an array of ComprobanteCliente objects
+        */
+       public function getComprobantesPendientes($ente): array
+       {
+           return $this->createQueryBuilder('c')
+                        ->join('c.movimientoVenta', 'mv')
+                        ->andWhere('c.enteComercial = :ente')
+                        ->setParameter('ente', $ente)
+                        ->andWhere('ROUND(c.saldoACancelar,2) > 0')
+                        ->andWhere('c.eliminado = :eliminado')
+                        ->setParameter('eliminado', false)
+                        ->orderBy('c.fecha', 'ASC')
+                        ->getQuery()
+                        ->getResult()
+           ;
+       }
 
     //    public function findOneBySomeField($value): ?ComprobanteCliente
     //    {

@@ -27,3 +27,32 @@
             </tbody>
 
     </table>
+
+    {% if recibo.movimientosFacturas.count > 0 %}
+        <hr>
+        <span class="h5 py-4">
+            Comprobantes aplicados
+        </span>
+        <table class="table table-border">
+            <thead>
+                <tr>
+                        <th>Fecha</th>
+                        <th>Comprobante</th>
+                        <th>Importe Aplicado</th>
+                </tr>
+                </thead>
+                <tbody>
+            
+                        {% for it in recibo.movimientosFacturas %}
+                            <tr>
+                                <td>{{ it.comprobanteFactura.fecha|date('d/m/Y') }}</td>
+                                <td>{{ it.comprobanteFactura }}</td>
+                                <td class="text-end">$ {{ (it.importe)|number_format(2, ',' ,'.') }}</td>
+                            </tr>
+                        {% endfor %}
+    
+                </tbody>
+
+        </table>
+   
+    {% endif %}

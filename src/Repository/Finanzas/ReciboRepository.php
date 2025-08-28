@@ -2,7 +2,7 @@
 
 namespace App\Repository\Finanzas;
 
-use App\Entity\Finanzas\Recibo;
+use App\Entity\Finanzas\Recibo; 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,6 +23,24 @@ class ReciboRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+       /**
+        * @return Recibo[] Returns an array of Recibo objects
+        */
+       public function getRecibosPendientes($ente): array
+       {
+           return $this->createQueryBuilder('c')
+                        ->join('c.movimiento', 'mv')
+                        ->andWhere('c.enteComercial = :ente')
+                        ->setParameter('ente', $ente)
+                        ->andWhere('ROUND(c.montoAplicado,2) < ROUND(c.precioTotalConIva,2)')
+                        ->andWhere('c.eliminado = :eliminado')
+                        ->setParameter('eliminado', false)
+                        ->orderBy('c.fecha', 'ASC')
+                        ->getQuery()
+                        ->getResult()
+           ;
+       }
 
     //    /**
     //     * @return Recibo[] Returns an array of Recibo objects
