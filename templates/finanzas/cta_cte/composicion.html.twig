@@ -70,9 +70,6 @@
                                 <td class="text-start">
                                     
                                         <div class="action-buttons text-start">
-                                        <a href="{{ (tipo == 'V' ? path('app_administracion_comprobante_cliente_show', { id : mov.id }) : path('app_finanzas_recibo_show',{ id : mov.id, 'tipo': tipo }) ) }}" class="btn btn-warning btn-sm  btn-open" title="Ver Detalles">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
                                             {% if mov.aplicable %}
                                                 <a href="{{ path('app_recibo_aplicar_facturas', { id : mov.id}) }}" class="btn btn-info btn-sm" title="Aplicar Comprobantes">
                                                     <i class="bi bi-list-task"></i>

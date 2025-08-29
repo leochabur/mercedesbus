@@ -63,7 +63,8 @@
         {% endfor %}
             </tbody>
         </table>
-        <input type="submit" value="Guardar Aplicacion" class="btn btn-primary mt-3"/>
+        <input type="button" value="Cancelar" class="btn btn-danger btn-cancelar mt-3"/>
+        <input type="submit" value="Guardar Cambios" class="btn btn-primary mt-3"/>
        </form>
 
     </div>
@@ -86,6 +87,17 @@
                     console.log(total);
                     $('#total').text(total);
                 }
+
+                $('.btn-cancelar').on('click', function(event) {
+                                                        event.preventDefault();
+                                                        bootbox.confirm('Seguro cancelar, se perderan los cambios realizados?',
+                                                                        function(result){
+                                                                                            if (result) 
+                                                                                            {
+                                                                                                window.location.href = "{{ path('app_finanzas_cta_cte_index', { t : code }) }}";
+                                                                                            }
+                                                                                        });
+                                                    });
 
                 $('#apply-comp').submit(function(e) {
                                                     e.preventDefault();
