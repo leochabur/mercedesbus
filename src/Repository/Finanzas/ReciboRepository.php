@@ -27,11 +27,13 @@ class ReciboRepository extends ServiceEntityRepository
        /**
         * @return Recibo[] Returns an array of Recibo objects
         */
-       public function getRecibosPendientes($ente): array
+       public function getRecibosPendientes($ente, $grupo): array
        {
            return $this->createQueryBuilder('c')
                         ->join('c.movimiento', 'mv')
                         ->andWhere('c.enteComercial = :ente')
+                        ->andWhere('c.empresaGrupo = :grupo')
+                        ->setParameter('grupo', $grupo)
                         ->setParameter('ente', $ente)
                         ->andWhere('ROUND(c.montoAplicado,2) < ROUND(c.precioTotalConIva,2)')
                         ->andWhere('c.eliminado = :eliminado')

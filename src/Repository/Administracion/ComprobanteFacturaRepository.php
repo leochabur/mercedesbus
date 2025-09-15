@@ -21,11 +21,13 @@ class ComprobanteFacturaRepository extends ServiceEntityRepository
        /**
         * @return ComprobanteCliente[] Returns an array of ComprobanteCliente objects
         */
-       public function getComprobantesPendientes($ente): array
+       public function getComprobantesPendientes($ente, $grupo): array
        {
            return $this->createQueryBuilder('c')
                         ->join('c.movimientoVenta', 'mv')
                         ->andWhere('c.enteComercial = :ente')
+                        ->andWhere('c.empresaGrupo = :grupo')
+                        ->setParameter('grupo', $grupo)
                         ->setParameter('ente', $ente)
                         ->andWhere('ROUND(c.saldoACancelar,2) > 0')
                         ->andWhere('c.eliminado = :eliminado')

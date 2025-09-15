@@ -102,8 +102,8 @@ final class CtaCteController extends AbstractController
             }
             else
             {
-                $pendientes = $comprobanteFacturaRepository->getComprobantesPendientes($data['ente']);
-                $recibos = $reciboRepository->getRecibosPendientes($data['ente']);
+                $pendientes = $comprobanteFacturaRepository->getComprobantesPendientes($data['ente'], $data['empresa_grupo']);
+                $recibos = $reciboRepository->getRecibosPendientes($data['ente'], $data['empresa_grupo']);
                 $resultado = array_merge($pendientes, $recibos);
 
                 return $this->render('finanzas/cta_cte/composicion.html.twig', 
