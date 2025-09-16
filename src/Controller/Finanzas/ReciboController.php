@@ -111,7 +111,7 @@ final class ReciboController extends AbstractController
         $ente = $recibo->getEnteComercial();
     
 
-        $comprobangtesPendientes = $comprobanteFacturaRepository->getComprobantesPendientes($recibo->getEnteComercial());
+        $comprobangtesPendientes = $comprobanteFacturaRepository->getComprobantesPendientes($recibo->getEnteComercial(), $recibo->getEmpresaGrupo());
 
 
         return $this->render('finanzas/recibo/aplicar.html.twig', [
