@@ -74,7 +74,7 @@
  
 
                         
-                                {% set class = not mov.pagoCompleto ? 'text-danger' : 'text-success' %}
+                                {% set class = mov.tipo == 'V' ? (not mov.pagoCompleto ? 'text-danger' : 'text-success') : '' %}
   
                                 <td>
                 
