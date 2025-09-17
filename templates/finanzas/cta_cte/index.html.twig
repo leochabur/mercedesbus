@@ -71,6 +71,11 @@
                         {% for mov in movimientos %}
                             <tr>
                                 {% set saldo = saldo + mov.importeFactura - mov.importePago %}
+ 
+
+                        
+                                {% set class = not mov.pagoCompleto ? 'text-danger' : 'text-success' %}
+  
                                 <td>
                 
 
@@ -85,11 +90,11 @@
                                     </div>
 
                                 </td>
-                                <td data-sort="{{ mov.fechaAlta|date('Y-m-d') }}">{{ mov.fechaAlta|date('d/m/Y') }}</td>
-                                <td>{{ mov.detalleComprobante }}</td>
-                                <td>$ {{ mov.importeFactura|number_format(2, ',' ,'.') }}</td>
-                                <td>$ {{ mov.importePago|number_format(2, ',' ,'.') }}</td>
-                                <td>$ {{ saldo|number_format(2, ',' ,'.') }}</td>
+                                <td class="{{ class }}" data-sort="{{ mov.fechaAlta|date('Y-m-d') }}">{{ mov.fechaAlta|date('d/m/Y') }}</td>
+                                <td class="{{ class }}">{{ mov.detalleComprobante }}</td>
+                                <td class="{{ class }}">$ {{ mov.importeFactura|number_format(2, ',' ,'.') }}</td>
+                                <td class="{{ class }}">$ {{ mov.importePago|number_format(2, ',' ,'.') }}</td>
+                                <td class="{{ class }}">$ {{ saldo|number_format(2, ',' ,'.') }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>

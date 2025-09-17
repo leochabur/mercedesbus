@@ -16,6 +16,11 @@ class MovimientoVenta extends MovimientoCuenta
     private ComprobanteTransaccion|null $comprobante = null;
     
 
+    public function isPagoCompleto()
+    {
+        return $this->comprobante->isPagoCompleto();
+    }
+    
     public function getDetalleComprobante()
     {
         return $this->comprobante . '';

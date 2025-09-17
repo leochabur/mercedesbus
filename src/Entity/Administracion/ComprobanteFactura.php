@@ -43,6 +43,11 @@ abstract class ComprobanteFactura extends ComprobanteTransaccion
     private LetraComprobante|null $identificacionComprobante = null;
 
 
+    public function isPagoCompleto()
+    {
+        return $this->getSaldoACancelar() < $this->getPrecioTotalConIva();
+    }
+
     public function isAplicable()
     {
         return false;

@@ -26,6 +26,11 @@ class Recibo extends ComprobanteTransaccion
     #[ORM\Column(nullable: true)]
     private ?float $montoAplicado = 0;
 
+    public function isPagoCompleto()
+    {
+        return $this->montoAplicado < $this->getPrecioTotalConIva();
+    }
+
     public function isAplicable()
     {
         if (round($this->montoAplicado,2) < round($this->getPrecioTotalConIva(),2))

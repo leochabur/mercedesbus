@@ -58,6 +58,8 @@ abstract class MovimientoCuenta
 
     }
 
+    public abstract function isPagoCompleto();
+
     public function getId(): ?int
     {
         return $this->id;

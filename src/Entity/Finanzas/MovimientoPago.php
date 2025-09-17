@@ -14,6 +14,10 @@ class MovimientoPago extends MovimientoCuenta
     #[ORM\JoinColumn(name:'id_recibo', referencedColumnName: 'id', nullable: true)]
     private Recibo|null $recibo = null;
 
+    public function isPagoCompleto()
+    {
+        return $this->recibo->isPagoCompleto();
+    }
     public function getDetalleComprobante()
     {
         return $this->recibo . '';

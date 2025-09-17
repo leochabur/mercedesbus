@@ -74,6 +74,7 @@ abstract class ComprobanteTransaccion
 
     public abstract function isAplicable(); //Para el caso de las facturas devuelve false...para los Recibos devuelve si queda saldo para aplicar
 
+    public abstract function isPagoCompleto();
 
     public function getId(): ?int
     {
