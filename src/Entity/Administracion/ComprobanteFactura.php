@@ -45,7 +45,7 @@ abstract class ComprobanteFactura extends ComprobanteTransaccion
 
     public function isPagoCompleto()
     {
-        return $this->getSaldoACancelar() < $this->getPrecioTotalConIva();
+        return round($this->getSaldoACancelar()) ==  0;
     }
 
     public function isAplicable()
