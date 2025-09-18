@@ -1,7 +1,13 @@
+    {% set class = comprobante.pagoCompleto ? 'text-success' : 'text-danger' %}
    <ul class="h5">
-        <li class="py-2">Fecha : {{ comprobante.fecha ? comprobante.fecha|date('d/m/Y') : '' }}</li>
-        <li class="py-2">Comprobante: {{ comprobante }}</li>
-        <li class="py-2">{{ label }}: {{ comprobante.enteComercial }}</li>
+        <li class="py-1">Fecha : {{ comprobante.fecha ? comprobante.fecha|date('d/m/Y') : '' }}</li>
+        <li class="py-1">Comprobante: {{ comprobante }}</li>
+        <li class="py-1">{{ label }}: {{ comprobante.enteComercial }}</li>
+        <li class="py-1">Importe Final: $ {{ comprobante.precioTotalConIva|number_format(2, ',' ,'.') }}</li>
+        <li class="py-1">Estado: <span class="{{ class }}"> {{  comprobante.pagoCompleto ? 'Pagada' : 'Pendiente Pago' }}</span></li>
+        {% if not comprobante.pagoCompleto %}
+            <li class="py-1">Saldo a cancelar: <span class="{{ class }}">$ {{ comprobante.saldoACancelar|number_format(2, ',' ,'.') }}</span></li>
+        {% endif %}
     </ul>
     
     
