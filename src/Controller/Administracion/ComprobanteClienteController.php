@@ -38,7 +38,7 @@ final class ComprobanteClienteController extends AbstractController
                     $recibo = $aplicacion->getRecibo();
                     if ($comprobante && $recibo)
                     {
-                        if (!in_array($comprobante->getId(), $auxiliar))
+                        if (!array_key_exists($comprobante->getId(), $auxiliar))
                         {
                             $auxiliar[$comprobante->getId()] = $comprobante;
                             $comprobante->setSaldoACancelar($comprobante->getPrecioTotalConIva());
