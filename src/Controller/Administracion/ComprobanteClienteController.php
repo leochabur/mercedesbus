@@ -44,11 +44,11 @@ final class ComprobanteClienteController extends AbstractController
                             $comprobante->setSaldoACancelar($comprobante->getPrecioTotalConIva());
                         }
                         
-                        if (!$recibo->isEliminado())
+                        if (!$recibo->getDeletedAt())
                         {
                              
-                         //   $nuevoSaldo = $auxiliar[$comprobante->getId()]->getSaldoACancelar() - $aplicacion->getImporte();
-                         //   $auxiliar[$comprobante->getId()]->setSaldoACancelar($nuevoSaldo);
+                            $nuevoSaldo = $auxiliar[$comprobante->getId()]->getSaldoACancelar() - $aplicacion->getImporte();
+                            $auxiliar[$comprobante->getId()]->setSaldoACancelar($nuevoSaldo);
                         }
                     }
                 }
