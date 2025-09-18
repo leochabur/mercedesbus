@@ -30,6 +30,7 @@ class ComprobanteFacturaRepository extends ServiceEntityRepository
                         ->setParameter('grupo', $grupo)
                         ->setParameter('ente', $ente)
                         ->andWhere('ROUND(c.saldoACancelar,2) > 0')
+                        ->where('c.deletedAt IS NULL')
                         ->andWhere('c.eliminado = :eliminado')
                         ->setParameter('eliminado', false)
                         ->orderBy('c.fecha', 'ASC')

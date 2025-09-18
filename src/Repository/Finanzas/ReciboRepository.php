@@ -33,6 +33,7 @@ class ReciboRepository extends ServiceEntityRepository
                         ->join('c.movimiento', 'mv')
                         ->andWhere('c.enteComercial = :ente')
                         ->andWhere('c.empresaGrupo = :grupo')
+                        ->where('c.deletedAt IS NULL')
                         ->setParameter('grupo', $grupo)
                         ->setParameter('ente', $ente)
                         ->andWhere('ROUND(c.montoAplicado,2) < ROUND(c.precioTotalConIva,2)')
