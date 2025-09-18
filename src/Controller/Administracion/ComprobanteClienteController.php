@@ -14,11 +14,49 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Finanzas\CtaCte;
-use App\Entity\Finanzas\MovimientoVenta; 
+use App\Entity\Finanzas\MovimientoVenta;
+use App\Repository\Finanzas\MovimientoFacturaReciboRepository;
 
 #[Route('/administracion/comprobante')]
 final class ComprobanteClienteController extends AbstractController
 {
+
+
+
+    #[Route(name: 'app_administracion_comprobante_cliente_aplicaciones', methods: ['GET', 'POST'])]
+    public function actualizarAplicaciones(Request $request, MovimientoFacturaReciboRepository $repository, EntityManagerInterface $entityManager): Response
+    {
+
+            if ($request->isMethod('POST'))
+            {
+                $auxiliar = array();
+
+                $aplicaciones = $repository->findAll();
+                foreach ($aplicaciones as $aplicacion)
+                {
+                    $comprobante = $aplicacion->getComprobanteFactura();
+                    $recibo = $aplicacion->getRecibo();
+                    if ($comprobante && $recibo)
+                    {
+                        if (!in_array($comprobante->getId(), $auxiliar))
+                        {
+                            $auxiliar[$comprobante->getId()] = $comprobante;
+                            $comprobante->setSaldoACancelar($comprobante->getPrecioTotalConIva());
+                        }
+                        
+                        if (!$recibo->isEliminado())
+                        {
+                             
+                            $nuevoSaldo = $auxiliar[$comprobante->getId()]->getSaldoACancelar() - $aplicacion->getImporte();
+                            $auxiliar[$comprobante->getId()]->setSaldoACancelar($nuevoSaldo);
+                        }
+                    }
+                }
+                $entityManager->flush();
+            }
+
+            return $this->render('administracion/comprobante_cliente/aplicacion.html.twig', []);
+    }
 
 
 

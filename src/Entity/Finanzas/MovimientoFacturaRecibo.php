@@ -13,7 +13,7 @@ class MovimientoFacturaRecibo
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column] 
     private ?int $id = null;
 
     #[ORM\Column]
