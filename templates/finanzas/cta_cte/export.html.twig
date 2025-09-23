@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte PDF</title>
+<style>
+    /* Estilos generales del cuerpo y la tipografía */
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        color: #333;
+    }
+
+    /* Estilos de la tabla */
+    .table-pdf {
+        width: 100%;
+        border-collapse: collapse; /* Elimina el espacio entre celdas */
+        margin-bottom: 0.5rem;
+        font-size: 75%;
+    }
+
+    .table-pdf thead {
+        background-color: #f2f2f2;
+    }
+
+    .table-pdf th,
+    .table-pdf td {
+        padding: 0.75rem; /* Espaciado interno de las celdas */
+        vertical-align: top;
+        border-top: 1px solid #dee2e6; /* Borde superior de las celdas */
+    }
+
+    .table-pdf th {
+        text-align: left;
+        font-weight: bold;
+        color: #495057;
+    }
+
+    /* Estilo para las filas alternas (striped) */
+    .table-pdf tbody tr:nth-of-type(odd) {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+</style>
+</head>
+<body>
+    <h5>{{ title }}</h5>
+                    <table class="table-pdf">
+
+                        {% if (t == 'resumen') %}
+                        
+                            <thead>
+                                <tr>
+            
+                                    <th>Descripcion</th>
+                                    <th>Ventas</th>
+                                    <th>Cobranzas</th>
+                                    <th>Saldo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for mov in movimientos %}
+                                    <tr>
+                                        {% set creditos, debitos = 0, 0%}
+                                        <td>{{ mov.titular|upper }}</td>
+                                        <td  style="text-align: right;">$ {{ mov.totalFacturas|number_format(2, ',' ,'.') }}</td>
+                                        <td  style="text-align: right;">$ {{ mov.totalRecibos|number_format(2, ',' ,'.') }}</td>
+                                        <td  style="text-align: right;">$ {{ (mov.totalFacturas - mov.totalRecibos)|number_format(2, ',' ,'.') }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        
+                        
+                        {% elseif (t == 'detalle') %}
+
+                                <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Descripcion</th>
+                                        <th>Credito</th>
+                                        <th>Debito</th>
+                                        <th>Saldo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% set saldo = 0 %}
+                                {% for mov in movimientos %}
+                                    <tr>
+                                        {% set saldo = saldo + mov.importeFactura - mov.importePago %}
+        
+
+            
+        
+                                        <td >{{ mov.fechaAlta|date('d/m/Y') }}</td>
+                                        <td>{{ mov.detalleComprobante }}</td>
+                                        <td style="text-align: right;">$ {{ mov.importeFactura|number_format(2, ',' ,'.') }}</td>
+                                        <td style="text-align: right;">$ {{ mov.importePago|number_format(2, ',' ,'.') }}</td>
+                                        <td style="text-align: right;">$ {{ saldo|number_format(2, ',' ,'.') }}</td>
+                                    </tr>
+                                {% endfor %}
+
+                                <tr>
+                                    <td colspan="4" style="text-align: right; font-weight: bold;">Saldo Final:</td>
+                                    <td style="text-align: right; font-weight: bold;">$ {{ saldo|number_format(2, ',' ,'.') }}</td>
+                                </tr>
+
+                                </tbody>
+                        {% elseif (t == 'composicion') %}
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Comprobante</th>
+                                    <th>Importe Final</th>
+                                    <th>Saldo A Cancelar</th>
+                                    <th>Dias de Mora</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for mov in movimientos %}
+                                <tr>
+                                    <td data-sort="{{ mov.fecha|date('Y-m-d') }}">{{ mov.fecha|date('d/m/Y') }}</td>
+                                    <td>{{ mov }}</td>
+                                    <td  style="text-align: right;">$ {{ mov.precioTotalConIva|number_format(2, ',' ,'.') }}</td>
+                                    <td  style="text-align: right;">$ {{ mov.montoPendiente|number_format(2, ',' ,'.') }}</td>
+                                    <td  style="text-align: right;">{{ mov.diasDeMora }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        {% endif %}
+
+                    </table>
+</body>
+</html>

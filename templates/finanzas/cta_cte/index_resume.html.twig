@@ -24,29 +24,33 @@
         {{ form_start(form, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'p-4' }}) }}
 
             <div class="row pt-3">
-                <div class="col col-lg-4">
+                <div class="col col-lg-3">
                     {{ form_label(form.empresa_grupo, 'Empresa') }}
-                    {{ form_widget(form.empresa_grupo, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+                    {{ form_widget(form.empresa_grupo, { 'attr' : { 'class' : 'form-control form-select select-grupo'} }) }}
                     {{ form_errors(form.empresa_grupo) }}
                 </div>
                 <div class="col col-lg-4">
                     {{ form_label(form.ente, 'Titular') }}
-                    {{ form_widget(form.ente, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+                    {{ form_widget(form.ente, { 'attr' : { 'class' : 'form-control form-select select-cliente'} }) }}
                     {{ form_errors(form.ente) }}
                 </div>
 
                 {% if form.mostrar is defined %}
                     <div class="col col-lg-2">
                         {{ form_label(form.mostrar, 'Mostrar') }}
-                        {{ form_widget(form.mostrar, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+                        {{ form_widget(form.mostrar, { 'attr' : { 'class' : 'form-control form-select select-show'} }) }}
                         {{ form_errors(form.mostrar) }}
                     </div>
                     {% endif %}
             
-                <div class="col col-lg-2 pt-4 mt-2">
-
+                <div class="col col-lg-1 pt-4 mt-2">
                     <input type="submit" value="Cargar" class="btn btn-success">
-
+                </div>
+                <div class=" col col-lg-2 pt-4 mt-2">
+                    <a href="#" class="btn btn-danger btn-export btn-block">
+                        <i class="fas fa-file-pdf"></i>
+                        Exportar a PDF
+                    </a>
                 </div>
             </div>
         {{ form_end(form) }}
@@ -115,6 +119,18 @@
 
         <script>
             $(document).ready(function() {
+                                            $('.btn-export').click(function(event) {
+                                                event.preventDefault();
+                                                let gpo = $('.select-grupo').val();
+                                                let cli = $('.select-cliente').val();
+                                                let show = $('.select-show').val();
+                                                let urlBase = "{{ path('exportar_pdf') }}";
+
+                                                // Construye la URL completa con los parámetros correctos en JavaScript
+                                                let url = urlBase + '?gpo=' + gpo + '&cli=' + cli + '&show=' + show;
+                                                window.open(url, '_blank');
+                                            });
+                                            
                                             let modal = $('#dynamicModal');
                                             $('.btn-open').click(function(event) {
                                                     event.preventDefault();

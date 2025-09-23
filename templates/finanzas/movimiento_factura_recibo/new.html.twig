@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New MovimientoFacturaRecibo{% endblock %}
+
+{% block body %}
+    <h1>Create new MovimientoFacturaRecibo</h1>
+
+    {{ include('finanzas/movimiento_factura_recibo/_form.html.twig') }}
+
+    <a href="{{ path('app_finanzas_movimiento_factura_recibo_index') }}">back to list</a>
+{% endblock %}

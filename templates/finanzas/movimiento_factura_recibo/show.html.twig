@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MovimientoFacturaRecibo{% endblock %}
+
+{% block body %}
+    <h1>MovimientoFacturaRecibo</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ movimiento_factura_recibo.id }}</td>
+            </tr>
+            <tr>
+                <th>Importe</th>
+                <td>{{ movimiento_factura_recibo.importe }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_finanzas_movimiento_factura_recibo_index') }}">back to list</a>
+
+    <a href="{{ path('app_finanzas_movimiento_factura_recibo_edit', {'id': movimiento_factura_recibo.id}) }}">edit</a>
+
+    {{ include('finanzas/movimiento_factura_recibo/_delete_form.html.twig') }}
+{% endblock %}

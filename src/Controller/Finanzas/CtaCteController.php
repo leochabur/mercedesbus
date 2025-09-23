@@ -20,6 +20,8 @@ use App\Repository\Finanzas\MovimientoCuentaRepository;
 use App\Repository\Finanzas\ReciboRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 #[Route('/finanzas/ctacte')]
 
@@ -64,6 +66,106 @@ final class CtaCteController extends AbstractController
         $entityManager->flush();
 
         return new JsonResponse(['ok' => true]);
+    }
+
+    /**
+     * @Route("/exportar/pdf", name="exportar_pdf")
+     */
+    #[Route('/exportar/pdf', name:'exportar_pdf', methods: ['GET', 'POST'])]
+    public function exportarPdf(Request $request,  CtaCteRepository $ctaCteRepository, MovimientoCuentaRepository $movimientoCuentaRepository,  EntityManagerInterface $entityManager, ComprobanteFacturaRepository $comprobanteFacturaRepository, ReciboRepository $reciboRepository): Response
+    {
+
+        $gpo = $request->query->get('gpo');
+
+        $grupo = $entityManager->getRepository(\App\Entity\Administracion\EmpresaGrupo::class)->find($gpo);
+
+        $show = $request->query->get('show', 'CC');
+       //
+        $titular = null;
+        $cli = $request->query->get('cli', 0);
+        if ($cli)
+        {
+            $titular = $entityManager->getRepository(Cliente::class)->find($cli);
+        }
+
+        if (!$titular)
+        {
+            $ctacte = $ctaCteRepository->resumenCtaCte($grupo, 'c');
+
+            $html = $this->renderView('finanzas/cta_cte/export.html.twig', [
+                                                                                'movimientos' => $ctacte,
+                                                                                'titular' => $titular,
+                                                                                'grupo' => $grupo,
+                                                                                'tipo' => 'c',
+                                                                                't' => 'resumen',
+                                                                                'title' => 'Resumen de Cuentas Corrientes Clientes'
+                                                                            ]);
+        }
+
+           elseif (!isset($show) || $show == 'CC')
+            {
+                    $ctacte = $movimientoCuentaRepository->resumenCtresumenMovimientosaCte($titular, $grupo);
+                    $html = $this->renderView('finanzas/cta_cte/export.html.twig', [
+                        'movimientos' => $ctacte,
+                        'titular' => $titular,
+                        'grupo' => $grupo,
+                        'tipo' => 'c',
+                        't' => 'detalle',
+                        'title' => 'Detalle de Cuenta Corriente => ' . $titular
+                    ]);
+            }
+            else
+            {
+                $pendientes = $comprobanteFacturaRepository->getComprobantesPendientes($titular, $grupo);
+                $recibos = $reciboRepository->getRecibosPendientes($titular, $grupo);
+                $resultado = array_merge($pendientes, $recibos);
+
+                    $html = $this->renderView('finanzas/cta_cte/export.html.twig', [
+                        'movimientos' => $resultado,
+                        'titular' => $titular,
+                        'grupo' => $grupo,
+                        'tipo' => 'c',
+                        't' => 'composicion',
+                        'title' => 'Composición de Saldo => ' . $titular
+                    ]);
+                
+            }
+
+
+       /* $ctacte = $movimientoCuentaRepository->resumenCtresumenMovimientosaCte($titular, $grupo);
+
+
+        // Renderizar la plantilla Twig a una cadena de HTML
+        $html = $this->renderView('finanzas/cta_cte/export.html.twig', [
+            'movimientos' => $ctacte,
+            'titular' => $titular,
+            'grupo' => $grupo,
+            'tipo' => 'c'
+        ]);*/
+
+        // Configurar Dompdf
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+
+        // Crear una instancia de Dompdf
+        $dompdf = new Dompdf($options);
+        
+        // Cargar el HTML en Dompdf
+        $dompdf->loadHtml($html);
+
+        // Opcional: ajustar el tamaño y orientación del papel
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Renderizar el PDF
+        $dompdf->render();
+
+        // Crear una respuesta HTTP con el PDF
+        return new Response(
+            $dompdf->stream('reporte_tabla.pdf', ["Attachment" => false]),
+            Response::HTTP_OK,
+            ['Content-Type' => 'application/pdf']
+        );
     }
 
     #[Route('/{t}', name:'app_finanzas_cta_cte_index', methods: ['GET', 'POST'])]

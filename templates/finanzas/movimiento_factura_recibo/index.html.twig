@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MovimientoFacturaRecibo index{% endblock %}
+
+{% block body %}
+    <h1>MovimientoFacturaRecibo index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Importe</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for movimiento_factura_recibo in movimiento_factura_recibos %}
+            <tr>
+                <td>{{ movimiento_factura_recibo.id }}</td>
+                <td>{{ movimiento_factura_recibo.importe }}</td>
+                <td>
+                    <a href="{{ path('app_finanzas_movimiento_factura_recibo_show', {'id': movimiento_factura_recibo.id}) }}">show</a>
+                    <a href="{{ path('app_finanzas_movimiento_factura_recibo_edit', {'id': movimiento_factura_recibo.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_finanzas_movimiento_factura_recibo_new') }}">Create new</a>
+{% endblock %}
