@@ -23,6 +23,7 @@ class ArticuloConceptoClienteType extends AbstractType
                                     '7 Dias' => 7,
                                     '10 Dias' => 10,
                                     '15 Dias' => 15,
+                                    '28 Dias' => 28,
                                     '30 Dias' => 30
                                 ],
                 ])
