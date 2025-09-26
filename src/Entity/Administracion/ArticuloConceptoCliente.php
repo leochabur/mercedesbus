@@ -12,7 +12,7 @@ use Doctrine\DBAL\Types\Types;
 #[ORM\Table(name: 'admin_articulos_conceptos_clientes')]
 #[UniqueEntity(
     fields: ['enteComercial', 'articulo'],
-    message: 'Existe ya un articulo configurado para este ente comercial',
+    message: 'Existe ya un articulo configurado para este ente comercial', 
     errorPath: 'articulo',
 )]
 #[ORM\HasLifecycleCallbacks]
@@ -44,7 +44,7 @@ class ArticuloConceptoCliente
     #[Assert\NotBlank(message: 'Campo requerido')]
     private EnteComercial|null $enteComercial = null;
 
-    #[ORM\ManyToOne(targetEntity: ArticuloConcepto::class)]
+    #[ORM\ManyToOne(targetEntity: ArticuloConcepto::class, inversedBy: 'importes')]
     #[ORM\JoinColumn(name: 'id_articulo', referencedColumnName: 'id', nullable: true)]
     private ArticuloConcepto|null $articulo = null;
 

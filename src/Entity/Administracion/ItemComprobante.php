@@ -23,7 +23,7 @@ class ItemComprobante
     private ?float $cantidad = null;
 
     #[ORM\Column]
-    #[Assert\NotNull(message : 'Campo requerido')]
+    #[Assert\NotNull(message : 'Campo requerido')] 
     private ?float $precioUnitario = null;
 
     #[ORM\Column(type: Types::FLOAT, nullable: true)]

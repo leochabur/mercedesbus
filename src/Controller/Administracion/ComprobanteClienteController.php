@@ -17,6 +17,10 @@ use App\Entity\Finanzas\CtaCte;
 use App\Entity\Finanzas\MovimientoVenta;
 use App\Repository\Finanzas\MovimientoFacturaReciboRepository;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Administracion\Cliente;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 #[Route('/administracion/comprobante')]
 final class ComprobanteClienteController extends AbstractController
 {
@@ -58,6 +62,75 @@ final class ComprobanteClienteController extends AbstractController
             return $this->render('administracion/comprobante_cliente/aplicacion.html.twig', []);
     }
 
+
+    #[Route('/proximos/conceptos/a/facturar', name: 'app_administracion_comprobante_cliente_items_a_facturar', methods: ['GET', 'POST'])]
+    public function proximosItemsAFacturar(Request $request, ComprobanteClienteRepository $comprobanteClienteRepository): Response
+    {
+        $form = $this->createFormBuilder()
+                    ->add('ente', 
+                           EntityType::class, 
+                           [
+                                'class' =>  Cliente::class,
+                                'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
+                                    return $er->createQueryBuilder('c')
+                                        ->where('c.activo = :activo')
+                                        ->setParameter('activo', true)
+                                        ->orderBy('c.razonSocial', 'ASC');
+                                },
+                                'label' => 'Seleccione un ente',
+                                'placeholder' => 'Todas las opciones'
+                            ])
+                    ->add('proximo', TextType::class)
+                            ->getForm();
+        if ($request->isMethod('POST'))
+        {
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $data = $form->getData();
+                $ente = $data['ente'] ?? null;
+                $items = $comprobanteClienteRepository->proximosItemsAFacturar($ente);
+                $comprobantes = [];
+                $margenDias = ($data['proximo'] ? $data['proximo'] : 0);
+                $hoy = new \DateTime();
+                $hoy->modify('+'.$margenDias.' days');
+
+                $auxHoy = new \DateTime();
+                foreach ($items as $item)
+                {
+                    $fecha = \DateTime::createFromFormat('Y-m-d', $item['fecha_ultimo_comprobante']);
+                    $utimaFecha = clone $fecha;
+                    $fecha->modify('+'.$item['cicloFacturacion'].' days');
+               
+                    if ($fecha <= $hoy)
+                    {
+
+                        $vencida = ($fecha < $auxHoy ? true : false);
+
+                        $comprobantes[] = [
+                                                'cliente' => $item['nombre_cliente'],
+                                                'articulo' => $item['articulo'],
+                                                'ultima_fecha' => $utimaFecha,
+                                                'proxima_fecha' => $fecha,
+                                                'cicloFacturacion' => $item['cicloFacturacion'],
+                                                'vencida' => $vencida
+                                            ];                            
+                        
+                    }
+
+                }
+                return $this->render('administracion/comprobante_cliente/proximos.html.twig', [
+                    'form' => $form->createView(),
+                    'comprobantes' => $comprobantes             
+                ]);
+            }
+        }
+
+        return $this->render('administracion/comprobante_cliente/proximos.html.twig', [
+            'form' => $form->createView(),
+            'comprobantes' => []             
+        ]);
+    }
 
 
     #[Route(name: 'app_administracion_comprobante_cliente_index', methods: ['GET'])]

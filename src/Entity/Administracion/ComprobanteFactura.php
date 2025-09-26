@@ -23,7 +23,7 @@ abstract class ComprobanteFactura extends ComprobanteTransaccion
 
     #[ORM\Column(nullable: true)]
     private ?float $saldoACancelar = null;
-
+  
     #[ORM\Column(nullable: true)]
     private ?float $precioIva = null;
 

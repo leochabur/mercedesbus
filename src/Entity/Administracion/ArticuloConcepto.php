@@ -3,6 +3,8 @@
 namespace App\Entity\Administracion;
 
 use App\Repository\Administracion\ArticuloConceptoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -34,6 +36,14 @@ class ArticuloConcepto
 
     #[ORM\Column]
     private ?int $circuito = null; //1 Ventas - 2 Compras - 3 Todos
+
+    #[ORM\OneToMany(targetEntity: ArticuloConceptoCliente::class, mappedBy: 'articulo')]
+    private $importes;
+
+    public function __construct()
+    {
+        $this->importes = new ArrayCollection();
+    }
 
     public function getCircuitoText()
     {   
@@ -104,6 +114,36 @@ class ArticuloConcepto
     public function setAlicuotaIva(float $alicuotaIva): static
     {
         $this->alicuotaIva = $alicuotaIva;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ArticuloConcepto>
+     */
+    public function getImportes(): Collection
+    {
+        return $this->importes;
+    }
+
+    public function addImporte(ArticuloConcepto $importe): static
+    {
+        if (!$this->importes->contains($importe)) {
+            $this->importes->add($importe);
+            $importe->setArticulo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImporte(ArticuloConcepto $importe): static
+    {
+        if ($this->importes->removeElement($importe)) {
+            // set the owning side to null (unless already changed)
+            if ($importe->getArticulo() === $this) {
+                $importe->setArticulo(null);
+            }
+        }
 
         return $this;
     }
