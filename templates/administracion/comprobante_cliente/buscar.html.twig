@@ -1,0 +1,73 @@
+{% extends 'navBar.html.twig' %}
+
+{% block title %}Nuevo Cliente{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <div class="container p-4">
+
+        <span class="fs-4">Conceptos pendientes de facturar</span>
+        <hr>
+        {{ form_start(form, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'py-2' }}) }}
+
+            <div class="row pt-3">
+                <div class="col col-lg-4">
+                    {{ form_label(form.empresa, 'Empresa') }}
+                    {{ form_widget(form.empresa, { 'attr' : { 'class' : 'form-control'} }) }}
+                    {{ form_errors(form.empresa) }}
+                </div>
+                <div class="col col-lg-4">
+                    {{ form_label(form.ente, 'Cliente') }}
+                    {{ form_widget(form.ente, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+                    {{ form_errors(form.ente) }}
+                </div>
+
+                <div class="col col-lg-2">
+                    {{ form_label(form.desde, 'Desde') }}
+                    {{ form_widget(form.desde, { 'attr' : { 'class' : 'form-control'} }) }}
+                    {{ form_errors(form.desde) }}
+                </div>
+                <div class="col col-lg-2">
+                    {{ form_label(form.hasta, 'Hasta') }}
+                    {{ form_widget(form.hasta, { 'attr' : { 'class' : 'form-control form-select'} }) }}
+                    {{ form_errors(form.hasta) }}
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col col-lg-1 pt-4 mt-2">
+                    <input type="submit" value="Cargar" class="btn btn-success btn-block">
+                </div>
+
+            </div>
+        {{ form_end(form) }}
+            
+        <hr>
+
+            <table class="table">
+                <thead>
+                    <tr> 
+                        <th>Cliente</th>
+                        <th>Concepto a Facturar</th>
+                        <th>Ciclo Facturacion</th>
+                        <th>Ultima Fecha Facturacion</th>
+                        <th>Proxima Fecha Facturacion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for comprobante_cliente in comprobantes %}
+                    {% set class = comprobante_cliente.vencida ? "text-danger" : "text-success" %}
+                    <tr class="{{ class }}">
+                        <td class="{{ class }}">{{ comprobante_cliente.cliente }}</td>
+                        <td class="{{ class }}">{{ comprobante_cliente.articulo }}</td>
+                        <td class="{{ class }}">{{ comprobante_cliente.cicloFacturacion }}</td>
+                        <td class="{{ class }}">{{ comprobante_cliente.ultima_fecha ? comprobante_cliente.ultima_fecha|date('d/m/Y') : '' }}</td>
+                        <td class="{{ class }}">{{ comprobante_cliente.proxima_fecha ? comprobante_cliente.proxima_fecha|date('d/m/Y') : '' }}</td>
+                    </tr>
+
+                {% endfor %}
+                </tbody>
+            </table>
+
+    </div>
+{% endblock %}

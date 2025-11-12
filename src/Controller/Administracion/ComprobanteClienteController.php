@@ -21,10 +21,69 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Administracion\Cliente;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
+
+use App\Entity\Administracion\Proveedor;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+
 #[Route('/administracion/comprobante')]
 final class ComprobanteClienteController extends AbstractController
 {
 
+
+    private function getFormSelect($type = 'c')
+    {
+        $form = $this->createFormBuilder()
+                     ->add('desde', DateType::class, [
+                        'widget' => 'single_text',
+                        'required' => false,
+                        'label' => 'Fecha desde'])
+                     ->add('hasta', DateType::class, [
+                        'widget' => 'single_text',
+                        'required' => false,
+                        'label' => 'Fecha hasta'])
+                     ->add('ente', 
+                           EntityType::class, 
+                           [
+                                'class' => ($type == 'c' ? Cliente::class : Proveedor::class),
+                                'query_builder' => function (\Doctrine\ORM\EntityRepository $er) {
+                                    return $er->createQueryBuilder('c')
+                                        ->where('c.activo = :activo')
+                                        ->setParameter('activo', true)
+                                        ->orderBy('c.razonSocial', 'ASC');
+                                },
+                                'label' => 'Seleccione un ente',
+                                'placeholder' => 'Todas las opciones'
+                            ])
+                     ->add('empresa', 
+                           EntityType::class, 
+                           [
+                                'class' => \App\Entity\Administracion\EmpresaGrupo::class,
+                           ]);
+
+        return $form->getForm();
+    }
+
+    #[Route('/buscar', name: 'app_administracion_comprobante_buscar_cliente', methods: ['GET', 'POST'])]
+    public function buscarComprobantes(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->getFormSelect('c');
+        $comprobantes = [];
+        if ($request->isMethod('POST'))
+        {
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid())
+            {
+                $data = $form->getData();
+                $comprobanteClienteRepository = $entityManager->getRepository(ComprobanteCliente::class);
+                $comprobantes = $comprobanteClienteRepository->buscarComprobantes($data['desde'], $data['hasta'], $data['ente'], $data['empresa_grupo']);
+            }
+        }
+
+        return $this->render('administracion/comprobante_cliente/buscar.html.twig', [
+            'form' => $form->createView(),
+            'comprobantes' => $comprobantes
+        ]);
+    }
 
 
     #[Route(name: 'app_administracion_comprobante_cliente_aplicaciones', methods: ['GET', 'POST'])]
