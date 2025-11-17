@@ -1,13 +1,13 @@
 {% extends 'navBar.html.twig' %}
 
-{% block title %}Nuevo Cliente{% endblock %}
+{% block title %}Buscar Comprobantes de Venta{% endblock %}
 
 {% block body %}
     {{ parent() }}
 
     <div class="container p-4">
 
-        <span class="fs-4">Conceptos pendientes de facturar</span>
+        <span class="fs-4">Buscar Comprobantes de Venta</span>
         <hr>
         {{ form_start(form, { 'attr' : { 'novalidate': 'novalidate', 'class' : 'py-2' }}) }}
 
@@ -44,30 +44,95 @@
             
         <hr>
 
-            <table class="table">
-                <thead>
-                    <tr> 
-                        <th>Cliente</th>
-                        <th>Concepto a Facturar</th>
-                        <th>Ciclo Facturacion</th>
-                        <th>Ultima Fecha Facturacion</th>
-                        <th>Proxima Fecha Facturacion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for comprobante_cliente in comprobantes %}
-                    {% set class = comprobante_cliente.vencida ? "text-danger" : "text-success" %}
-                    <tr class="{{ class }}">
-                        <td class="{{ class }}">{{ comprobante_cliente.cliente }}</td>
-                        <td class="{{ class }}">{{ comprobante_cliente.articulo }}</td>
-                        <td class="{{ class }}">{{ comprobante_cliente.cicloFacturacion }}</td>
-                        <td class="{{ class }}">{{ comprobante_cliente.ultima_fecha ? comprobante_cliente.ultima_fecha|date('d/m/Y') : '' }}</td>
-                        <td class="{{ class }}">{{ comprobante_cliente.proxima_fecha ? comprobante_cliente.proxima_fecha|date('d/m/Y') : '' }}</td>
-                    </tr>
+            {% if comprobantes is defined  %}
+                <table class="table table-striped table-hover table-bordered  py-4  data-table">
+                    <thead>
+                        <tr> 
+                            <th>Empresa</th>
+                            <th>Cliente</th>
+                            <th>Comprobante</th>
+                            <th>Fecha Factura</th>
+                            <th>Importe Neto</th>
+                            <th>IVA</th>
+                            <th>Importe Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for comprobante_cliente in comprobantes %}
+                        {% set class = (comprobante_cliente.pagoCompleto ? 'text-success' : 'text-danger') %}
+                        <tr class="{{ class }}">
+                            <td class="{{ class }}">{{ comprobante_cliente.empresaGrupo }}</td>
+                            <td class="{{ class }}">{{ comprobante_cliente.enteComercial }}</td>
+                            <td class="{{ class }}">{{ comprobante_cliente }}</td>
+                            <td class="{{ class }}">{{ comprobante_cliente.fecha|date('d/m/Y') }}</td>
+                            <td class="{{ class }}">{{ comprobante_cliente.precioTotalSinIva|number_format(2, ',' ,'.') }}</td>
+                            <td class="{{ class }}">{{ comprobante_cliente.precioIva|number_format(2, ',' ,'.') }}</td>
+                            <td class="{{ class }}">{{ comprobante_cliente.precioTotalConIva|number_format(2, ',' ,'.') }}</td>
+                            <td class="{{ class }}">
+                                                                <div class="action-buttons">
+                                        <a href="{{ path('app_administracion_comprobante_cliente_show', { id : comprobante_cliente.id }) }}" class="btn btn-info btn-sm  btn-open" title="Ver Detalles">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        </div>
+                            </td>
+                        </tr>
 
-                {% endfor %}
-                </tbody>
-            </table>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
 
     </div>
+
+    <div class="modal fade" id="dynamicModal" tabindex="-1" aria-labelledby="dynamicModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl"> 
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>Cargando contenido...</p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                 
+                </div>
+            </div>
+        </div>
+{% endblock %}
+{% block javascripts_footer %}
+        {{ parent()  }}
+
+        <script>
+            $(document).ready(function() {
+
+
+
+
+                                            let modal = $('#dynamicModal');
+                                            $('.btn-open').click(function(event) {
+                                                    event.preventDefault();
+                                                    var modalBody = modal.find('.modal-body');
+                                                    let url = $(this).attr('href');
+                                                    $.ajax({
+                                                            url: url,
+                                                            method: 'GET', 
+                                                            success: function(response) {
+                                                                console.log(response);
+                                                                // Cargar el contenido HTML en el cuerpo del modal
+                                                                modalBody.html(response);
+
+                                                            },
+                                                            error: function(xhr, status, error) {
+                                                                modalTitle.text('Error al Cargar');
+                                                                modalBody.html('<div class="alert alert-danger">No se pudo cargar el contenido: ' + xhr.status + ' ' + xhr.statusText + '</div>');
+                                                            }
+                                                        });
+                                                    modal.modal('show');
+                                            });                                               
+
+
+            }); 
+            
+            </script>
 {% endblock %}

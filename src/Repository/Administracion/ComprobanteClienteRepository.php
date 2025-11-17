@@ -64,6 +64,40 @@ class ComprobanteClienteRepository extends ServiceEntityRepository
 
        }
 
+       public function buscarComprobantes($data): array
+       {
+          //  $data['desde'], $data['hasta'], $data['ente'], $data['empresa']
+
+
+            $qb = $this->createQueryBuilder('c')
+                       ->join('c.enteComercial', 'ec')
+                       ->join('c.empresaGrupo', 'eg')
+                       ->where('c.eliminado = :eliminado')
+                       ->setParameter('eliminado', false);
+
+            if ($data['desde'])
+            {
+                $qb->andWhere('c.fecha >= :desde')
+                   ->setParameter('desde', $data['desde']);
+            }
+            if ($data['hasta'])
+            {
+                $qb->andWhere('c.fecha <= :hasta')
+                   ->setParameter('hasta', $data['hasta']);
+            }
+            if ($data['ente']) {
+                $qb->andWhere('ec = :ente')
+                   ->setParameter('ente', $data['ente']);
+            }
+
+            if ($data['empresa']) {
+                $qb->andWhere('eg = :empresaGrupo')
+                   ->setParameter('empresaGrupo', $data['empresa']);
+            }
+
+            return $qb->getQuery()->getResult();
+       }
+
     //    public function findOneBySomeField($value): ?ComprobanteCliente
     //    {
     //        return $this->createQueryBuilder('c')

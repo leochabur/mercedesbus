@@ -64,7 +64,7 @@ final class ComprobanteClienteController extends AbstractController
     }
 
     #[Route('/buscar', name: 'app_administracion_comprobante_buscar_cliente', methods: ['GET', 'POST'])]
-    public function buscarComprobantes(Request $request, EntityManagerInterface $entityManager): Response
+    public function buscarComprobantes(Request $request, EntityManagerInterface $entityManager, ComprobanteClienteRepository $comprobanteClienteRepository): Response
     {
         $form = $this->getFormSelect('c');
         $comprobantes = [];
@@ -74,14 +74,18 @@ final class ComprobanteClienteController extends AbstractController
             if ($form->isSubmitted() && $form->isValid())
             {
                 $data = $form->getData();
-                $comprobanteClienteRepository = $entityManager->getRepository(ComprobanteCliente::class);
-                $comprobantes = $comprobanteClienteRepository->buscarComprobantes($data['desde'], $data['hasta'], $data['ente'], $data['empresa_grupo']);
+             //   $comprobanteClienteRepository = $entityManager->getRepository(ComprobanteCliente::class);
+                $comprobantes = $comprobanteClienteRepository->buscarComprobantes($data);
+                    return $this->render('administracion/comprobante_cliente/buscar.html.twig', [
+                                                'form' => $form->createView(),
+                                                'comprobantes' => $comprobantes
+                                            ]);
             }
         }
 
         return $this->render('administracion/comprobante_cliente/buscar.html.twig', [
             'form' => $form->createView(),
-            'comprobantes' => $comprobantes
+
         ]);
     }
 

@@ -4,4 +4,14 @@
 
 {% block body %}
     {{ parent() }}
+
+
+    <div class="container mt-4 pt-4">
+
+
+            <button class="btn btn-primary btn-lg" type="submit" onclick="location.href='{{ path('app_administracion_comprobante_buscar_cliente') }}'">
+                <i class="bi bi-search"></i> Buscar Comprobantes
+            </button>
+
+    </div>
 {% endblock %}
